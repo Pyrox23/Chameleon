@@ -12,9 +12,9 @@ public class Programa {
 			r[0] = s.nextLine();
 			System.out.print("Introduce tu contraseña: ");
 			r[1] = s.nextLine();
-			//checkeo de credenciales
+			
 		}while(log);
-		
+		System.out.println("El log funciona");
 		s.close();
 	}
 	
@@ -98,13 +98,11 @@ public class Programa {
 //        return lineas;
 //    }
 //
-   public static int lecturaFichero(File fichero){ 
-       int lineas_numero = 0;
+   public static void lecturaFichero(File fichero){ 
        try{ 
            Scanner reader = new Scanner(fichero, "UTF-8"); 
            while (reader.hasNextLine()){ 
                reader.nextLine();
-               lineas_numero++; 
            }
            System.out.println("\nRuta del fichero verificada con exito."); 
            reader.close();
@@ -112,6 +110,5 @@ public class Programa {
 
        catch(IOException ex){ 
        }
-       return lineas_numero; 
    }
 }
