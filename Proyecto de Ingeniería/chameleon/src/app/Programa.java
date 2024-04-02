@@ -1,5 +1,6 @@
 package app;
 import java.util.Scanner;
+import java.io.*;
 public class Programa {
 	public static void main(String[] args) {
 		boolean log = false;
@@ -14,35 +15,33 @@ public class Programa {
 			//checkeo de credenciales
 		}while(log);
 		
-		
+		s.close();
 	}
 	
-	public static File escribirFichero(String[][] datos_f, String fichero) throws IOException{ 
-        File fichero_fuente = new File(_Ruta + fichero + "_Fuente.csv"); 
-        File fichero_excel = new File(_Ruta + fichero + ".csv"); 
-        fichero_fuente = checkFichero(fichero_fuente, fichero); 
-        fichero_excel = checkFichero(fichero_excel, fichero);
-        String linea;
+	public static File escribirFichero(producto[] datos_f, String nombreFichero) throws IOException{ 
+        File fichero_fuente = new File(nombreFichero + "_Fuente.csv"); 
+        File fichero_excel = new File(nombreFichero + ".csv"); 
+        fichero_fuente = checkFichero(fichero_fuente, nombreFichero); 
+        fichero_excel = checkFichero(fichero_excel, nombreFichero);
         BufferedWriter bw;   
-		  PrintWriter pw; 
+		PrintWriter pw; 
         String formato;
 
         for(int j=0; j<=1; j++){
             if(j==0){
                 formato = "ISO-8859-1"; //Formato excel
-                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_excel, false), formato)); 
+                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_excel, true), formato)); 
             }
             else{
                 formato = "UTF-8"; //Formato para codigo
-                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_fuente, false), formato)); 
+                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_fuente, true), formato)); 
             }
             
             pw = new PrintWriter(bw); 
 
             //Bucle para escribir el fichero
             for(int i = 0; i<datos_f.length; i++){
-            linea = concatenarFichero(datos_f[i],";"); 
-            pw.println(linea); 
+            pw.println(datos_f[i]); 
             }
 
             pw.flush(); 
@@ -54,18 +53,18 @@ public class Programa {
         return fichero_excel; 
     }
 	
-//	public static File checkFichero(File fichero, String nombre_fichero){ 
-//        
-//        try { 
-//			if (fichero.createNewFile()) 
-//			    System.out.println("\nEl fichero indicado, no existe y ha sido creado uno nuevo con el nombre " + nombre_fichero + "\nEsta ubicado en " + fichero); 
-//		} catch (IOException e) { 
-//			e.printStackTrace();
-//		} 
-//        return fichero;
-//
-//    }
-//
+	public static File checkFichero(File fichero, String nombre_fichero){ 
+       
+       try { 
+			if (fichero.createNewFile()) 
+			    System.out.println("\nEl fichero indicado, no existe y ha sido creado uno nuevo con el nombre " + nombre_fichero + "\nEsta ubicado en " + fichero); 
+		} catch (IOException e) { 
+			e.printStackTrace();
+		} 
+       return fichero;
+
+   }
+
 //
 //    public static String concatenarFichero(String datos[], String separador) { 
 //
@@ -99,20 +98,20 @@ public class Programa {
 //        return lineas;
 //    }
 //
-//    public static int lecturaFichero(File fichero){ 
-//        int lineas_numero = 0;
-//        try{ 
-//            Scanner reader = new Scanner(fichero, "UTF-8"); 
-//            while (reader.hasNextLine()){ 
-//                reader.nextLine();
-//                lineas_numero++; 
-//            }
-//            System.out.println("\nRuta del fichero verificada con exito."); 
-//            reader.close();
-//        }
-//
-//        catch(IOException ex){ 
-//        }
-//        return lineas_numero; 
-//    }
+   public static int lecturaFichero(File fichero){ 
+       int lineas_numero = 0;
+       try{ 
+           Scanner reader = new Scanner(fichero, "UTF-8"); 
+           while (reader.hasNextLine()){ 
+               reader.nextLine();
+               lineas_numero++; 
+           }
+           System.out.println("\nRuta del fichero verificada con exito."); 
+           reader.close();
+       }
+
+       catch(IOException ex){ 
+       }
+       return lineas_numero; 
+   }
 }
