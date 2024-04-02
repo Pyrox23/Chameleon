@@ -4,8 +4,8 @@ public class producto {
 	private int disponible;
 	private String nombre;
 	private String descripcion;
-	private double ppu;
-	private double pdv;
+	private double ppu; //precio por unidad
+	private double pdv; //precio de venta
 	private int id;
 	private static int sigId = 0;
 	
