@@ -1,5 +1,9 @@
 package app;
 
 public class empleado {
-	//protected
+	//Atributos protected
+	protected String nombre;
+	protected String usuario;
+	protected String contraseña;
+	protected Producto [] ventasDelDia;
 }
