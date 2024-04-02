@@ -1,5 +1,5 @@
 package app;
-import java.util.Scanner; //probando
+import java.util.Scanner;
 public class Programa {
 	public static void main(String[] args) {
 		boolean log = false;
