@@ -1,1 +1,3 @@
 # Chameleon
+
+INSTALL JDK
