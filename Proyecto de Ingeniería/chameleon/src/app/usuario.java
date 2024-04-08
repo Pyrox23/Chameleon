@@ -1,5 +1,6 @@
 package app;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class usuario implements Serializable{
     protected String id;
@@ -10,9 +11,15 @@ public class usuario implements Serializable{
         this.contraseña = contraseña;
     }
 
-    public boolean login(){
+    public usuario login(){
         GestorDatosFichero gf = new GestorDatosFichero();
-        return gf.buscarUsuario(this.id, this.contraseña);
+        ArrayList <usuario> u = gf.ListaUsuarios();
+        usuario res = new usuario(this.id, this.contraseña);
+        for(usuario x : u){
+            if(this.id.equals(x.id)&&this.contraseña.equals(x.contraseña))
+                res = x;
+        }
+        return res;
     }
 
     public String getId() {

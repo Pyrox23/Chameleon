@@ -65,18 +65,18 @@ public class GestorDatosFichero implements GestorDatos{
 		return c;
 	}
 
-    public boolean buscarUsuario(String id, String contraseña){
-        InputStream is = null;
+
+    public ArrayList<usuario> ListaUsuarios() {
+		InputStream is = null;
 		ObjectInputStream ois = null;
-        boolean found = false;
+		ArrayList<usuario> u = new ArrayList<usuario>();
 			try {
 				is = new FileInputStream("credenciales.bin");
 				ois = new ObjectInputStream(is);
-				while(is.available()>0&&found) {
+				while(is.available()>0) {
 					Object obj = ois.readObject();
 					if(obj instanceof usuario) {
-						usuario x = (usuario) obj;
-                        found = x.getId().equals(id)&&x.getContraseña().equals(contraseña);
+						u.add((usuario)obj);
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -95,6 +95,63 @@ public class GestorDatosFichero implements GestorDatos{
 					e.printStackTrace();
 				}
 			}
-        return found;
-    }
+		return u;
+	}
+
+    public boolean EscribirUsuario(usuario u) {
+		OutputStream os = null;
+		ObjectOutputStream oos = null;
+		boolean c = true;
+			try {
+				os = new FileOutputStream("datos.bin");
+				oos = new ObjectOutputStream(os);
+				oos.writeObject(u);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				c = false;
+			} catch (IOException e) {
+				e.printStackTrace();
+				c = false;
+			} finally {
+				try {
+					oos.close();
+					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					c = false;
+				}
+			}
+		return c;
+	}
+
+    // public String buscarUsuario(String id, String contraseña){
+    //     InputStream is = null;
+	// 	DataInputStream dis = null;
+    //     boolean found = false;
+    //     String c[] = new String[3];
+	// 		try {
+	// 			is = new FileInputStream("credenciales.csv");
+	// 			dis = new DataInputStream(is);
+	// 			while(is.available()>0&&!found) {
+	// 				String l = dis.readUTF();
+    //                 c = l.split(";");
+    //                 if(c[0].equals(id)&&c[1].equals(contraseña))
+    //                     found = true;
+	// 			}
+	// 		} catch (FileNotFoundException e) {
+	// 			e.printStackTrace();
+	// 		} catch (IOException e) {
+	// 			e.printStackTrace();
+	// 		} finally {
+	// 			try {
+	// 				dis.close();
+	// 				is.close();
+	// 			} catch (IOException e) {
+	// 				e.printStackTrace();
+	// 			} catch (NullPointerException e) {
+	// 				e.printStackTrace();
+	// 			}
+	// 		}
+    //     return found ? c[3] : "";
+    // }
 }
