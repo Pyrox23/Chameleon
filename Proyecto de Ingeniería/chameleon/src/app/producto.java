@@ -10,13 +10,22 @@ public class producto implements Serializable{
 	private int id;
 	private static int sigId = 0;
 	
+	public producto(String nombre, String descripcion, int cantidad, double ppu, double pdv) {
+		this.disponible = cantidad;
+		this.nombre = nombre;
+		this.ppu = ppu;
+		this.pdv = pdv;
+		this.id = sigId++;
+		this.descripcion = descripcion;
+	}
+
 	public producto(int cantidad, String nombre, double ppu, double pdv) {
 		this.disponible = cantidad;
 		this.nombre = nombre;
 		this.ppu = ppu;
 		this.pdv = pdv;
 		this.id = sigId++;
-		this.descripcion = "-";
+		this.descripcion = "";
 	}
 	
 	public void setDescripcion(String descripcion) {

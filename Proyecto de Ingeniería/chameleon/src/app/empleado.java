@@ -1,9 +1,7 @@
 package app;
 
-public class empleado {
+public class empleado extends usuario{
 	//Atributos protected
 	protected String nombre;
-	protected String usuario;
-	protected String contraseña;
-	protected Producto [] ventasDelDia;
+	protected producto [] ventas;
 }

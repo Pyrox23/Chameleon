@@ -12,7 +12,8 @@ public class Programa {
 			r[0] = s.nextLine();
 			System.out.print("Introduce tu contraseña: ");
 			r[1] = s.nextLine();
-			
+			usuario u = new usuario("admin", "admin");
+			u.login(); 
 		}while(log);
 		System.out.println("El log funciona");
 		s.close();
