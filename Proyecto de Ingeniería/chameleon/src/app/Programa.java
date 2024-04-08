@@ -17,53 +17,71 @@ public class Programa {
 		System.out.println("El log funciona");
 		s.close();
 	}
-	
-	public static File escribirFichero(producto[] datos_f, String nombreFichero) throws IOException{ 
-        File fichero_fuente = new File(nombreFichero + "_Fuente.csv"); 
-        File fichero_excel = new File(nombreFichero + ".csv"); 
-        fichero_fuente = checkFichero(fichero_fuente, nombreFichero); 
-        fichero_excel = checkFichero(fichero_excel, nombreFichero);
-        BufferedWriter bw;   
-		PrintWriter pw; 
-        String formato;
 
-        for(int j=0; j<=1; j++){
-            if(j==0){
-                formato = "ISO-8859-1"; //Formato excel
-                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_excel, true), formato)); 
-            }
-            else{
-                formato = "UTF-8"; //Formato para codigo
-                bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_fuente, true), formato)); 
-            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Codigo para luego, NO BORRAR
+	
+// 	public static File escribirFichero(producto[] datos_f, String nombreFichero) throws IOException{ 
+//         File fichero_fuente = new File(nombreFichero + "_Fuente.csv"); 
+//         File fichero_excel = new File(nombreFichero + ".csv"); 
+//         fichero_fuente = checkFichero(fichero_fuente, nombreFichero); 
+//         fichero_excel = checkFichero(fichero_excel, nombreFichero);
+//         BufferedWriter bw;   
+// 		PrintWriter pw; 
+//         String formato;
+
+//         for(int j=0; j<=1; j++){
+//             if(j==0){
+//                 formato = "ISO-8859-1"; //Formato excel
+//                 bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_excel, true), formato)); 
+//             }
+//             else{
+//                 formato = "UTF-8"; //Formato para codigo
+//                 bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero_fuente, true), formato)); 
+//             }
             
-            pw = new PrintWriter(bw); 
+//             pw = new PrintWriter(bw); 
 
-            //Bucle para escribir el fichero
-            for(int i = 0; i<datos_f.length; i++){
-            pw.println(datos_f[i]); 
-            }
+//             //Bucle para escribir el fichero
+//             for(int i = 0; i<datos_f.length; i++){
+//             pw.println(datos_f[i]); 
+//             }
 
-            pw.flush(); 
-            pw.close(); 
-            bw.close();
-        }
+//             pw.flush(); 
+//             pw.close(); 
+//             bw.close();
+//         }
 
-        System.out.println("\nFichero escrito con exito."); 
-        return fichero_excel; 
-    }
+//         System.out.println("\nFichero escrito con exito."); 
+//         return fichero_excel; 
+//     }
 	
-	public static File checkFichero(File fichero, String nombre_fichero){ 
+// 	public static File checkFichero(File fichero, String nombre_fichero){ 
        
-       try { 
-			if (fichero.createNewFile()) 
-			    System.out.println("\nEl fichero indicado, no existe y ha sido creado uno nuevo con el nombre " + nombre_fichero + "\nEsta ubicado en " + fichero); 
-		} catch (IOException e) { 
-			e.printStackTrace();
-		} 
-       return fichero;
+//        try { 
+// 			if (fichero.createNewFile()) 
+// 			    System.out.println("\nEl fichero indicado, no existe y ha sido creado uno nuevo con el nombre " + nombre_fichero + "\nEsta ubicado en " + fichero); 
+// 		} catch (IOException e) { 
+// 			e.printStackTrace();
+// 		} 
+//        return fichero;
 
-   }
+//    }
 
 //
 //    public static String concatenarFichero(String datos[], String separador) { 
@@ -98,17 +116,17 @@ public class Programa {
 //        return lineas;
 //    }
 //
-   public static void lecturaFichero(File fichero){ 
-       try{ 
-           Scanner reader = new Scanner(fichero, "UTF-8"); 
-           while (reader.hasNextLine()){ 
-               reader.nextLine();
-           }
-           System.out.println("\nRuta del fichero verificada con exito."); 
-           reader.close();
-       }
+//    public static void lecturaFichero(File fichero){ 
+//        try{ 
+//            Scanner reader = new Scanner(fichero, "UTF-8"); 
+//            while (reader.hasNextLine()){ 
+//                reader.nextLine();
+//            }
+//            System.out.println("\nRuta del fichero verificada con exito."); 
+//            reader.close();
+//        }
 
-       catch(IOException ex){ 
-       }
-   }
+//        catch(IOException ex){ 
+//        }
+//    }
 }

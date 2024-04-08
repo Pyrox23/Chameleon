@@ -1,6 +1,7 @@
 package app;
+import java.io.Serializable;
 
-public class producto {
+public class producto implements Serializable{
 	private int disponible;
 	private String nombre;
 	private String descripcion;
