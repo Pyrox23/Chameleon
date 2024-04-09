@@ -6,16 +6,20 @@ public class Programa {
 		boolean log = false;
 		String r[] = new String[2];
 		Scanner s = new Scanner(System.in);
-		
-		do {
-			System.out.print("Introduce tu usuario: ");
-			r[0] = s.nextLine();
-			System.out.print("Introduce tu contraseña: ");
-			r[1] = s.nextLine();
-			usuario u = new usuario("admin", "admin");
-		}while(log);
-		System.out.println("El log funciona");
-		s.close();
+		GestorDatosFichero gf = new GestorDatosFichero();
+		gf.EscribirUsuario(new usuario("admin", "admin"));
+		// do {
+		// 	System.out.print("Introduce tu usuario: ");
+		// 	r[0] = s.nextLine();
+		// 	System.out.print("Introduce tu contraseña: ");
+		// 	r[1] = s.nextLine();
+		// 	usuario u = new usuario(r[0], r[1]);
+		// 	u = u.login();
+		// if(!(u.getClass())u.getNombre().equals(""))
+		// 		log = true;
+		// }while(log);
+		// System.out.println("El log funciona");
+		// s.close();
 	}
 
 

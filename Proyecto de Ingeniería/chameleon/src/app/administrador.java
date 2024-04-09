@@ -1,6 +1,7 @@
 package app;
+import java.io.Serializable;
 
-public class administrador extends gerente {
+public class administrador extends gerente implements Serializable{
 
 	//Atributos
 	//No tiene propios, solo heredados

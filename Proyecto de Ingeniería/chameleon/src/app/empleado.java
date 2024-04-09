@@ -1,6 +1,7 @@
 package app;
+import java.io.Serializable;
 
-public class empleado extends usuario{
+public class empleado extends usuario implements Serializable{
 	//Atributos protected (propios)
 	protected String nombre;
 	protected String usuario;
