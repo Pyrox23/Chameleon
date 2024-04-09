@@ -71,7 +71,7 @@ public class GestorDatosFichero implements GestorDatos{
 		ObjectInputStream ois = null;
 		ArrayList<usuario> u = new ArrayList<usuario>();
 			try {
-				is = new FileInputStream("credenciales.bin");
+				is = new FileInputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 				ois = new ObjectInputStream(is);
 				while(is.available()>0) {
 					Object obj = ois.readObject();
@@ -103,7 +103,7 @@ public class GestorDatosFichero implements GestorDatos{
 		ObjectOutputStream oos = null;
 		boolean c = true;
 			try {
-				os = new FileOutputStream("datos.bin");
+				os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 				oos = new ObjectOutputStream(os);
 				oos.writeObject(u);
 			} catch (FileNotFoundException e) {

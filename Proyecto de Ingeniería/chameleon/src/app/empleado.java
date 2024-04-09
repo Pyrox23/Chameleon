@@ -1,20 +1,28 @@
 package app;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class empleado extends usuario implements Serializable{
 	//Atributos protected (propios)
 	protected String nombre;
-	protected String usuario;
-	protected producto [] ventasDia;
+	protected ArrayList<producto> ventas;
 
 	
 	//Constructor 1
-	public empleado(String nombre, String usuario, producto[] ventasDia, 
-					String id, String contraseña) {  //heredado 
+	public empleado(String nombre, String id, String contraseña) {  //heredado 
 		super(id, contraseña); //heredado
 		this.nombre = nombre;
-		this.usuario = usuario;
-		this.ventasDia = ventasDia;
+		this.ventas = new ArrayList<producto>();
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public ArrayList<producto> getVentasDia() {
+		return ventas;
 	}
 	
 }

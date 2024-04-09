@@ -7,19 +7,23 @@ public class Programa {
 		String r[] = new String[2];
 		Scanner s = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero();
-		gf.EscribirUsuario(new usuario("admin", "admin"));
-		// do {
-		// 	System.out.print("Introduce tu usuario: ");
-		// 	r[0] = s.nextLine();
-		// 	System.out.print("Introduce tu contraseña: ");
-		// 	r[1] = s.nextLine();
-		// 	usuario u = new usuario(r[0], r[1]);
-		// 	u = u.login();
-		// if(!(u.getClass())u.getNombre().equals(""))
-		// 		log = true;
-		// }while(log);
-		// System.out.println("El log funciona");
-		// s.close();
+		// gf.EscribirUsuario(new administrador("Juan","admin", "admin"));
+		do {
+			System.out.print("Introduce tu usuario: ");
+			r[0] = s.nextLine();
+			System.out.print("Introduce tu contraseña: ");
+			r[1] = s.nextLine();
+			usuario u = new usuario(r[0], r[1]);
+			u = u.login();
+			if(u instanceof empleado){
+				if(((empleado)u).getNombre() != null)
+					log = true;
+			}
+			else
+				log = false;
+		}while(!log);
+		System.out.println("El log funciona");
+		s.close();
 	}
 
 

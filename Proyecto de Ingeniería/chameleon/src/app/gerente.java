@@ -9,9 +9,8 @@ public class gerente extends empleado implements Serializable{
 	//No tiene propios porque hereda; Duda solo hay un registro de datos o creo otro para el gerente ???
 
 	//Constructor 1
-	public gerente(String nombre, String usuario, producto[] ventasDia, String id, String contraseña) {
-		super(nombre, usuario, ventasDia, id, contraseña);
-		
+	public gerente(String nombre, String id, String contraseña) {  //heredado 
+		super(nombre, id, contraseña); //heredado
 	}
 	
 }
