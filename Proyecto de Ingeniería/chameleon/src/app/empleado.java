@@ -1,9 +1,11 @@
 package app;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class empleado extends usuario {
+public class empleado extends usuario implements Serializable{
 	//Atributos protected (propios)
 	protected ArrayList<producto> ventas;
+	protected GestorDatosFichero gf = new GestorDatosFichero();
 
 	
 	//Constructor 1
@@ -16,4 +18,8 @@ public class empleado extends usuario {
 		return ventas;
 	}
 	
+	public void registrarVentas(){
+
+	}
+
 }

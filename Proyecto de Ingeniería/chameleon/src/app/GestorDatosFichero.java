@@ -2,7 +2,7 @@ package app;
 import java.io.*;
 import java.util.ArrayList;
 
-public class GestorDatosFichero implements GestorDatos{
+public class GestorDatosFichero implements GestorDatos, Serializable{
 
 	public ArrayList<producto> LeerProducto() {
 		InputStream is = null;
@@ -42,7 +42,7 @@ public class GestorDatosFichero implements GestorDatos{
 		ObjectOutputStream oos = null;
 		boolean c = true;
 			try {
-				os = new FileOutputStream("datos.bin");
+				os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.bin");
 				oos = new ObjectOutputStream(os);
 				for(producto x : p) {
 					oos.writeObject(x);
