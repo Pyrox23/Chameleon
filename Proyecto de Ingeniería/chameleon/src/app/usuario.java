@@ -5,19 +5,20 @@ import java.util.ArrayList;
 public class usuario implements Serializable{
     protected String id;
     protected String contraseña;
+    protected String nombre;
 
-    public usuario(String id, String contraseña){
+    public usuario(String id, String contraseña, String nombre){
         this.id = id;
         this.contraseña = contraseña;
+        this.nombre = nombre;
     }
 
     public usuario login(){
         GestorDatosFichero gf = new GestorDatosFichero();
         ArrayList <usuario> u = gf.ListaUsuarios();
-        usuario res = new usuario(this.id, this.contraseña);
+        usuario res = null;
         for(usuario x : u){
-            if(this.id.equals(x.id)&&this.contraseña.equals(x.contraseña))
-                res = x;
+            res = this.id.equals(x.id)&&this.contraseña.equals(x.contraseña) ? x : res;
         }
         return res;
     }
@@ -28,6 +29,10 @@ public class usuario implements Serializable{
 
     public String getContraseña() {
         return contraseña;
+    }
+
+    public String getNombre(){
+        return nombre;
     }
     
 }

@@ -5,25 +5,24 @@ public class Programa {
 	public static void main(String[] args) {
 		boolean log = false;
 		String r[] = new String[2];
-		Scanner s = new Scanner(System.in);
+		Scanner sin = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero();
-		// gf.EscribirUsuario(new administrador("Juan","admin", "admin"));
+		usuario u;
+		empleado e;
+		gerente g;
+		administrador a;
+		gf.EscribirUsuario(new administrador("admin", "admin", "Juan"));
 		do {
 			System.out.print("Introduce tu usuario: ");
-			r[0] = s.nextLine();
+			r[0] = sin.nextLine();
 			System.out.print("Introduce tu contraseña: ");
-			r[1] = s.nextLine();
-			usuario u = new usuario(r[0], r[1]);
+			r[1] = sin.nextLine();
+			u = new usuario(r[0], r[1], "");
 			u = u.login();
-			if(u instanceof empleado){
-				if(((empleado)u).getNombre() != null)
-					log = true;
-			}
-			else
-				log = false;
+			log = u != null;
 		}while(!log);
-		System.out.println("El log funciona");
-		s.close();
+		
+		sin.close();
 	}
 
 
