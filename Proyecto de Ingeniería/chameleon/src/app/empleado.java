@@ -1,8 +1,8 @@
 package app;
-import java.io.Serializable;
+// import java.io.Serializable;
 import java.util.ArrayList;
 
-public class empleado extends usuario implements Serializable{
+public class empleado extends usuario {
 	//Atributos protected (propios)
 	protected ArrayList<producto> ventas;
 	protected GestorDatosFichero gf = new GestorDatosFichero();

@@ -124,6 +124,32 @@ public class GestorDatosFichero implements GestorDatos, Serializable{
 		return c;
 	}
 
+	public boolean EscribirUsuarios(ArrayList<usuario> u) {
+		OutputStream os = null;
+		ObjectOutputStream oos = null;
+		boolean c = true;
+			try {
+				os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
+				oos = new ObjectOutputStream(os);
+				for(usuario x : u)
+					oos.writeObject(x);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				c = false;
+			} catch (IOException e) {
+				e.printStackTrace();
+				c = false;
+			} finally {
+				try {
+					oos.close();
+					os.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+					c = false;
+				}
+			}
+		return c;
+	}
     // public String buscarUsuario(String id, String contraseña){
     //     InputStream is = null;
 	// 	DataInputStream dis = null;
