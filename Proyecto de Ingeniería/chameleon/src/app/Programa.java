@@ -2,8 +2,9 @@ package app;
 import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 public class Programa {
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		boolean log = true; //bandera para el bucle
 		String r[] = new String[4]; //array para guardar datos del usuario
 		Scanner sin = new Scanner(System.in); //teclado para ingresar datos por consola
@@ -26,8 +27,15 @@ public class Programa {
 			do {
 				Menus.mostrarMenuInicial(); //Mostrar el menú inicial
 
-				opcion = sin.nextInt(); //Leer la opción del usuario
-				sin.nextLine(); //Consumir el salto de línea
+				//System.out.print("Ingrese una opción: ");
+				//opcion = sin.nextInt(); //Leer la opción del usuario
+				//sin.nextLine(); //Consumir el salto de línea
+
+				/*USANDO TRY CATH PARA EL MAJEO DE EXPECIONES  */
+				try {
+					System.out.print("Ingrese una opción: ");
+					opcion = sin.nextInt(); // Intentar leer un entero
+					sin.nextLine(); // Consumir el salto de línea
 
 				switch (opcion) {
 					case 1:
@@ -37,7 +45,8 @@ public class Programa {
 							if (!log) {
 								System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
 							}
-							System.out.print("Introduce tu usuario: ");
+							Menus.mostrarIngresarSesion();
+							System.out.print("\nIntroduce tu usuario: ");
 							r[0] = sin.nextLine();
 							System.out.print("Introduce tu contraseña: ");
 							r[1] = sin.nextLine();
@@ -56,24 +65,31 @@ public class Programa {
 						System.out.println("Opción no válida. Intente de nuevo.");
 						break;
 				}
+
+			} catch (InputMismatchException ex) { //excepción si el usuario ingresa un valor que no es un número entero
+				System.out.println("Por favor, ingrese un número entero válido.");
+				sin.nextLine(); //Limpia el buffer de entrada
+			}
 			} while (!log && continuarEjecucion);
 			
 			//Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
 			//instanceof signifca un objeto creado a partir de esa clase o sus hijas de esta, con el costructor 
 			// Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
 			if (u instanceof administrador && continuarEjecucion) {
-				System.out.print("\nHola Usuario del Tipo Administrador!!!!\n");
+				//System.out.print("\nHola Usuario del Tipo Administrador!!!!\n");
 				// en caso lo sea, se hace un "casting"(convertir) para q "u" sea tratada como un obj del tipo "administrador"
 				a = (administrador) u;  // y con ello tenga acceso a sus metodos y propiedades de esa clase
 				boolean continuarEjecucionAdmin = true;
 				int opcionAdmin;
 				do {
 					Menus.mostrarMenuAdministrador(); // Mostrar el menú del gerente
+					System.out.print("Ingrese una opción: ");
 					opcionAdmin = sin.nextInt(); // Leer la opción del gerente
 					sin.nextLine(); // Consumir el salto de línea
 
 					switch (opcionAdmin) {
 						case 1:
+						Menus.mostrarIngresarNuevUsuario();
 						agregarNuevoUsuario(sin, r, gf, u);
 					break;
 						case 2:
@@ -91,13 +107,14 @@ public class Programa {
 			}
 			
 			else if (u instanceof gerente && continuarEjecucion) {
-				System.out.print("\nHola Usuario del Tipo Gerente!!!!\n");
+				//System.out.print("\nHola Usuario del Tipo Gerente!!!!\n");
 				g = (gerente) u;
 
 				boolean continuarEjecucionGerente = true;
 				int opcionGerente;
 				do {
 					Menus.mostrarMenuGerente(); // Mostrar el menú del gerente
+					System.out.print("Ingrese una opción: ");
 					opcionGerente = sin.nextInt(); // Leer la opción del gerente
 					sin.nextLine(); // Consumir el salto de línea
 
@@ -115,13 +132,36 @@ public class Programa {
 							System.out.println("Opción no válida. Intente de nuevo.");
 							break;
 						}
-					} while (continuarEjecucionGerente);
+				} while (continuarEjecucionGerente);
 
 			} 
 
 			else if (u instanceof empleado && continuarEjecucion) 
 			{
 				e = (empleado) u;
+				boolean continuarEjecucionEmpleado = true;
+				int opcionEmpleado;
+				do {
+					Menus.mostrarMenuEmpleado(); // Mostrar el menú del gerente
+					System.out.print("Ingrese una opción: ");
+					opcionEmpleado = sin.nextInt(); // Leer la opción del gerente
+					sin.nextLine(); // Consumir el salto de línea
+
+					switch (opcionEmpleado) {
+						case 1:
+						//realizarVenta(sin, r, prodInventario, rInventario);
+					break;
+						case 2:
+							// ver historial de ventas 
+							break;
+						case 3:
+							System.out.println("Saliendo del programa...");
+							continuarEjecucionEmpleado = false;
+						default:
+							System.out.println("Opción no válida. Intente de nuevo.");
+							break;
+						}
+				} while (continuarEjecucionEmpleado);
 			}
 	}while(continuarEjecucion);
 
@@ -253,6 +293,7 @@ public class Programa {
     	double pdv, ppu;
     	int cant;
     	do {
+			Menus.mostrarIngresarProducto();
         	System.out.print("Nombre del producto: ");
         	r[0] = sin.next();
         	System.out.print("Descripcion del producto: ");
