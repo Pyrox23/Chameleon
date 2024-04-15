@@ -10,7 +10,7 @@ public class Menus {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║          BIENVENIDO A LA TIENDA DE DON PEPE          ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENÚ INICIAL                      ║");
+        System.out.println("║                    MENU INICIAL                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t\t1. Iniciar sesión                      ║");
         System.out.println("║\t\t2. Salir del programa                  ║");

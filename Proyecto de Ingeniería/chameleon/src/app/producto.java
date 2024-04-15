@@ -18,15 +18,6 @@ public class producto implements Serializable{
 		this.id = sigId++;
 		this.descripcion = descripcion;
 	}
-
-	// public producto(int cantidad, String nombre, double ppu, double pdv) {
-	// 	this.cantidad = cantidad;
-	// 	this.nombre = nombre;
-	// 	this.ppu = ppu;
-	// 	this.pdv = pdv;
-	// 	this.id = sigId++;
-	// 	this.descripcion = "";
-	// }
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
@@ -50,6 +41,10 @@ public class producto implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public static void setSigId(int id){
+		sigId = id;
 	}
 
 	public int getCantidad() {
