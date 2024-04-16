@@ -9,7 +9,7 @@ public class GestorDatosFichero implements GestorDatos, Serializable{
 		ObjectInputStream ois = null;
 		ArrayList<producto> p = new ArrayList<producto>();
 			try {
-				is = new FileInputStream("datos.bin");
+				is = new FileInputStream(""); 
 				ois = new ObjectInputStream(is);
 				while(is.available()>0) {
 					Object obj = ois.readObject();

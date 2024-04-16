@@ -18,19 +18,15 @@ public class empleado extends usuario {
 	public ArrayList<producto> getVentasDia() {
 		return ventas;
 	}
-	
-	public void registrarVentas(){
-
-	}
 
 	//Metodo para verificar si el producto esta disponible en el inventario (por el nombre)
-	public boolean verificarProductDis (String nombreProducto, ArrayList<producto> inventario) {
-		for (producto p : inventario) {
-			if (p.getNombre().equalsIgnoreCase(nombreProducto)) { 
-				return true;
-			}
+	private int verificarProductDis (String nombreProducto, ArrayList<producto> inventario) {
+		producto p = new producto("Default", 0);
+		for (producto x : inventario) {
+			if (x.getNombre().equalsIgnoreCase(nombreProducto))
+				p = x;
 		}
-		return false;
+		return p.getCantidad() == 0 ? -1 : p.getCantidad();
 	}
 
 	//Metodo para agregar una venta a la lista de ventas del día
@@ -46,9 +42,9 @@ public class empleado extends usuario {
         cantidadVendida = sin.nextInt();
 	
 		//Verificar la disponibilidad del producto en el inventario
-		boolean productoDisponible = verificarProductDis(nombre, inventario);
+		int disponible = verificarProductDis(nombre, inventario);
 	//Si el producto está disponible, se agrega la venta a la lista de ventas del día
-		if (productoDisponible) {
+		if (disponible >= cantidadVendida) {
 			ventasDia.add(new producto(nombreProducto, cantidadVendida));
 			System.out.println("Venta agregada correctamente");
 		} else {

@@ -44,4 +44,14 @@ public class usuario implements Serializable{
         return nombre;
     }
     
+    public String toString(){
+        String l = "Nombre: " + this.nombre + ", ID: " + this.id + ", Contraseña: " + this.contraseña;
+        if(this instanceof administrador)
+            l += ", Perfil: " + "Administrador";
+        else if(this instanceof gerente)
+            l += ", Perfil: " + "Gerente";
+        else
+            l += ", Perfil: " + "Empleado";
+        return l;
+    }
 }

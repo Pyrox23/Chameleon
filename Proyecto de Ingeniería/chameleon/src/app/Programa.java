@@ -10,8 +10,9 @@ public class Programa {
 		Scanner sin = new Scanner(System.in); //teclado para ingresar datos por consola
 		GestorDatosFichero gf = new GestorDatosFichero(); //objeto GestorDatosFichero para la lectura y escritura de datos desde y hacia un archivo**
 		ArrayList<producto> productos = new ArrayList<producto>(); //arayList para guardar productos del inventario
+		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		File rInventario = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); //ruta del archivo de registro de inventario
-		File rVenta;
+		File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Venta.csv");
 		//variables para los tipos de usuario
 		usuario u = null;
 		empleado e = null;
@@ -26,10 +27,6 @@ public class Programa {
 		do {
 			do {
 				Menus.mostrarMenuInicial(); //Mostrar el menú inicial
-
-				//System.out.print("Ingrese una opción: ");
-				//opcion = sin.nextInt(); //Leer la opción del usuario
-				//sin.nextLine(); //Consumir el salto de línea
 
 				/*USANDO TRY CATH PARA EL MAJEO DE EXPECIONES  */
 				try {
@@ -76,7 +73,6 @@ public class Programa {
 			//instanceof signifca un objeto creado a partir de esa clase o sus hijas de esta, con el costructor 
 			// Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
 			if (u instanceof administrador && continuarEjecucion) {
-				//System.out.print("\nHola Usuario del Tipo Administrador!!!!\n");
 				// en caso lo sea, se hace un "casting"(convertir) para q "u" sea tratada como un obj del tipo "administrador"
 				a = (administrador) u;  // y con ello tenga acceso a sus metodos y propiedades de esa clase
 				boolean continuarEjecucionAdmin = true;
@@ -89,11 +85,14 @@ public class Programa {
 
 					switch (opcionAdmin) {
 						case 1:
-						Menus.mostrarIngresarNuevUsuario();
-						agregarNuevoUsuario(sin, gf, u);
-					break;
+							Menus.mostrarIngresarNuevUsuario();
+							a.agregarNuevoUsuario(sin);
+							break;
 						case 2:
-							// ver ilista usuarios
+							usuarios = gf.ListaUsuarios();
+							for(usuario x : usuarios){
+								System.out.println(x);
+							}
 							break;
 						case 3:
 							System.out.println("Saliendo del programa...");
@@ -107,7 +106,7 @@ public class Programa {
 			}
 			
 			else if (u instanceof gerente && continuarEjecucion) {
-				//System.out.print("\nHola Usuario del Tipo Gerente!!!!\n");
+
 				g = (gerente) u;
 
 				boolean continuarEjecucionGerente = true;
@@ -234,37 +233,6 @@ public class Programa {
 
    	 	} while (r[0].equalsIgnoreCase("s"));
     	escribirFichero(rInventario, prodInventario); 
-	}
-
-
-	// Método para agregar un nuevo usuario
-	public static void agregarNuevoUsuario(Scanner sin, GestorDatosFichero gf, usuario u) {
-		ArrayList<usuario> usuarios = new ArrayList<usuario>();
-		String r[] = new String[4];
-    	// Datos para el nuevo usuario
-    	System.out.print("\nEscribe el id del nuevo usuario: ");
-   		r[0] = sin.nextLine();
-    	System.out.print("Escribe la contraseña: ");
-    	r[1] = sin.nextLine();
-    	System.out.print("Nombre del usuario: ");
-    	r[2] = sin.nextLine();
-    	System.out.print("Perfil del usuario: ");
-    	r[3] = sin.nextLine();
-
-		//se crea un nuevo usuario con los datos ingresados (depende del perfil admin,gerent,emple)
-		if(r[3].equalsIgnoreCase("administrador"))
-			u = new administrador(r[0], r[1], r[2]);
-		else if(r[3].equalsIgnoreCase("gerente"))
-			u = new gerente(r[0], r[1], r[2]);
-		else if(r[3].equalsIgnoreCase("empleado"))
-			u = new empleado(r[0], r[1], r[2]);
-		else{
-			System.out.println("El perfil indicado no existe y el usuario fue asignado a empleado.");
-			u = new empleado(r[0],r[1],r[2]); //en caso no exsita, automaticamente será de perfil empleado
-		}
-    	usuarios = gf.ListaUsuarios();
-		usuarios.add(u);
-		gf.EscribirUsuarios(usuarios);
 	}
 
    public static ArrayList<producto> lecturaFichero(File fichero){
