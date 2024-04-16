@@ -66,7 +66,11 @@ public class Menus {
     }
 
 
-
+public static void mostrarMenuVentas() {
+        System.out.println("\n╔══════════════════════════════════════════════════════╗");
+        System.out.println("║                   REGISTRO DE VENTAS                 ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝"); 
+    }
 
 
     public static void mostrarIngresarSesion() {
