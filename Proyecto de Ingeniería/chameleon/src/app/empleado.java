@@ -67,8 +67,82 @@ public class empleado extends usuario {
     }
 	
 	//Metodo para registrar las ventas y cerrarlo
-	public void registrarVentas(File fichero){
-		
+	public void registrarVentas(Scanner r){
+		// Agregar excepciones para inventario bajo y falta de inventario
+		boolean seguir = true;
+		String venta;
+		int cantidadVenta;
+		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 																						
+		List<String> lineas = new ArrayList<>();
+		List<String> venditas = new ArrayList<>();
+		Menus.mostrarMenuVentas();
+
+		do {
+			System.out.println("\n-------------------------------------------------------");
+			System.out.print("      Ingrese el nombre del producto vendido: ");
+			venta = r.next();
+			venditas.add(venta);
+			System.out.println("\n-------------------------------------------------------");
+			System.out.print("      Ingrese la cantidad vendida: ");
+			cantidadVenta = r.nextInt();
+			venditas.add(cantidadVenta + "");
+			System.out.println("\n-------------------------------------------------------");
+			System.out.println("      ¿Desea agregar otra venta? \n\n" +
+					" 1. Sí \n 2. No");
+			if (r.nextInt() == 2) {
+				seguir = false;
+			}
+			System.out.println("\n-------------------------------------------------------");
+
+			try {
+				// Lectura del archivo
+				Scanner s = new Scanner(fichero, "UTF-8");
+				while (s.hasNextLine()) {
+					String linea = s.nextLine();
+					String[] x = linea.split(";");
+					for (int i = 0; i < x.length; i++) {
+						if (venta.equalsIgnoreCase(x[i])) {
+							// Modificar el valor en la memoria
+							int nuevoDato = Integer.parseInt(x[i + 2]) - cantidadVenta;
+							x[i + 2] = String.valueOf(nuevoDato);
+						}
+					}
+					// Reconstruir la línea modificada
+					linea = String.join(";", x);
+					lineas.add(linea);
+				}
+				s.close();
+
+				// Escritura de las líneas modificadas al archivo
+				FileWriter writer = new FileWriter(fichero, false);
+				for (String linea : lineas) {
+					writer.write(linea + "\n");
+				}
+				writer.close();
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
+		} while (seguir);
+
+		// Crear fichero de ventas
+		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
+		Date date = new Date();
+		File ficheroVentas = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Ventas_"
+				+ dateFormat.format(date) + "_empleado_" + this.nombre + ".csv");
+
+		try (FileWriter wr = new FileWriter(ficheroVentas, true)) {
+			for (int i = 0; i < venditas.size(); i += 2) {
+				String ln = venditas.get(i).toUpperCase() + ";" + venditas.get(i + 1);
+				wr.write(ln + "\n");
+			}
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
+		r.close();
 	}
 
 }
