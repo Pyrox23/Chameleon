@@ -90,7 +90,7 @@ public class Programa {
 					switch (opcionAdmin) {
 						case 1:
 						Menus.mostrarIngresarNuevUsuario();
-						agregarNuevoUsuario(sin, r, gf, u);
+						agregarNuevoUsuario(sin, gf, u);
 					break;
 						case 2:
 							// ver ilista usuarios
@@ -120,7 +120,7 @@ public class Programa {
 
 					switch (opcionGerente) {
 						case 1:
-							agregarProductoAlInventario(sin, r, productos, rInventario);
+							agregarProductoAlInventario(sin, productos, rInventario);
 							productos.clear();
 							break;
 						case 2:
@@ -200,9 +200,19 @@ public class Programa {
  //METODOS PARA LOS MENUS   
 
 	// Método para agregar un producto al inventario
-	public static void agregarProductoAlInventario(Scanner sin, String[] r, ArrayList<producto> prodInventario, File rInventario) {
+	public static void agregarProductoAlInventario(Scanner sin, ArrayList<producto> prodInventario, File rInventario) {
     	double pdv, ppu;
     	int cant;
+		String r[] = new String[6];
+       try{ 
+           Scanner s = new Scanner(rInventario, "UTF-8");
+           while (s.hasNextLine())
+               r = s.nextLine().split(";");
+           s.close();
+       } catch(IOException ex){ 
+			ex.printStackTrace();
+       }
+	   producto.setSigId(Integer.parseInt(r[0])+1);
     	do {
 			Menus.mostrarIngresarProducto();
         	System.out.print("Nombre del producto: ");
@@ -228,8 +238,9 @@ public class Programa {
 
 
 	// Método para agregar un nuevo usuario
-	public static void agregarNuevoUsuario(Scanner sin, String[] r, GestorDatosFichero gf, usuario u) {
+	public static void agregarNuevoUsuario(Scanner sin, GestorDatosFichero gf, usuario u) {
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
+		String r[] = new String[4];
     	// Datos para el nuevo usuario
     	System.out.print("\nEscribe el id del nuevo usuario: ");
    		r[0] = sin.nextLine();
@@ -266,6 +277,7 @@ public class Programa {
            while (s.hasNextLine()){ 
                prod = s.nextLine().split(";");
 			   product = new producto(prod[1], prod[2], Integer.parseInt(prod[3]), Double.parseDouble(prod[4]), Double.parseDouble(prod[5]));
+			   product.setId(Integer.parseInt(prod[0]));
 				System.out.println(product);
 			   p.add(product);
            }
