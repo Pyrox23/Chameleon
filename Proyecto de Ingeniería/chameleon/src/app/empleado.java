@@ -1,7 +1,10 @@
 package app;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Date;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class empleado extends usuario {
 	//Atributos protected (propios)
@@ -73,8 +76,8 @@ public class empleado extends usuario {
 		String venta;
 		int cantidadVenta;
 		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 																						
-		List<String> lineas = new ArrayList<>();
-		List<String> venditas = new ArrayList<>();
+		ArrayList<String> lineas = new ArrayList<>();
+		ArrayList<String> venditas = new ArrayList<>();
 		Menus.mostrarMenuVentas();
 
 		do {
