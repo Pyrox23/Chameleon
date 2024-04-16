@@ -18,7 +18,7 @@ public class Programa {
 		empleado e = null;
 		gerente g = null;
 		administrador a = null;
-		// gf.EscribirUsuario(new administrador("admin", "admin", "Juan"));
+		// gf.EscribirUsuario(new administrador("admin", "admin", "Juan", "Moral"));
 		// Perfil Administrador: admin, admin
 		// Perfil Gerente: gerente, 123
 		// Perfil Empleado: empleado, 123
@@ -26,47 +26,41 @@ public class Programa {
 		int opcion;
 		do {
 			do {
-				Menus.mostrarMenuInicial(); //Mostrar el menú inicial
-
-				/*USANDO TRY CATH PARA EL MAJEO DE EXPECIONES  */
+				Menus.mostrarMenuInicial();
 				try {
 					System.out.print("Ingrese una opción: ");
-					opcion = sin.nextInt(); // Intentar leer un entero
-					sin.nextLine(); // Consumir el salto de línea
+					opcion = sin.nextInt();
+					sin.nextLine();
 
-				switch (opcion) {
-					case 1:
-						//Bucle de inicio de sesión
-						do {
-							//Lógica de inicio de sesión
-							if (!log) {
-								System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
-							}
-							Menus.mostrarIngresarSesion();
-							System.out.print("\nIntroduce tu usuario: ");
-							r[0] = sin.nextLine();
-							System.out.print("Introduce tu contraseña: ");
-							r[1] = sin.nextLine();
+					switch (opcion) {
+						case 1:
+							do {
+								if (!log) {
+									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
+								}
+								Menus.mostrarIngresarSesion();
+								System.out.print("\nIntroduce tu usuario: ");
+								r[0] = sin.nextLine();
+								System.out.print("Introduce tu contraseña: ");
+								r[1] = sin.nextLine();
+								u = new usuario(r[0], r[1], "", "");
+								u = u.login();
+								log = (u != null);
+							} while (!log);
+							break;
+						case 2:
+							System.out.println("Saliendo del programa...");
+							continuarEjecucion = false;
+							break;
+						default:
+							System.out.println("Opción no válida. Intente de nuevo.");
+							break;
+						}
 
-							//Lógica de verificación de inicio de sesión
-							u = new usuario(r[0], r[1], "");
-							u = u.login();
-							log = (u != null);
-						} while (!log);
-						break;
-					case 2:
-						System.out.println("Saliendo del programa...");
-						continuarEjecucion = false;
-						break;
-					default:
-						System.out.println("Opción no válida. Intente de nuevo.");
-						break;
+				} catch (InputMismatchException ex) { 
+					System.out.println("Por favor, ingrese un número entero válido.");
+					sin.nextLine(); 
 				}
-
-			} catch (InputMismatchException ex) { //excepción si el usuario ingresa un valor que no es un número entero
-				System.out.println("Por favor, ingrese un número entero válido.");
-				sin.nextLine(); //Limpia el buffer de entrada
-			}
 			} while (!log && continuarEjecucion);
 			
 			//Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
@@ -78,10 +72,10 @@ public class Programa {
 				boolean continuarEjecucionAdmin = true;
 				int opcionAdmin;
 				do {
-					Menus.mostrarMenuAdministrador(); // Mostrar el menú del gerente
+					Menus.mostrarMenuAdministrador(); 
 					System.out.print("Ingrese una opción: ");
-					opcionAdmin = sin.nextInt(); // Leer la opción del gerente
-					sin.nextLine(); // Consumir el salto de línea
+					opcionAdmin = sin.nextInt();
+					sin.nextLine();
 
 					switch (opcionAdmin) {
 						case 1:
@@ -108,22 +102,21 @@ public class Programa {
 			else if (u instanceof gerente && continuarEjecucion) {
 
 				g = (gerente) u;
-
 				boolean continuarEjecucionGerente = true;
 				int opcionGerente;
 				do {
-					Menus.mostrarMenuGerente(); // Mostrar el menú del gerente
+					Menus.mostrarMenuGerente(); 
 					System.out.print("Ingrese una opción: ");
-					opcionGerente = sin.nextInt(); // Leer la opción del gerente
-					sin.nextLine(); // Consumir el salto de línea
+					opcionGerente = sin.nextInt();
+					sin.nextLine();
 
 					switch (opcionGerente) {
 						case 1:
-							agregarProductoAlInventario(sin, productos, rInventario);
+							g.agregarProductoAlInventario(sin, productos, rInventario);
 							productos.clear();
 							break;
 						case 2:
-							productos = lecturaFichero(rInventario);
+							productos = gf.lecturaFichero(rInventario);
 							break;
 						case 3:
 							System.out.println("Saliendo del programa...");
@@ -142,16 +135,12 @@ public class Programa {
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
-					Menus.mostrarMenuEmpleado1(); // Mostrar el menú del gerente
+					Menus.mostrarMenuEmpleado1(); 
 					System.out.print("Ingrese una opción: ");
-					opcionEmpleado = sin.nextInt(); // Leer la opción del gerente
-					sin.nextLine(); // Consumir el salto de línea
-
+					opcionEmpleado = sin.nextInt();
+					sin.nextLine();
 					switch (opcionEmpleado) {
 						case 1:
-						    //System.out.println("Creando Registro para guardar las Ventas..");
-							//checkFichero(rVenta);
-							//e.agregarVenta(sin, e.getVentasDia(), productos);
 							Menus.mostrarMenuEmpleado2();
 							System.out.print("Ingrese una opción: ");
 							opcionEmpleado = sin.nextInt();
@@ -159,14 +148,14 @@ public class Programa {
 							switch (opcionEmpleado) {
 								case 1:
 									System.out.println("Creando Registro para guardar las Ventas..");
-									checkFichero(rVenta);
-									e.agregarVenta(sin, e.getVentasDia(), productos);
+									gf.checkFichero(rVenta);
+									e.agregarVenta(sin, gf.lecturaFichero(rInventario));
+									// e.registrarVentas(sin);
 									break;
 								case 2:
 									e.modificarVentas();
 									break;
-								case 3:
-									//GUARDAR EL REGISTRO Y SALE 
+								case 3:    
 									System.out.println("Guardando el Registro y Saliendo");
 									continuarEjecucionEmpleado = false;
 									break;
@@ -188,93 +177,4 @@ public class Programa {
 	}while(continuarEjecucion);
 
 	}
-	
-	public static void escribirFichero(File fichero, ArrayList<producto> p){ 
-        checkFichero(fichero); //sino existe el fichero, se crea
-		try{
-			//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
-        	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, true), "ISO-8859-1"));  
-			PrintWriter pw = new PrintWriter(bw); 
-
-			//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
-			for(producto x : p)
-				pw.println(x);
-			pw.flush(); //asegura la escritura de los datos en el fichero
-			pw.close(); 
-			bw.close();
-			System.out.println("\nFichero escrito con exito."); 
-		} catch(IOException e){
-			e.printStackTrace();
-		}
-    }
-
-	public static void checkFichero(File fichero){ 
-       try { 
-			if (fichero.createNewFile()) //se intenta crear el fichero si no existe
-			    System.out.println("\nEl fichero indicado, no existe y ha sido creado");  //no exite y se crea con exito
-		} catch (IOException e) { 
-			e.printStackTrace();
-		} 
-   }
-
-
- //METODOS PARA LOS MENUS   
-
-	// Método para agregar un producto al inventario
-	public static void agregarProductoAlInventario(Scanner sin, ArrayList<producto> prodInventario, File rInventario) {
-    	double pdv, ppu;
-    	int cant;
-		String r[] = new String[6];
-       try{ 
-           Scanner s = new Scanner(rInventario, "UTF-8");
-           while (s.hasNextLine())
-               r = s.nextLine().split(";");
-           s.close();
-       } catch(IOException ex){ 
-			ex.printStackTrace();
-       }
-	   producto.setSigId(Integer.parseInt(r[0])+1);
-    	do {
-			Menus.mostrarIngresarProducto();
-        	System.out.print("Nombre del producto: ");
-        	r[0] = sin.next();
-        	System.out.print("Descripcion del producto: ");
-        	r[1] = sin.next();
-        	System.out.print("Cantidad disponible: ");
-        	cant = sin.nextInt();
-        	System.out.print("Precio de Unidad: ");
-        	ppu = sin.nextDouble();
-        	System.out.print("Precio de Venta: ");
-        	pdv = sin.nextDouble();
-
-       	 	// Se agrega el producto al inventario (según los datos ingresados)
-        	prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
-			
-        	System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
-        	r[0] = sin.next();
-
-   	 	} while (r[0].equalsIgnoreCase("s"));
-    	escribirFichero(rInventario, prodInventario); 
-	}
-
-   public static ArrayList<producto> lecturaFichero(File fichero){
-	ArrayList<producto> p = new ArrayList<producto>();
-	producto product;
-	String prod[] = new String[6];
-       try{ 
-           Scanner s = new Scanner(fichero, "UTF-8");
-		   System.out.println("Registro de Inventario\nID;NOMBRE;DESCRIPCION;CANTIDAD;PPU;PDV");
-           while (s.hasNextLine()){ 
-               prod = s.nextLine().split(";");
-			   product = new producto(prod[1], prod[2], Integer.parseInt(prod[3]), Double.parseDouble(prod[4]), Double.parseDouble(prod[5]));
-			   product.setId(Integer.parseInt(prod[0]));
-				System.out.println(product);
-			   p.add(product);
-           }
-           s.close();
-       } catch(IOException ex){ 
-			ex.printStackTrace();
-       }
-	   return p;
-   }
 }

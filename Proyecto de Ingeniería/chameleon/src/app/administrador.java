@@ -8,15 +8,15 @@ public class administrador extends gerente {
 	//No tiene propios, solo heredados
 
 	//Constructor 1
-	public administrador(String id, String contraseña, String nombre) {
-		super(id, contraseña, nombre);
+	public administrador(String id, String contraseña, String nombre, String apellido) {
+		super(id, contraseña, nombre, apellido);
 	}
 	
 	// Método para agregar un nuevo usuario
 	public void agregarNuevoUsuario(Scanner sin) {
 		usuario u;
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
-		String r[] = new String[4];
+		String r[] = new String[5];
     	// Datos para el nuevo usuario
     	System.out.print("\nEscribe el id del nuevo usuario: ");
    		r[0] = sin.nextLine();
@@ -24,23 +24,36 @@ public class administrador extends gerente {
     	r[1] = sin.nextLine();
     	System.out.print("Nombre del usuario: ");
     	r[2] = sin.nextLine();
+		System.out.print("Apellido del usuario: ");
+		r[3] = sin.nextLine();
     	System.out.print("Perfil del usuario: ");
-    	r[3] = sin.nextLine();
+    	r[4] = sin.nextLine();
 
 		//se crea un nuevo usuario con los datos ingresados (depende del perfil admin,gerent,emple)
-		if(r[3].equalsIgnoreCase("administrador"))
-			u = new administrador(r[0], r[1], r[2]);
-		else if(r[3].equalsIgnoreCase("gerente"))
-			u = new gerente(r[0], r[1], r[2]);
-		else if(r[3].equalsIgnoreCase("empleado"))
-			u = new empleado(r[0], r[1], r[2]);
+		if(r[4].equalsIgnoreCase("administrador"))
+			u = new administrador(r[0], r[1], r[2], r[3]);
+		else if(r[4].equalsIgnoreCase("gerente"))
+			u = new gerente(r[0], r[1], r[2], r[3]);
+		else if(r[4].equalsIgnoreCase("empleado"))
+			u = new empleado(r[0], r[1], r[2], r[3]);
 		else{
 			System.out.println("El perfil indicado no existe y el usuario fue asignado a empleado.");
-			u = new empleado(r[0],r[1],r[2]); //en caso no exsita, automaticamente será de perfil empleado
+			u = new empleado(r[0],r[1],r[2], r[3]); //en caso no exsita, automaticamente será de perfil empleado
 		}
     	usuarios = gf.ListaUsuarios();
 		usuarios.add(u);
 		gf.EscribirUsuarios(usuarios);
 	}
 
+	public void eliminarUsuario(ArrayList<usuario> listaUsuarios, String idUsuario) {
+		for (usuario usuario : listaUsuarios) {
+			if (usuario.getId().equals(idUsuario)) {
+				listaUsuarios.remove(usuario);
+				System.out.println("¡Usuario eliminado correctamente!");
+				return;
+			}
+		}
+		System.out.println("¡No se encontró ningún usuario con el ID especificado!");
+	
+	}
 }

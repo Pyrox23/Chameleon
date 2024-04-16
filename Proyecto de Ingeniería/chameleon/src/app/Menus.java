@@ -22,7 +22,7 @@ public class Menus {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║           BIENVENIDO USUARIO ADMINISTRADOR           ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                     MENÚ ADMIN                       ║");
+        System.out.println("║                     MENU ADMIN                       ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t\t1. Agregar nuevo usuario               ║");
         System.out.println("║\t\t2. Ver lista de usuarios               ║");
@@ -34,7 +34,7 @@ public class Menus {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║             BIENVENIDO USUARIO GERENTE               ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENÚ GERENTE                      ║");
+        System.out.println("║                    MENU GERENTE                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar producto al inventario              ║");
         System.out.println("║\t2. Ver inventario                              ║");
@@ -46,11 +46,11 @@ public class Menus {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║             BIENVENIDO USUARIO EMPLEADO              ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENÚ 2 EMPLEADO                   ║");
+        System.out.println("║                    MENU 2 EMPLEADO                   ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar Venta                               ║");
         System.out.println("║\t2. Modificar Venta                             ║");
-        System.out.println("║\t3. Guardar Registro  (Salir)                        ║");
+        System.out.println("║\t3. Guardar Registro  (Salir)                   ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 

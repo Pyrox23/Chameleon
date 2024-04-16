@@ -13,8 +13,8 @@ public class empleado extends usuario {
 
 	
 	//Constructor 1
-	public empleado(String id, String contraseña, String nombre) {  //heredado 
-		super(id, contraseña, nombre); //heredado
+	public empleado(String id, String contraseña, String nombre, String apellido) {  //heredado 
+		super(id, contraseña, nombre, apellido); //heredado
 		this.ventas = new ArrayList<producto>();
 	}
 
@@ -33,7 +33,7 @@ public class empleado extends usuario {
 	}
 
 	//Metodo para agregar una venta a la lista de ventas del día
-    public void agregarVenta(Scanner sin, ArrayList<producto> ventasDia, ArrayList<producto> inventario) {
+    public void agregarVenta(Scanner sin, ArrayList<producto> inventario) {
 		// Obtener los detalles de la venta
 		String nombreProducto;
 		int cantidadVendida;
@@ -48,7 +48,7 @@ public class empleado extends usuario {
 		int disponible = verificarProductDis(nombre, inventario);
 	//Si el producto está disponible, se agrega la venta a la lista de ventas del día
 		if (disponible >= cantidadVendida) {
-			ventasDia.add(new producto(nombreProducto, cantidadVendida));
+			this.ventas.add(new producto(nombreProducto, cantidadVendida));
 			System.out.println("Venta agregada correctamente");
 		} else {
 			System.out.println("El producto no está disponible en el inventario");
@@ -76,19 +76,18 @@ public class empleado extends usuario {
 		String venta;
 		int cantidadVenta;
 		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 																						
-		ArrayList<String> lineas = new ArrayList<>();
-		ArrayList<String> venditas = new ArrayList<>();
+		ArrayList<producto> p = new ArrayList<producto>();
+		ArrayList<producto> venditas = new ArrayList<>();
 		Menus.mostrarMenuVentas();
 
 		do {
 			System.out.println("\n-------------------------------------------------------");
 			System.out.print("      Ingrese el nombre del producto vendido: ");
-			venta = r.next();
-			venditas.add(venta);
+			venta = r.nextLine();
 			System.out.println("\n-------------------------------------------------------");
 			System.out.print("      Ingrese la cantidad vendida: ");
 			cantidadVenta = r.nextInt();
-			venditas.add(cantidadVenta + "");
+			venditas.add(new producto(venta, cantidadVenta));
 			System.out.println("\n-------------------------------------------------------");
 			System.out.println("      ¿Desea agregar otra venta? \n\n" +
 					" 1. Sí \n 2. No");
@@ -97,55 +96,25 @@ public class empleado extends usuario {
 			}
 			System.out.println("\n-------------------------------------------------------");
 
-			try {
-				// Lectura del archivo
-				Scanner s = new Scanner(fichero, "UTF-8");
-				while (s.hasNextLine()) {
-					String linea = s.nextLine();
-					String[] x = linea.split(";");
-					for (int i = 0; i < x.length; i++) {
-						if (venta.equalsIgnoreCase(x[i])) {
-							// Modificar el valor en la memoria
-							int nuevoDato = Integer.parseInt(x[i + 2]) - cantidadVenta;
-							x[i + 2] = String.valueOf(nuevoDato);
-						}
-					}
-					// Reconstruir la línea modificada
-					linea = String.join(";", x);
-					lineas.add(linea);
-				}
-				s.close();
-
-				// Escritura de las líneas modificadas al archivo
-				FileWriter writer = new FileWriter(fichero, false);
-				for (String linea : lineas) {
-					writer.write(linea + "\n");
-				}
-				writer.close();
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-
 		} while (seguir);
+
+		p = gf.lecturaFichero(fichero);
 
 		// Crear fichero de ventas
 		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 		Date date = new Date();
 		File ficheroVentas = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Ventas_"
-				+ dateFormat.format(date) + "_empleado_" + this.nombre + ".csv");
+				+ dateFormat.format(date) + "_" + this.nombre + ".csv");
 
 		try (FileWriter wr = new FileWriter(ficheroVentas, true)) {
 			for (int i = 0; i < venditas.size(); i += 2) {
-				String ln = venditas.get(i).toUpperCase() + ";" + venditas.get(i + 1);
-				wr.write(ln + "\n");
+				// String ln = venditas.get(i).toUpperCase() + ";" + venditas.get(i + 1);
+				// wr.write(ln + "\n");
 			}
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
-		r.close();
 	}
 
 }

@@ -6,11 +6,13 @@ public class usuario implements Serializable{
     protected String id;
     protected String contraseña;
     protected String nombre;
+    protected String apellido;
 
-    public usuario(String id, String contraseña, String nombre){
+    public usuario(String id, String contraseña, String nombre, String apellido){
         this.id = id;
         this.contraseña = contraseña;
         this.nombre = nombre;
+        this.apellido = apellido;
     }
 
     public usuario login(){
