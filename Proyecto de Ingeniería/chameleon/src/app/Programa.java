@@ -142,21 +142,43 @@ public class Programa {
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
-					Menus.mostrarMenuEmpleado(); // Mostrar el menú del gerente
+					Menus.mostrarMenuEmpleado1(); // Mostrar el menú del gerente
 					System.out.print("Ingrese una opción: ");
 					opcionEmpleado = sin.nextInt(); // Leer la opción del gerente
 					sin.nextLine(); // Consumir el salto de línea
 
 					switch (opcionEmpleado) {
 						case 1:
-						//realizarVenta(sin, r, prodInventario, rInventario);
-					break;
+						    //System.out.println("Creando Registro para guardar las Ventas..");
+							//checkFichero(rVenta);
+							//e.agregarVenta(sin, e.getVentasDia(), productos);
+							Menus.mostrarMenuEmpleado2();
+							System.out.print("Ingrese una opción: ");
+							opcionEmpleado = sin.nextInt();
+							sin.nextLine();
+							switch (opcionEmpleado) {
+								case 1:
+									System.out.println("Creando Registro para guardar las Ventas..");
+									checkFichero(rVenta);
+									e.agregarVenta(sin, e.getVentasDia(), productos);
+									break;
+								case 2:
+									e.modificarVentas();
+									break;
+								case 3:
+									//GUARDAR EL REGISTRO Y SALE 
+									System.out.println("Guardando el Registro y Saliendo");
+									continuarEjecucionEmpleado = false;
+									break;
+								default:
+									break;
+							}
+					    	break;
 						case 2:
-							// ver historial de ventas 
-							break;
-						case 3:
-							System.out.println("Saliendo del programa...");
+							//e.modificarVentas();
+							System.out.println("Saliendo del Programa");
 							continuarEjecucionEmpleado = false;
+							break;
 						default:
 							System.out.println("Opción no válida. Intente de nuevo.");
 							break;

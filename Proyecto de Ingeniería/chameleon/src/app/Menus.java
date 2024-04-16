@@ -42,17 +42,29 @@ public class Menus {
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
-    public static void mostrarMenuEmpleado() {
+    public static void mostrarMenuEmpleado2() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║             BIENVENIDO USUARIO EMPLEADO              ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENÚ EMPLEADO                     ║");
+        System.out.println("║                    MENÚ 2 EMPLEADO                   ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t1. Realizar venta                              ║");
-        System.out.println("║\t2. Ver historial de ventas                     ║");
-        System.out.println("║\t3. Salir                                       ║");
+        System.out.println("║\t1. Agregar Venta                               ║");
+        System.out.println("║\t2. Modificar Venta                             ║");
+        System.out.println("║\t3. Guardar Registro  (Salir)                        ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
+
+    public static void mostrarMenuEmpleado1() {
+        System.out.println("\n╔══════════════════════════════════════════════════════╗");
+        System.out.println("║             BIENVENIDO USUARIO EMPLEADO              ║");
+        System.out.println("╠══════════════════════════════════════════════════════╣");
+        System.out.println("║                    MENU 1 EMPLEADO                   ║");
+        System.out.println("╠══════════════════════════════════════════════════════╣");
+        System.out.println("║\t1. Crear Registro                              ║");
+        System.out.println("║\t2. Salir                                       ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝"); 
+    }
+
 
 
 
