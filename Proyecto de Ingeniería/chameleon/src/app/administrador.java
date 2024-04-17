@@ -29,7 +29,6 @@ public class administrador extends gerente {
     	System.out.print("Perfil del usuario: ");
     	r[4] = sin.nextLine();
 
-		//se crea un nuevo usuario con los datos ingresados (depende del perfil admin,gerent,emple)
 		if(r[4].equalsIgnoreCase("administrador"))
 			u = new administrador(r[0], r[1], r[2], r[3]);
 		else if(r[4].equalsIgnoreCase("gerente"))
@@ -38,19 +37,20 @@ public class administrador extends gerente {
 			u = new empleado(r[0], r[1], r[2], r[3]);
 		else{
 			System.out.println("El perfil indicado no existe y el usuario fue asignado a empleado.");
-			u = new empleado(r[0],r[1],r[2], r[3]); //en caso no exsita, automaticamente será de perfil empleado
+			u = new empleado(r[0],r[1],r[2], r[3]); 
 		}
     	usuarios = gf.ListaUsuarios();
 		usuarios.add(u);
 		gf.EscribirUsuarios(usuarios);
 	}
 
-	public void eliminarUsuario(ArrayList<usuario> listaUsuarios, String idUsuario) {
+	public void eliminarUsuario(String idUsuario) {
+		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios(); 
 		for (usuario usuario : listaUsuarios) {
 			if (usuario.getId().equals(idUsuario)) {
 				listaUsuarios.remove(usuario);
 				System.out.println("¡Usuario eliminado correctamente!");
-				return;
+				gf.EscribirUsuarios(listaUsuarios);
 			}
 		}
 		System.out.println("¡No se encontró ningún usuario con el ID especificado!");

@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 public class empleado extends usuario {
 	//Atributos protected (propios)
 	protected ArrayList<producto> ventas;
-	protected GestorDatosFichero gf = new GestorDatosFichero();
 
 	
 	//Constructor 1
@@ -106,15 +105,7 @@ public class empleado extends usuario {
 		File ficheroVentas = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Ventas_"
 				+ dateFormat.format(date) + "_" + this.nombre + ".csv");
 
-		try (FileWriter wr = new FileWriter(ficheroVentas, true)) {
-			for (int i = 0; i < venditas.size(); i += 2) {
-				// String ln = venditas.get(i).toUpperCase() + ";" + venditas.get(i + 1);
-				// wr.write(ln + "\n");
-			}
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		gf.escribirFichero(ficheroVentas, p);
 	}
 
 }
