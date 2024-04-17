@@ -7,11 +7,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class empleado extends usuario {
-	//Atributos protected (propios)
 	protected ArrayList<producto> ventas;
 
-	
-	//Constructor 1
 	public empleado(String id, String contraseña, String nombre, String apellido) {  //heredado 
 		super(id, contraseña, nombre, apellido); //heredado
 		this.ventas = new ArrayList<producto>();
@@ -28,12 +25,11 @@ public class empleado extends usuario {
 			if (x.getNombre().equalsIgnoreCase(nombreProducto))
 				p = x;
 		}
-		return p.getCantidad() == 0 ? -1 : p.getCantidad();
+		return p.getCantidad();
 	}
 
 	//Metodo para agregar una venta a la lista de ventas del día
     public void agregarVenta(Scanner sin, ArrayList<producto> inventario) {
-		// Obtener los detalles de la venta
 		String nombreProducto;
 		int cantidadVendida;
 
@@ -42,10 +38,8 @@ public class empleado extends usuario {
     	nombreProducto = sin.next();
 		System.out.print("Cantidad vendida: ");
         cantidadVendida = sin.nextInt();
-	
-		//Verificar la disponibilidad del producto en el inventario
+
 		int disponible = verificarProductDis(nombre, inventario);
-	//Si el producto está disponible, se agrega la venta a la lista de ventas del día
 		if (disponible >= cantidadVendida) {
 			this.ventas.add(new producto(nombreProducto, cantidadVendida));
 			System.out.println("Venta agregada correctamente");
@@ -56,7 +50,7 @@ public class empleado extends usuario {
 
 
   //Metodo para modificar las ventas del día
-    public void modificarVentas() {
+    public void mostrarVentas() {
 		if (ventas.isEmpty()) {
 			System.out.println("No hay ventas registradas");
 		} else {
@@ -65,7 +59,6 @@ public class empleado extends usuario {
 				System.out.println((i + 1) + ". " + ventas.get(i));
 			}
 		}
-
     }
 	
 	//Metodo para registrar las ventas y cerrarlo
@@ -98,7 +91,7 @@ public class empleado extends usuario {
 		} while (seguir);
 
 		p = gf.lecturaFichero(fichero);
-
+		// Hacer logica para verificar ventas
 		// Crear fichero de ventas
 		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 		Date date = new Date();

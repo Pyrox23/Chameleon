@@ -153,7 +153,7 @@ public class Programa {
 									// e.registrarVentas(sin);
 									break;
 								case 2:
-									e.modificarVentas();
+									e.mostrarVentas();
 									break;
 								case 3:    
 									System.out.println("Guardando el Registro y Saliendo");
