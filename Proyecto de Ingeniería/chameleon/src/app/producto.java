@@ -19,6 +19,13 @@ public class producto implements Serializable{
 		this.descripcion = descripcion;
 	}
 
+	public producto(String nombre, int cantidad, double pdv, int id) {
+		this.cantidad = cantidad;
+		this.nombre = nombre;
+		this.pdv = pdv;
+		this.id = id;
+	}
+
 	public producto(String nombre, int cantidad){
 		this.nombre = nombre;
 		this.cantidad = cantidad;
@@ -78,5 +85,9 @@ public class producto implements Serializable{
 	
 	public String toString() {
 		return id + ";" + nombre + ";" + descripcion + ";" + cantidad + ";" + ppu + ";" + pdv;
+	}
+
+	public String toStingVenta(){
+		return id + ";" + nombre + ";" + cantidad + ";" + pdv;
 	}
 }

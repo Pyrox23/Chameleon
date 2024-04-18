@@ -36,9 +36,13 @@ public class usuario implements Serializable{
     public String getNombre(){
         return nombre;
     }
+
+    public String getApellido(){
+        return apellido;
+    }
     
     public String toString(){
-        String l = "Nombre: " + this.nombre + ", ID: " + this.id + ", Contraseña: " + this.contraseña;
+        String l = "Nombre: " + this.nombre + ", ID: " + this.id + ", Contraseña: " + this.contraseña; //Agregar apellido
         if(this instanceof administrador)
             l += ", Perfil: " + "Administrador";
         else if(this instanceof gerente)

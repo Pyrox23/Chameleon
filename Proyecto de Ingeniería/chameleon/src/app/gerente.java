@@ -24,11 +24,12 @@ public class gerente extends empleado {
            Scanner s = new Scanner(rInventario, "UTF-8");
            while (s.hasNextLine())
                r = s.nextLine().split(";");
+			producto.setSigId(Integer.parseInt(r[0])+1);
            s.close();
-       } catch(IOException ex){ 
+        } catch(IOException ex){ 
 			ex.printStackTrace();
-       }
-	   producto.setSigId(Integer.parseInt(r[0])+1);
+        } catch(NumberFormatException e){
+		}
     	do {
 			Menus.mostrarIngresarProducto();
         	System.out.print("Nombre del producto: ");
@@ -49,6 +50,6 @@ public class gerente extends empleado {
         	r[0] = sin.next();
 
    	 	} while (r[0].equalsIgnoreCase("s"));
-    	gf.escribirFichero(rInventario, prodInventario); 
+    	gf.escribirFichero(rInventario, prodInventario, true); 
 	}
 }

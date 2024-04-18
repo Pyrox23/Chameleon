@@ -1,24 +1,27 @@
 package app;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 public class Programa {
 	public static void main(String[] args){
 		boolean log = true; //bandera para el bucle
 		String r[] = new String[4]; //array para guardar datos del usuario
 		Scanner sin = new Scanner(System.in); //teclado para ingresar datos por consola
 		GestorDatosFichero gf = new GestorDatosFichero(); //objeto GestorDatosFichero para la lectura y escritura de datos desde y hacia un archivo**
-		ArrayList<producto> productos = new ArrayList<producto>(); //arayList para guardar productos del inventario
-		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		File rInventario = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); //ruta del archivo de registro de inventario
-		File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Venta.csv");
+		File rVenta;
+		ArrayList<producto> productos = gf.lecturaFichero(rInventario); //arayList para guardar productos del inventario
+		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		//variables para los tipos de usuario
 		usuario u = null;
 		empleado e = null;
 		gerente g = null;
 		administrador a = null;
-		// gf.EscribirUsuario(new administrador("admin", "admin", "Juan", "Moral"));
+		usuarios.add(new administrador("admin", "admin", "Juan", "Moral"));
+		usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
+		usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
+		gf.EscribirUsuarios(usuarios);
 		// Perfil Administrador: admin, admin
 		// Perfil Gerente: gerente, 123
 		// Perfil Empleado: empleado, 123
@@ -53,7 +56,7 @@ public class Programa {
 							continuarEjecucion = false;
 							break;
 						default:
-							System.out.println("Opción no válida. Intente de nuevo.");
+							Menus.mensajeError();
 							break;
 						}
 
@@ -63,9 +66,6 @@ public class Programa {
 				}
 			} while (!log && continuarEjecucion);
 			
-			//Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
-			//instanceof signifca un objeto creado a partir de esa clase o sus hijas de esta, con el costructor 
-			// Se asigna el tipo de usuario correspondiente según el tipo de objeto "u"
 			if (u instanceof administrador && continuarEjecucion) {
 				// en caso lo sea, se hace un "casting"(convertir) para q "u" sea tratada como un obj del tipo "administrador"
 				a = (administrador) u;  // y con ello tenga acceso a sus metodos y propiedades de esa clase
@@ -91,8 +91,9 @@ public class Programa {
 						case 3:
 							System.out.println("Saliendo del programa...");
 							continuarEjecucionAdmin = false;
+							break;
 						default:
-							System.out.println("Opción no válida. Intente de nuevo.");
+							Menus.mensajeError();
 							break;
 						}
 					} while (continuarEjecucionAdmin);
@@ -117,12 +118,15 @@ public class Programa {
 							break;
 						case 2:
 							productos = gf.lecturaFichero(rInventario);
+							for(producto x : productos)
+								System.out.println(x);
 							break;
 						case 3:
 							System.out.println("Saliendo del programa...");
 							continuarEjecucionGerente = false;
+							break;
 						default:
-							System.out.println("Opción no válida. Intente de nuevo.");
+							Menus.mensajeError();
 							break;
 						}
 				} while (continuarEjecucionGerente);
@@ -141,40 +145,55 @@ public class Programa {
 					sin.nextLine();
 					switch (opcionEmpleado) {
 						case 1:
-							Menus.mostrarMenuEmpleado2();
-							System.out.print("Ingrese una opción: ");
-							opcionEmpleado = sin.nextInt();
-							sin.nextLine();
-							switch (opcionEmpleado) {
-								case 1:
-									System.out.println("Creando Registro para guardar las Ventas..");
-									gf.checkFichero(rVenta);
-									e.agregarVenta(sin, gf.lecturaFichero(rInventario));
-									// e.registrarVentas(sin);
-									break;
-								case 2:
-									e.mostrarVentas();
-									break;
-								case 3:    
-									System.out.println("Guardando el Registro y Saliendo");
-									continuarEjecucionEmpleado = false;
-									break;
-								default:
-									break;
-							}
-					    	break;
+							do{
+								Menus.mostrarMenuEmpleado2();
+								System.out.print("Ingrese una opción: ");
+								opcionEmpleado = sin.nextInt();
+								sin.nextLine();
+								switch (opcionEmpleado) {
+									case 1:	
+										String input = "";
+										do{
+											e.agregarVenta(sin, productos);
+											System.out.println("Presione 's' para realizar otra venta.");
+											try{
+												input = sin.next();
+											}catch(InputMismatchException ex){
+												System.out.println("Opcion no valida.");
+											}
+											sin.nextLine();
+										}while(input.equalsIgnoreCase("s"));
+										DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
+										System.out.println("Creando Registro para guardar las Ventas..");
+										rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
+										gf.checkFichero(rVenta);
+										gf.escribirFicheroVenta(rVenta, e.ventas, false);
+										gf.escribirFichero(rInventario, productos, false);
+										break;
+									case 2:
+										if(!e.ventas.isEmpty())
+											e.mostrarVentas();
+										break;
+									case 3:    
+										System.out.println("Guardando el Registro y Saliendo");
+										continuarEjecucionEmpleado = false;
+										break;
+									default:
+										Menus.mensajeError();
+										break;
+								}
+							} while(continuarEjecucionEmpleado);
+							break;
 						case 2:
-							//e.modificarVentas();
 							System.out.println("Saliendo del Programa");
 							continuarEjecucionEmpleado = false;
 							break;
 						default:
-							System.out.println("Opción no válida. Intente de nuevo.");
+							Menus.mensajeError();
 							break;
 						}
 				} while (continuarEjecucionEmpleado);
 			}
-	}while(continuarEjecucion);
-
+		}while(continuarEjecucion);
 	}
 }

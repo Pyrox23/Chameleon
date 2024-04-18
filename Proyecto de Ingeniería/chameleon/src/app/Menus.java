@@ -91,5 +91,8 @@ public static void mostrarMenuVentas() {
         System.out.println("--------------------------------------------------\n");
     }
 
+    public static void mensajeError(){
+        System.out.println("Opción no válida. Intente de nuevo.");
+    }
 
 }
