@@ -26,7 +26,8 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t\t1. Agregar nuevo usuario               ║");
         System.out.println("║\t\t2. Ver lista de usuarios               ║");
-        System.out.println("║\t\t3. Salir                               ║");
+        System.out.println("║\t\t3. Modificar inventario                ║");
+        System.out.println("║\t\t4. Salir                               ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -89,6 +90,15 @@ public static void mostrarMenuVentas() {
         System.out.println("\n--------------------------------------------------");
         System.out.println("\tINGRESE UN PRODUCTO AL INVENTARIO");
         System.out.println("--------------------------------------------------\n");
+    }
+
+    public static void mdificarInvMenu() {
+        System.out.println("\n-------------------------------------------");
+        System.out.println("       \tMODIFICAR INVENTARIO");
+        System.out.println("-------------------------------------------");
+        System.out.println("       \tInventario actual: ");
+        System.out.println("-------------------------------------------");
+
     }
 
     public static void mensajeError(){
