@@ -89,6 +89,9 @@ public class Programa {
 							}
 							break;
 						case 3:
+							a.modificarInventario(sin);
+							break;
+						case 4:
 							System.out.println("Saliendo del programa...");
 							continuarEjecucionAdmin = false;
 							break;
