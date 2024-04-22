@@ -132,7 +132,7 @@ public class administrador extends gerente {
 				// Actualizar inventario
 				gf.escribirFichero(rInventario, p, false);
 
-				System.out.println("\n\\n******* Cambios realizados correctamente! ******* \n");
+				System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 
 				// Salir del bucle
 				System.out.print("\n ¿Desea modificar otro producto?: ");
