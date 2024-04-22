@@ -132,7 +132,6 @@ public class gerente extends empleado {
 
 				// Salir del bucle
 				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-				sin.nextLine();
 				if (sin.nextLine().equalsIgnoreCase("N")) {
 					seguir = false;
 				}
