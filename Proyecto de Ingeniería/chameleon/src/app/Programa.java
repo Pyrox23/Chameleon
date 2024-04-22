@@ -89,7 +89,8 @@ public class Programa {
 							}
 							break;
 						case 3:
-							a.modificarInventario(sin);
+							Menus.mdificarInvMenu();
+							a.modificarRegistros(sin, rInventario);
 							break;
 						case 4:
 							System.out.println("Saliendo del programa...");
