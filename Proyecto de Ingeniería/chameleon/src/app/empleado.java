@@ -25,7 +25,7 @@ public class empleado extends usuario {
 		nombreProducto = sin.nextLine();
 		System.out.print("Cantidad vendida: ");
 		cantidadVendida = sin.nextInt();
-		int ultimaPosicion = 0;
+		int ultimaPosicion = 1;
 
 		for (int i = 0; i < inventario.size() && exit; i++) {
 			p = inventario.get(i);
