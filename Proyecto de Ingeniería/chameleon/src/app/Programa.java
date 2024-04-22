@@ -167,6 +167,13 @@ public class Programa {
 									}
 									sin.nextLine();
 								}while(input.equalsIgnoreCase("s"));
+
+								// Cambio ******
+								System.out.println("¿Desea modificar alguna venta?");
+								if (sin.next().equalsIgnoreCase("si")){
+									e.gestionarInventario(sin);
+								}
+							
 								DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 								System.out.println("Creando Registro para guardar las Ventas..");
 								rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
