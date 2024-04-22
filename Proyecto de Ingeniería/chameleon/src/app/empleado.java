@@ -25,7 +25,6 @@ public class empleado extends usuario {
 		nombreProducto = sin.nextLine();
 		System.out.print("Cantidad vendida: ");
 		cantidadVendida = sin.nextInt();
-		int ultimaPosicion = 1;
 
 		for (int i = 0; i < inventario.size() && exit; i++) {
 			p = inventario.get(i);
@@ -34,22 +33,6 @@ public class empleado extends usuario {
 				p.setCantidad(p.getCantidad() - cantidadVendida);
 				inventario.set(i, p);
 				System.out.println("Venta agregada correctamente");
-				ultimaPosicion = i;
-				// Modificar la venta
-				for (int j = 0; j < ventas.size(); j++) {
-					System.out.println(ventas.get(j));
-				}
-				System.out.print("¿Es correcta la venta?: ");
-
-				if (sin.next().equalsIgnoreCase("No")) {
-					System.out.print("Ingrese la nueva cantidad de " + ventas.get(ultimaPosicion).getNombre() + ": ");
-					ventas.get(ultimaPosicion).setCantidad(sin.nextInt());
-
-					System.out.println("***** Ventas modificada exitosamente *****");
-					for (int k = 0; k < ventas.size(); k++) {
-						System.out.println(ventas.get(k));
-					}
-				}
 				exit = false;
 			}
 		}
