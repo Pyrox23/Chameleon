@@ -136,4 +136,50 @@ public class gerente extends empleado {
 		} while (seguir);
 
 	}
+
+	public String productoMasVendido(File fichero){
+		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		ArrayList<producto> contador = new ArrayList<producto>();
+		String nombreFinal = "";
+		int cantidadFinal = 0;
+		if(!prod.isEmpty())
+			contador.add(new producto(prod.get(0)));
+		for(int i = 1; i<prod.size(); i++){
+			for(int j = 0; j<contador.size(); j++){
+				if(contador.get(j).getNombre().equals(prod.get(i).getNombre())){
+					producto p = new producto(contador.get(j));
+					p.setCantidad(p.getCantidad()+prod.get(i).getCantidad());
+				}
+				else if(j==contador.size()-1)
+					contador.add(new producto(prod.get(i)));
+			}
+		}
+		for(producto x : contador){
+			if(cantidadFinal<x.getCantidad()){
+				nombreFinal = x.getNombre();
+				cantidadFinal = x.getCantidad();
+			}
+		}
+		return nombreFinal;
+	}
+
+	public double totalVentas(File fichero){
+		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		producto p;
+		double total = 0.0;
+		for(int i = 0; i<prod.size(); i++){
+			p = prod.get(i);
+			total += p.getPdv()*p.getCantidad();
+		}
+		return total;
+	}
+
+	public int productosVendidos(File fichero){
+		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		int cantidad = 0;
+		for(int i = 0; i<prod.size(); i++)
+			cantidad += prod.get(i).getCantidad();
+		return cantidad;
+	}
+
 }
