@@ -21,23 +21,42 @@ public class empleado extends usuario {
 		producto p;
 		boolean exit = true;
 		System.out.println("Ingrese los detalles de la venta:");
-    	System.out.print("Nombre del producto: ");
-    	nombreProducto = sin.nextLine();
+		System.out.print("Nombre del producto: ");
+		nombreProducto = sin.nextLine();
 		System.out.print("Cantidad vendida: ");
-        cantidadVendida = sin.nextInt();
+		cantidadVendida = sin.nextInt();
+		int ultimaPosicion = 0;
 
-		for (int i = 0; i<inventario.size()&&exit; i++) {
+		for (int i = 0; i < inventario.size() && exit; i++) {
 			p = inventario.get(i);
-			if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad()>=cantidadVendida){
+			if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad() >= cantidadVendida) {
 				this.ventas.add(new producto(p.getNombre(), cantidadVendida, p.getPdv(), p.getId()));
-				p.setCantidad(p.getCantidad()-cantidadVendida);
-				inventario.set(i,p);
+				p.setCantidad(p.getCantidad() - cantidadVendida);
+				inventario.set(i, p);
 				System.out.println("Venta agregada correctamente");
+				ultimaPosicion = i;
+				// Modificar la venta
+				for (int j = 0; j < ventas.size(); j++) {
+					System.out.println(ventas.get(j));
+				}
+				System.out.print("¿Es correcta la venta?: ");
+
+				if (sin.next().equalsIgnoreCase("No")) {
+					System.out.print("Ingrese la nueva cantidad de " + ventas.get(ultimaPosicion).getNombre() + ": ");
+					ventas.get(ultimaPosicion).setCantidad(sin.nextInt());
+
+					System.out.println("***** Ventas modificada exitosamente *****");
+					for (int k = 0; k < ventas.size(); k++) {
+						System.out.println(ventas.get(k));
+					}
+				}
 				exit = false;
 			}
 		}
-		if(exit)
+		if (exit) {
 			System.out.println("El producto no está disponible en el inventario");
+		}
+
 	}
 
 
