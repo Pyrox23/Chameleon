@@ -71,45 +71,5 @@ public class empleado extends usuario {
 			}
 		}
     }
-	
-	// //Metodo para registrar las ventas y cerrarlo
-	// public void registrarVentas(Scanner r){
-	// 	// Agregar excepciones para inventario bajo y falta de inventario
-	// 	boolean seguir = true;
-	// 	String venta;
-	// 	int cantidadVenta;
-	// 	File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 																						
-	// 	ArrayList<producto> p = new ArrayList<producto>();
-	// 	ArrayList<producto> venditas = new ArrayList<>();
-	// 	Menus.mostrarMenuVentas();
-
-	// 	do {
-	// 		System.out.println("\n-------------------------------------------------------");
-	// 		System.out.print("      Ingrese el nombre del producto vendido: ");
-	// 		venta = r.nextLine();
-	// 		System.out.println("\n-------------------------------------------------------");
-	// 		System.out.print("      Ingrese la cantidad vendida: ");
-	// 		cantidadVenta = r.nextInt();
-	// 		venditas.add(new producto(venta, cantidadVenta));
-	// 		System.out.println("\n-------------------------------------------------------");
-	// 		System.out.println("      ¿Desea agregar otra venta? \n\n" +
-	// 				" 1. Sí \n 2. No");
-	// 		if (r.nextInt() == 2) {
-	// 			seguir = false;
-	// 		}
-	// 		System.out.println("\n-------------------------------------------------------");
-
-	// 	} while (seguir);
-
-	// 	p = gf.lecturaFichero(fichero);
-	// 	// Hacer logica para verificar ventas
-	// 	// Crear fichero de ventas
-	// 	DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-	// 	Date date = new Date();
-	// 	File ficheroVentas = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Ventas_"
-	// 			+ dateFormat.format(date) + "_" + this.nombre + ".csv");
-
-	// 	gf.escribirFichero(ficheroVentas, p);
-	// }
 
 }
