@@ -19,15 +19,6 @@ public class producto implements Serializable{
 		this.descripcion = descripcion;
 	}
 
-	public producto(producto p){
-		this.cantidad = p.cantidad;
-		this.nombre = p.nombre;
-		this.ppu = p.ppu;
-		this.pdv = p.pdv;
-		this.id = sigId++;
-		this.descripcion = p.descripcion;
-	}
-
 	public producto(String nombre, int cantidad, double pdv, int id) {
 		this.cantidad = cantidad;
 		this.nombre = nombre;
