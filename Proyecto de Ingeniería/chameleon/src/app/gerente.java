@@ -85,7 +85,7 @@ public class gerente extends empleado {
 			}
 
 			if (encontrado == true) {
-				System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta)");
+				System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
 				cambio = sin.nextLine();
 
 				// Switchcito de cambios
@@ -114,6 +114,11 @@ public class gerente extends empleado {
 					case "e":
 						System.out.print("\n Ingrese el nuevo PDV de " + nombre + ": ");
 						p.get(posicionProducto).setPdv(sin.nextDouble());
+						break;
+						
+					case "f":
+						System.out.print("\n Eliminando" + nombre + " de ventas... ");
+						p.remove(posicionProducto);
 						break;
 
 					default:
