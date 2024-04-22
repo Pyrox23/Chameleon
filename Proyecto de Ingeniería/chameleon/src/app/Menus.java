@@ -8,7 +8,7 @@ public class Menus {
     //--------------------------------------------------------------------------------------
     public static void mostrarMenuInicial() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
-        System.out.println("║          BIENVENIDO A LA TIENDA DE DON PEPE          ║");
+        System.out.println("║          BIENVENIDO AL SISTEMA CHAMELEON             ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║                    MENU INICIAL                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
@@ -24,10 +24,15 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║                     MENU ADMIN                       ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t\t1. Agregar nuevo usuario               ║");
-        System.out.println("║\t\t2. Ver lista de usuarios               ║");
-        System.out.println("║\t\t3. Modificar inventario                ║");
-        System.out.println("║\t\t4. Salir                               ║");
+        System.out.println("║\t\t1. Agregar Nuevo usuario               ║");
+        System.out.println("║\t\t2. Agregar Producto al Inventario      ║");
+        System.out.println("║\t\t3. Agregar Venta                       ║");
+        System.out.println("║\t\t4. Ver lista de usuarios               ║");
+        System.out.println("║\t\t5. Ver Inventario                      ║");
+        System.out.println("║\t\t6. Modificar Inventario                ║");
+        System.out.println("║\t\t7. Modificar Venta                     ║");
+        System.out.println("║\t\t8. Guardar Registro                    ║");
+        System.out.println("║\t\t9. Salir                               ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -38,8 +43,11 @@ public class Menus {
         System.out.println("║                    MENU GERENTE                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar producto al inventario              ║");
-        System.out.println("║\t2. Ver inventario                              ║");
-        System.out.println("║\t3. Salir                                       ║");
+        System.out.println("║\t2. Agregar Venta                               ║");
+        System.out.println("║\t3. Ver Inventario                              ║");
+        System.out.println("║\t4. Modificar Venta                             ║");
+        System.out.println("║\t5. Guardar Registro                            ║");
+        System.out.println("║\t6. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
