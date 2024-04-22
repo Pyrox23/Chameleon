@@ -26,9 +26,9 @@ public class gerente extends empleado {
     	do {
 			Menus.mostrarIngresarProducto();
         	System.out.print("Nombre del producto: ");
-        	r[0] = sin.next();
+        	r[0] = sin.nextLine();
         	System.out.print("Descripcion del producto: ");
-        	r[1] = sin.next();
+        	r[1] = sin.nextLine();
         	System.out.print("Cantidad disponible: ");
         	cant = sin.nextInt();
         	System.out.print("Precio de Unidad: ");
@@ -39,10 +39,11 @@ public class gerente extends empleado {
         	prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
 			
         	System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
-        	r[0] = sin.next();
+			sin.next();
+        	r[0] = sin.nextLine();
 
    	 	} while (r[0].equalsIgnoreCase("s"));
-    	gf.escribirFichero(rInventario, prodInventario, true); 
+    	gf.escribirFichero(rInventario, prodInventario, false); 
 	}
 
 	
@@ -52,82 +53,76 @@ public class gerente extends empleado {
 		System.out.println();
 
 		boolean seguir = true;
-		int posicionProducto = 0;
+		int i = 0, opcion = 0;
 		String cambio = "";
 		String nombre = "";
-		String opcion = "";
 
-		do {
-			boolean encontrado = false;
-
-			for (int i = 0; i < p.size(); i++) {
-				System.out.println(p.get(i));
-			}
-
-			System.out.print("\n Indique el nombre producto a modificar: ");
-			opcion = sin.nextLine();
-
-			// Comprobar que el producto existe
-			for (int i = 0; i < p.size(); i++) {
-				if ((p.get(i).getNombre()).equalsIgnoreCase(opcion)) {
-					posicionProducto = i;
-					encontrado = true;
+		if (p.isEmpty())
+			System.out.println("No hay ventas registradas");
+		else {
+			do {
+				boolean check = false;
+				for (i = 0; i < p.size(); i++) {
+					System.out.println(i + ". " + p.get(i).toStringVenta());
 				}
-			}
+				
+				System.out.print("\n Indique el producto a modificar: ");
+				opcion = sin.nextInt();
+				check = opcion<p.size();
+				sin.nextLine();
 
-			if (encontrado == true) {
-				System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
-				cambio = sin.nextLine();
+				if (check) {
+					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
+					cambio = sin.nextLine();
 
-				nombre = p.get(posicionProducto).getNombre();
-				switch (cambio.toLowerCase()) {
-					case "a":
-						System.out.print("\n Ingrese el nuevo nombre de " + nombre + ": ");
-						p.get(posicionProducto).setNombre(sin.nextLine().toUpperCase());
-						break;
+					nombre = p.get(opcion).getNombre();
+					switch (cambio.toLowerCase()) {
+						case "a":
+							System.out.print("\n Ingrese el nuevo nombre de " + nombre + ": ");
+							p.get(opcion).setNombre(sin.nextLine());
+							break;
 
-					case "b":
-						System.out.print("\n Ingrese la nueva descripción de " + nombre + ": ");
-						p.get(posicionProducto).setDescripcion(sin.nextLine().toUpperCase());
-						break;
+						case "b":
+							System.out.print("\n Ingrese la nueva descripción de " + nombre + ": ");
+							p.get(opcion).setDescripcion(sin.nextLine());
+							break;
 
-					case "c":
-						System.out.print("\n Ingrese la nueva cantidad de " + nombre + ": ");
-						p.get(posicionProducto).setCantidad(sin.nextInt());
-						break;
+						case "c":
+							System.out.print("\n Ingrese la nueva cantidad de " + nombre + ": ");
+							p.get(opcion).setCantidad(sin.nextInt());
+							break;
 
-					case "d":
-						System.out.print("\n Ingrese el nuevo PPU de " + nombre + ": ");
-						p.get(posicionProducto).setPpu(sin.nextDouble());
-						break;
+						case "d":
+							System.out.print("\n Ingrese el nuevo PPU de " + nombre + ": ");
+							p.get(opcion).setPpu(sin.nextDouble());
+							break;
 
-					case "e":
-						System.out.print("\n Ingrese el nuevo PDV de " + nombre + ": ");
-						p.get(posicionProducto).setPdv(sin.nextDouble());
-						break;
-						
-					case "f":
-						System.out.print("\n Eliminando" + nombre + " de ventas... ");
-						p.remove(posicionProducto);
-						break;
+						case "e":
+							System.out.print("\n Ingrese el nuevo PDV de " + nombre + ": ");
+							p.get(opcion).setPdv(sin.nextDouble());
+							break;
+							
+						case "f":
+							System.out.print("\n Eliminando" + nombre + " de ventas... ");
+							p.remove(opcion);
+							break;
 
-					default:
-						break;
+						default:
+							break;
+					}
+
+					gf.escribirFichero(registro, p, false);
+
+					System.out.println("\n******* Cambios realizados correctamente! ******* \n");
+
+					System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
+					if (sin.nextLine().equalsIgnoreCase("N")) {
+						seguir = false;
+					}
 				}
-
-				// Actualizar inventario
-				gf.escribirFichero(registro, p, false);
-
-				System.out.println("\n******* Cambios realizados correctamente! ******* \n");
-
-				// Salir del bucle
-				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-				if (sin.nextLine().equalsIgnoreCase("N")) {
-					seguir = false;
-				}
-			}
 			
-		} while (seguir);
+			} while (seguir);
+		}
 
 	}
 

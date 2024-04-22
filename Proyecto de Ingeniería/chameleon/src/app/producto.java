@@ -101,6 +101,6 @@ public class producto implements Serializable{
 	}
 
 	public String toStringVenta(){
-		return "Producto [ID: " + id + ", Nombre: " + nombre + ", Cantidad: " + cantidad + ", Precio de venta: " + pdv + "]";
+		return "[ID: " + id + ", Nombre: " + nombre + ", Cantidad: " + cantidad + ", Precio de venta: " + pdv + "]";
 	}
 }

@@ -29,7 +29,7 @@ public class Menus {
         System.out.println("║\t\t3. Crear Registro de Venta             ║");
         System.out.println("║\t\t4. Ver lista de usuarios               ║");
         System.out.println("║\t\t5. Ver Inventario                      ║");
-        System.out.println("║\t\t6. Modificar Inventario#               ║");
+        System.out.println("║\t\t6. Modificar Inventario                ║");
         System.out.println("║\t\t7. Modificar Registro de Venta#        ║");
         System.out.println("║\t\t8. Salir                               ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
@@ -44,7 +44,7 @@ public class Menus {
         System.out.println("║\t1. Agregar producto al inventario              ║");
         System.out.println("║\t2. Crear Registro de Venta                     ║");
         System.out.println("║\t3. Ver Inventario                              ║");
-        System.out.println("║\t4. Modificar Inventario#                       ║");
+        System.out.println("║\t4. Modificar Inventario                        ║");
         System.out.println("║\t5. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }

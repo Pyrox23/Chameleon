@@ -50,7 +50,7 @@ public class empleado extends usuario {
 
 	public void gestionarRegistro(Scanner sin, ArrayList<producto> productos) {
 		boolean seguir = true;
-		int i = 0, opcion = 0, cantCambio = 0, cantidadVenta;
+		int i = 0, opcion = 0, cantCambio = 0, cantidadVenta = 0, cantInventario = 0;
 		String cambio = "";
 		String nombre = "";
 
@@ -76,9 +76,8 @@ public class empleado extends usuario {
 					switch (cambio.toLowerCase()) {
 						case "a":
 							System.out.print("\n Ingrese la nueva cantidad de " + nombre + ": ");
-							i = sin.nextInt();
-							cantCambio = cantidadVenta-i;
-							ventas.get(opcion).setCantidad(i);
+							cantCambio = sin.nextInt();
+							ventas.get(opcion).setCantidad(cantCambio);
 							break;
 
 						case "b":
@@ -90,8 +89,10 @@ public class empleado extends usuario {
 						default:
 							break;
 					}
-					for(i = 0; i<productos.size()&&productos.get(i).getNombre()!=nombre; i++);
-					productos.get(i).setCantidad(cantidadVenta + cantCambio);
+					for(i = 0; i<productos.size()&&productos.get(i).getNombre()!=nombre; i++){
+					}
+					cantInventario = productos.get(i).getCantidad();
+					productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
 				}
 				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
 				if (sin.next().equalsIgnoreCase("n")) {

@@ -64,7 +64,8 @@ public class Programa {
 			} while (!log && continuarEjecucion);
 			
 			if (u instanceof administrador && continuarEjecucion) {
-				a = (administrador) u; 
+				a = (administrador) u;
+				productos = gf.lecturaFichero(rInventario);
 				boolean continuarEjecucionAdmin = true;
 				int opcionAdmin;
 				do {
@@ -122,6 +123,7 @@ public class Programa {
 						case 6: 
 							Menus.menuModificarInventario();
 							a.modificarRegistros(sin, rInventario);
+							productos = gf.lecturaFichero(rInventario);
 							break;
 						case 7: //Modificar Venta
 							break;
@@ -140,6 +142,7 @@ public class Programa {
 			else if (u instanceof gerente && continuarEjecucion) {
 
 				g = (gerente) u;
+				productos = gf.lecturaFichero(rInventario);
 				boolean continuarEjecucionGerente = true;
 				int opcionGerente;
 				do {
@@ -151,7 +154,7 @@ public class Programa {
 					switch (opcionGerente) {
 						case 1: 
 							g.agregarProductoAlInventario(sin, productos, rInventario);
-							productos.clear();
+							productos = gf.lecturaFichero(rInventario);
 							break;
 						case 2: 
 							boolean continuarEjecucionRegistro = true;
@@ -180,14 +183,15 @@ public class Programa {
 								}
 							} while(continuarEjecucionRegistro);
 							break;
-						case 3: 
+						case 3:
 							productos = gf.lecturaFichero(rInventario);
 							for(producto x : productos)
 								System.out.println(x);
 							break;
 						case 4: 
 							Menus.menuModificarInventario();
-							a.modificarRegistros(sin, rInventario);
+							g.modificarRegistros(sin, rInventario);
+							productos = gf.lecturaFichero(rInventario);
 							break;
 						case 5: 
 							System.out.println("Saliendo del programa...");
@@ -204,6 +208,7 @@ public class Programa {
 			else if (u instanceof empleado && continuarEjecucion) 
 			{
 				e = (empleado) u;
+				productos = gf.lecturaFichero(rInventario);
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
@@ -226,7 +231,7 @@ public class Programa {
 										e.gestionarRegistro(sin, productos);
 										break;
 									case 3:
-										g.imprimirVentas();
+										e.imprimirVentas();
 										break;
 									case 4:    
 										cerrarRegistro(gf, e, productos, rInventario);
