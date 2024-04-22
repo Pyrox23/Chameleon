@@ -96,7 +96,11 @@ public class producto implements Serializable{
 		return id + ";" + nombre + ";" + descripcion + ";" + cantidad + ";" + ppu + ";" + pdv;
 	}
 
-	public String toStingVenta(){
+	public String toStingRegistro(){
 		return id + ";" + nombre + ";" + cantidad + ";" + pdv;
+	}
+
+	public String toStringVenta(){
+		return "Producto [ID: " + id + ", Nombre: " + nombre + ", Cantidad: " + cantidad + ", Precio de venta: " + pdv + "]";
 	}
 }

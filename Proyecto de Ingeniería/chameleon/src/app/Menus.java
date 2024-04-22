@@ -6,7 +6,7 @@ public class Menus {
     
 
     //--------------------------------------------------------------------------------------
-    public static void mostrarMenuInicial() {
+    public static void menuInicial() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║          BIENVENIDO AL SISTEMA CHAMELEON             ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
@@ -18,7 +18,7 @@ public class Menus {
     }
     
     
-    public static void mostrarMenuAdministrador() {
+    public static void menuAdmin() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║           BIENVENIDO USUARIO ADMINISTRADOR           ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
@@ -26,50 +26,49 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t\t1. Agregar Nuevo usuario               ║");
         System.out.println("║\t\t2. Agregar Producto al Inventario      ║");
-        System.out.println("║\t\t3. Agregar Venta                       ║");
+        System.out.println("║\t\t3. Crear Registro de Venta             ║");
         System.out.println("║\t\t4. Ver lista de usuarios               ║");
         System.out.println("║\t\t5. Ver Inventario                      ║");
-        System.out.println("║\t\t6. Modificar Inventario                ║");
-        System.out.println("║\t\t7. Modificar Venta                     ║");
-        System.out.println("║\t\t8. Guardar Registro                    ║");
-        System.out.println("║\t\t9. Salir                               ║");
+        System.out.println("║\t\t6. Modificar Inventario#               ║");
+        System.out.println("║\t\t7. Modificar Registro de Venta#        ║");
+        System.out.println("║\t\t8. Salir                               ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
-    public static void mostrarMenuGerente() {
+    public static void menuGerente() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║             BIENVENIDO USUARIO GERENTE               ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║                    MENU GERENTE                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar producto al inventario              ║");
-        System.out.println("║\t2. Agregar Venta                               ║");
+        System.out.println("║\t2. Crear Registro de Venta                     ║");
         System.out.println("║\t3. Ver Inventario                              ║");
-        System.out.println("║\t4. Modificar Venta                             ║");
-        System.out.println("║\t5. Guardar Registro                            ║");
-        System.out.println("║\t6. Salir                                       ║");
+        System.out.println("║\t4. Modificar Inventario#                       ║");
+        System.out.println("║\t5. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
-    public static void mostrarMenuEmpleado2() {
+    public static void menuRegistroVenta() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
-        System.out.println("║             BIENVENIDO USUARIO EMPLEADO              ║");
+        System.out.println("║                 BIENVENIDO USUARIO                   ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENU 2 EMPLEADO                   ║");
+        System.out.println("║                 MENU REGISTRO VENTA                  ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar Venta                               ║");
         System.out.println("║\t2. Modificar Venta                             ║");
-        System.out.println("║\t3. Guardar Registro  (Salir)                   ║");
+        System.out.println("║\t3. Ver Ventas                                  ║");
+        System.out.println("║\t4. Guardar Registro                            ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
-    public static void mostrarMenuEmpleado1() {
+    public static void menuEmpleado() {
         System.out.println("\n╔══════════════════════════════════════════════════════╗");
         System.out.println("║             BIENVENIDO USUARIO EMPLEADO              ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║                    MENU 1 EMPLEADO                   ║");
+        System.out.println("║                     MENU EMPLEADO                    ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t1. Crear Registro                              ║");
+        System.out.println("║\t1. Crear Registro de Venta                     ║");
         System.out.println("║\t2. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
@@ -100,7 +99,7 @@ public static void mostrarMenuVentas() {
         System.out.println("--------------------------------------------------\n");
     }
 
-    public static void mdificarInvMenu() {
+    public static void menuModificarInventario() {
         System.out.println("\n-------------------------------------------");
         System.out.println("       \tMODIFICAR INVENTARIO");
         System.out.println("-------------------------------------------");

@@ -5,14 +5,8 @@ import java.io.*;
 
 public class gerente extends empleado {
 
-	//protected (para q el padre de gerente e hijo de gerente puedas acceder)
-
-	//Atributos
-	//No tiene propios porque hereda; Duda solo hay un registro de datos o creo otro para el gerente ???
-
-	//Constructor 1
-	public gerente(String id, String contraseña, String nombre, String apellido) {  //heredado 
-		super(id, contraseña, nombre, apellido); //heredado
+	public gerente(String id, String contraseña, String nombre, String apellido) {  
+		super(id, contraseña, nombre, apellido); 
 	}
 	
 	public void agregarProductoAlInventario(Scanner sin, ArrayList<producto> prodInventario, File rInventario) {
@@ -42,7 +36,6 @@ public class gerente extends empleado {
         	System.out.print("Precio de Venta: ");
         	pdv = sin.nextDouble();
 
-       	 	// Se agrega el producto al inventario (según los datos ingresados)
         	prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
 			
         	System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
@@ -52,14 +45,12 @@ public class gerente extends empleado {
     	gf.escribirFichero(rInventario, prodInventario, true); 
 	}
 
-	// Modificar inventario
+	
 	public void modificarRegistros(Scanner sin, File registro) {
-		// Lectura del fichero e impresión por pantalla
 		GestorDatosFichero gf = new GestorDatosFichero();
 		ArrayList<producto> p = gf.lecturaFichero(registro);
 		System.out.println();
 
-		// Bucle para modificar producto
 		boolean seguir = true;
 		int posicionProducto = 0;
 		String cambio = "";
@@ -88,7 +79,6 @@ public class gerente extends empleado {
 				System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
 				cambio = sin.nextLine();
 
-				// Switchcito de cambios
 				nombre = p.get(posicionProducto).getNombre();
 				switch (cambio.toLowerCase()) {
 					case "a":

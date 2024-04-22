@@ -4,20 +4,16 @@ import java.util.ArrayList;
 
 public class administrador extends gerente {
 
-	// Atributos
-	// No tiene propios, solo heredados
-
-	// Constructor 1
 	public administrador(String id, String contraseña, String nombre, String apellido) {
 		super(id, contraseña, nombre, apellido);
 	}
 
-	// Método para agregar un nuevo usuario
+	
 	public void agregarNuevoUsuario(Scanner sin) {
 		usuario u;
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		String r[] = new String[5];
-		// Datos para el nuevo usuario
+
 		System.out.print("\nEscribe el id del nuevo usuario: ");
 		r[0] = sin.nextLine();
 		System.out.print("Escribe la contraseña: ");

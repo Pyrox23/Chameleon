@@ -33,7 +33,7 @@ public class GestorDatosFichero implements Serializable{
 
 			//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
 			for(producto x : p)
-				pw.println(x.toStingVenta());
+				pw.println(x.toStingRegistro());
 			pw.flush(); //asegura la escritura de los datos en el fichero
 			pw.close(); 
 			bw.close();
@@ -51,7 +51,7 @@ public class GestorDatosFichero implements Serializable{
 		} catch (IOException e) { 
 			return false;
 		}
-   }
+    }
 
    public ArrayList<producto> lecturaFichero(File fichero){
 	checkFichero(fichero);

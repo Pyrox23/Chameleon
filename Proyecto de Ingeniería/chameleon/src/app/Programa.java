@@ -22,14 +22,11 @@ public class Programa {
 		usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
 		usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
 		gf.EscribirUsuarios(usuarios);
-		// Perfil Administrador: admin, admin
-		// Perfil Gerente: gerente, 123
-		// Perfil Empleado: empleado, 123
 		boolean continuarEjecucion = true;
 		int opcion;
 		do {
 			do {
-				Menus.mostrarMenuInicial();
+				Menus.menuInicial();
 				try {
 					System.out.print("Ingrese una opción: ");
 					opcion = sin.nextInt();
@@ -67,67 +64,68 @@ public class Programa {
 			} while (!log && continuarEjecucion);
 			
 			if (u instanceof administrador && continuarEjecucion) {
-				// en caso lo sea, se hace un "casting"(convertir) para q "u" sea tratada como un obj del tipo "administrador"
-				a = (administrador) u;  // y con ello tenga acceso a sus metodos y propiedades de esa clase
+				a = (administrador) u; 
 				boolean continuarEjecucionAdmin = true;
 				int opcionAdmin;
 				do {
-					Menus.mostrarMenuAdministrador(); 
+					Menus.menuAdmin(); 
 					System.out.print("Ingrese una opción: ");
 					opcionAdmin = sin.nextInt();
 					sin.nextLine();
 
 					switch (opcionAdmin) {
-						case 1:  //Agregar Nuevo usuario
+						case 1:  
 							Menus.mostrarIngresarNuevUsuario();
 							a.agregarNuevoUsuario(sin);
 							break;
-						case 2: //Agregar Prodcuto Inventario
+						case 2: 
 							g.agregarProductoAlInventario(sin, productos, rInventario);
 							productos.clear();
 							break;
-						case 3: //Agregar Venta
-							String input = "";
+						case 3:
+							boolean continuarEjecucionRegistro = true;
 							do{
-								e.agregarVenta(sin, productos);
-								System.out.println("Presione 's' para realizar otra venta.");
-								try{
-									input = sin.next();
-								}catch(InputMismatchException ex){
-									System.out.println("Opcion no valida.");
-								}
+								Menus.menuRegistroVenta();
+								System.out.print("Ingrese una opción: ");
+								opcionAdmin = sin.nextInt();
 								sin.nextLine();
-							}while(input.equalsIgnoreCase("s"));
-							DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-							System.out.println("Creando Registro para guardar las Ventas..");
-							rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-							gf.checkFichero(rVenta);
-							gf.escribirFicheroVenta(rVenta, e.ventas, false);
-							gf.escribirFichero(rInventario, productos, false);
+								switch (opcionAdmin) {
+									case 1:	
+										registroVenta(sin, productos, a);
+										break;
+									case 2:
+										a.gestionarRegistro(sin, productos);
+										break;
+									case 3:
+										a.imprimirVentas();
+									case 4:    
+										cerrarRegistro(gf, a, productos, rInventario);
+										continuarEjecucionRegistro = false;
+										break;
+									default:
+										Menus.mensajeError();
+										break;
+								}
+							} while(continuarEjecucionRegistro);
 							break;
-						case 4: //Ver Lista usuario
+						case 4: 
 							usuarios = gf.ListaUsuarios();
 							for(usuario x : usuarios){
 								System.out.println(x);
 							}
 							break;
-						case 5: //Ver Inventario
+						case 5: 
 							productos = gf.lecturaFichero(rInventario);
 							for(producto x : productos)
 							System.out.println(x);
 							break;
-						case 6: //Modificar Inventario
-							Menus.mdificarInvMenu();
+						case 6: 
+							Menus.menuModificarInventario();
 							a.modificarRegistros(sin, rInventario);
 							break;
 						case 7: //Modificar Venta
-							if(!e.ventas.isEmpty())
-								e.mostrarVentas();
 							break;
-						case 8: //Guardar Registro
-							System.out.println("Guardando el Registro..");
-							break;
-						case 9: //Salir
+						case 8: 
 							System.out.println("Saliendo del programa...");
 							continuarEjecucionAdmin = false;
 							break;
@@ -145,49 +143,53 @@ public class Programa {
 				boolean continuarEjecucionGerente = true;
 				int opcionGerente;
 				do {
-					Menus.mostrarMenuGerente(); 
+					Menus.menuGerente(); 
 					System.out.print("Ingrese una opción: ");
 					opcionGerente = sin.nextInt();
 					sin.nextLine();
 
 					switch (opcionGerente) {
-						case 1: //Agregar Producto Invet
+						case 1: 
 							g.agregarProductoAlInventario(sin, productos, rInventario);
 							productos.clear();
 							break;
-						case 2: //Agregar Venta
-							String input = "";
+						case 2: 
+							boolean continuarEjecucionRegistro = true;
 							do{
-								e.agregarVenta(sin, productos);
-									System.out.println("Presione 's' para realizar otra venta.");
-									try{
-										input = sin.next();
-									}catch(InputMismatchException ex){
-										System.out.println("Opcion no valida.");
-									}
-									sin.nextLine();
-								}while(input.equalsIgnoreCase("s"));
-							
-								DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-								System.out.println("Creando Registro para guardar las Ventas..");
-								rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-								gf.checkFichero(rVenta);
-								gf.escribirFicheroVenta(rVenta, e.ventas, false);
-								gf.escribirFichero(rInventario, productos, false);
-								break;
-						case 3: //Ver Inventario
+								Menus.menuRegistroVenta();
+								System.out.print("Ingrese una opción: ");
+								opcionGerente = sin.nextInt();
+								sin.nextLine();
+								switch (opcionGerente) {
+									case 1:	
+										registroVenta(sin, productos, g);
+										break;
+									case 2:
+										g.gestionarRegistro(sin, productos);
+										break;
+									case 3:
+										g.imprimirVentas();
+										break;
+									case 4:    
+										cerrarRegistro(gf, g, productos, rInventario);
+										continuarEjecucionRegistro = false;
+										break;
+									default:
+										Menus.mensajeError();
+										break;
+								}
+							} while(continuarEjecucionRegistro);
+							break;
+						case 3: 
 							productos = gf.lecturaFichero(rInventario);
 							for(producto x : productos)
 								System.out.println(x);
 							break;
-						case 4: //Modificar Venta
-							if(!e.ventas.isEmpty())
-								e.mostrarVentas();
+						case 4: 
+							Menus.menuModificarInventario();
+							a.modificarRegistros(sin, rInventario);
 							break;
-						case 5: //Guardar Registro
-							System.out.println("Guardando el Registro..");
-							break;
-						case 6: //Salir
+						case 5: 
 							System.out.println("Saliendo del programa...");
 							continuarEjecucionGerente = false;
 							break;
@@ -205,48 +207,29 @@ public class Programa {
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
-					Menus.mostrarMenuEmpleado1(); 
+					Menus.menuEmpleado(); 
 					System.out.print("Ingrese una opción: ");
 					opcionEmpleado = sin.nextInt();
 					sin.nextLine();
 					switch (opcionEmpleado) {
 						case 1:
 							do{
-								Menus.mostrarMenuEmpleado2();
+								Menus.menuRegistroVenta();
 								System.out.print("Ingrese una opción: ");
 								opcionEmpleado = sin.nextInt();
 								sin.nextLine();
 								switch (opcionEmpleado) {
 									case 1:	
-										String input = "";
-										do{
-											e.agregarVenta(sin, productos);
-											System.out.println("Presione 's' para realizar otra venta.");
-											try{
-												input = sin.next();
-											}catch(InputMismatchException ex){
-												System.out.println("Opcion no valida.");
-											}
-											sin.nextLine();
-										}while(input.equalsIgnoreCase("s"));
-										// Cambio ******
-										System.out.println("¿Desea modificar alguna venta?");
-										if (sin.next().equalsIgnoreCase("si")){
-											e.gestionarInventario(sin);
-										}
-										DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-										System.out.println("Creando Registro para guardar las Ventas..");
-										rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-										gf.checkFichero(rVenta);
-										gf.escribirFicheroVenta(rVenta, e.ventas, false);
-										gf.escribirFichero(rInventario, productos, false);
+										registroVenta(sin, productos, e);
 										break;
 									case 2:
-										if(!e.ventas.isEmpty())
-											e.mostrarVentas();
+										e.gestionarRegistro(sin, productos);
 										break;
-									case 3:    
-										System.out.println("Guardando el Registro y Saliendo");
+									case 3:
+										g.imprimirVentas();
+										break;
+									case 4:    
+										cerrarRegistro(gf, e, productos, rInventario);
 										continuarEjecucionEmpleado = false;
 										break;
 									default:
@@ -266,5 +249,36 @@ public class Programa {
 				} while (continuarEjecucionEmpleado);
 			}
 		}while(continuarEjecucion);
+	}
+
+	public static void registroVenta(Scanner sin, ArrayList<producto> productos, empleado e){
+		String input = "";
+		boolean check = true;
+		do{
+			e.agregarVenta(sin, productos);
+			do{
+				System.out.println("Presione 's' para realizar otra venta.");
+				try{
+					input = sin.next();
+					check = true;
+				}catch(InputMismatchException ex){
+					System.out.println("Opcion no valida.");
+					check = false;
+				}
+			} while(!check);
+			sin.nextLine();
+			}while(input.equalsIgnoreCase("s"));
+										
+									
+	}
+
+	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario){
+		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
+		System.out.println("Creando Registro para guardar las Ventas..");
+		File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
+							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
+		gf.checkFichero(rVenta);
+		gf.escribirFicheroVenta(rVenta, e.ventas, false);
+		gf.escribirFichero(rInventario, productos, false);
 	}
 }
