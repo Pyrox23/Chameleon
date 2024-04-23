@@ -133,7 +133,9 @@ public class Programa {
 								break;
 							case 7: //Modificar Venta
 								break;
-							case 8: 
+							case 8: //Ver Metricas
+								break;
+							case 9: 
 								System.out.println("Saliendo del programa...");
 								continuarEjecucionAdmin = false;
 								break;
@@ -209,7 +211,9 @@ public class Programa {
 								g.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFichero(rInventario);
 								break;
-							case 5: 
+							case 5: //Ver metricas
+								break;
+							case 6: 
 								System.out.println("Saliendo del programa...");
 								continuarEjecucionGerente = false;
 								break;
