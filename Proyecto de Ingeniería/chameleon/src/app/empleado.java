@@ -66,7 +66,7 @@ public class empleado extends usuario {
 				
 				System.out.print("\n Indique el producto a modificar: ");
 				opcion = sin.nextInt();
-				check = opcion<ventas.size();
+				check = (opcion<ventas.size()) && (opcion>=0);
 				sin.nextLine();
 				if (check) {
 					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar");
@@ -96,7 +96,7 @@ public class empleado extends usuario {
 					productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
 				}
 				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
-				if (sin.next().equalsIgnoreCase("n")) {
+				if (!sin.next().equalsIgnoreCase("s")) {
 					seguir = false;
 				}
 			} while (seguir);

@@ -58,7 +58,7 @@ public class gerente extends empleado {
 		String nombre = "";
 
 		if (p.isEmpty()){
-			System.out.println("No hay inventario registradas, sera redirigido a agregar un producto al inventario.");
+			System.out.println("No hay inventario registrado, sera redirigido a agregar un producto al inventario.");
 			this.agregarProductoAlInventario(sin, p, registro);
 		}
 		else {
