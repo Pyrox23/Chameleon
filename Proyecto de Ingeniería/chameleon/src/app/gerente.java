@@ -158,12 +158,9 @@ public class gerente extends empleado {
 
 	public double totalVentas(File fichero){
 		ArrayList<producto> prod = gf.lecturaFichero(fichero);
-		producto p;
 		double total = 0.0;
-		for(int i = 0; i<prod.size(); i++){
-			p = prod.get(i);
-			total += p.getPdv()*p.getCantidad();
-		}
+		for(producto x : prod)
+			total += x.getPdv()*x.getCantidad();
 		return total;
 	}
 
