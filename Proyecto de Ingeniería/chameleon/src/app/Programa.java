@@ -81,11 +81,11 @@ public class Programa {
 								a.agregarNuevoUsuario(sin);
 								break;
 							case 2: 
-								g.agregarProductoAlInventario(sin, productos, rInventario);
-								productos.clear();
+								a.agregarProductoAlInventario(sin, productos, rInventario);
 								break;
 							case 3:
 								boolean continuarEjecucionRegistro = true;
+								productos = gf.lecturaFichero(rInventario);
 								do{
 									Menus.menuRegistroVenta();
 									try{
@@ -97,7 +97,7 @@ public class Programa {
 												registroVenta(sin, productos, a);
 												break;
 											case 2:
-												a.gestionarRegistro(sin, productos);
+												a.gestionarVentas(sin, productos);
 												break;
 											case 3:
 												a.imprimirVentas();
@@ -124,11 +124,11 @@ public class Programa {
 							case 5: 
 								productos = gf.lecturaFichero(rInventario);
 								for(producto x : productos)
-								System.out.println(x);
+								System.out.println(x.toStringInventario());
 								break;
-							case 6: 
+							case 6:
 								Menus.menuModificarInventario();
-								a.modificarRegistros(sin, rInventario);
+								a.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFichero(rInventario);
 								break;
 							case 7: //Modificar Venta
@@ -143,7 +143,7 @@ public class Programa {
 							}
 						} catch (InputMismatchException ex) { 
 							System.out.println("Por favor, ingrese un número entero válido.");
-							sin.nextLine(); 
+							sin.nextLine();
 						}
 					} while (continuarEjecucionAdmin);
 
@@ -180,7 +180,7 @@ public class Programa {
 												registroVenta(sin, productos, g);
 												break;
 											case 2:
-												g.gestionarRegistro(sin, productos);
+												g.gestionarVentas(sin, productos);
 												break;
 											case 3:
 												g.imprimirVentas();
@@ -202,11 +202,11 @@ public class Programa {
 							case 3:
 								productos = gf.lecturaFichero(rInventario);
 								for(producto x : productos)
-									System.out.println(x);
+									System.out.println(x.toStringInventario());
 								break;
 							case 4: 
 								Menus.menuModificarInventario();
-								g.modificarRegistros(sin, rInventario);
+								g.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFichero(rInventario);
 								break;
 							case 5: 
@@ -250,7 +250,7 @@ public class Programa {
 												registroVenta(sin, productos, e);
 												break;
 											case 2:
-												e.gestionarRegistro(sin, productos);
+												e.gestionarVentas(sin, productos);
 												break;
 											case 3:
 												e.imprimirVentas();

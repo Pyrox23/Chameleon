@@ -96,11 +96,15 @@ public class producto implements Serializable{
 		return id + ";" + nombre + ";" + descripcion + ";" + cantidad + ";" + ppu + ";" + pdv;
 	}
 
-	public String toStingRegistro(){
+	public String toStringRegistro(){
 		return id + ";" + nombre + ";" + cantidad + ";" + pdv;
 	}
 
 	public String toStringVenta(){
 		return "[ID: " + id + ", Nombre: " + nombre + ", Cantidad: " + cantidad + ", Precio de venta: " + pdv + "]";
+	}
+
+	public String toStringInventario(){
+		return "[ID: " + id + ", Nombre: " + nombre + ", Descripcion: " + descripcion + ", Cantidad: " + cantidad + ", Precio por Unidad: " + ppu + ", Precio de venta: " + pdv + "]";
 	}
 }

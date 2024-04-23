@@ -33,7 +33,7 @@ public class GestorDatosFichero implements Serializable{
 
 			//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
 			for(producto x : p)
-				pw.println(x.toStingRegistro());
+				pw.println(x.toStringRegistro());
 			pw.flush(); //asegura la escritura de los datos en el fichero
 			pw.close(); 
 			bw.close();

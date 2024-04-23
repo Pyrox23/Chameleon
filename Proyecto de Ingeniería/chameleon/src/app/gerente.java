@@ -47,7 +47,7 @@ public class gerente extends empleado {
 	}
 
 	
-	public void modificarRegistros(Scanner sin, File registro) {
+	public void modificarInventario(Scanner sin, File registro) {
 		GestorDatosFichero gf = new GestorDatosFichero();
 		ArrayList<producto> p = gf.lecturaFichero(registro);
 		System.out.println();
@@ -57,13 +57,15 @@ public class gerente extends empleado {
 		String cambio = "";
 		String nombre = "";
 
-		if (p.isEmpty())
-			System.out.println("No hay ventas registradas");
+		if (p.isEmpty()){
+			System.out.println("No hay inventario registradas, sera redirigido a agregar un producto al inventario.");
+			this.agregarProductoAlInventario(sin, p, registro);
+		}
 		else {
 			do {
 				boolean check = false;
 				for (i = 0; i < p.size(); i++) {
-					System.out.println(i + ". " + p.get(i).toStringVenta());
+					System.out.println(i + ". " + p.get(i).toStringInventario());
 				}
 				
 				System.out.print("\n Indique el producto a modificar: ");
@@ -120,6 +122,8 @@ public class gerente extends empleado {
 						seguir = false;
 					}
 				}
+				else
+					System.out.println("Indique un valor numerico valido.");
 			
 			} while (seguir);
 		}

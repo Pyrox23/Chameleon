@@ -48,7 +48,7 @@ public class empleado extends usuario {
 	}
 	
 
-	public void gestionarRegistro(Scanner sin, ArrayList<producto> productos) {
+	public void gestionarVentas(Scanner sin, ArrayList<producto> productos) {
 		boolean seguir = true;
 		int i = 0, opcion = 0, cantCambio = 0, cantidadVenta = 0, cantInventario = 0;
 		String cambio = "";
@@ -87,6 +87,7 @@ public class empleado extends usuario {
 							break;
 
 						default:
+							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
 					}
 					for(i = 0; i<productos.size()&&productos.get(i).getNombre()!=nombre; i++){
