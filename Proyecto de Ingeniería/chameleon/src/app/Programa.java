@@ -316,12 +316,16 @@ public class Programa {
 	}
 
 	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario){
-		DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
-		System.out.println("Creando Registro para guardar las Ventas..");
-		File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
+		if (e.getVentas().isEmpty()) {
+			System.out.println("No hay inventario registrado");
+		} else {
+			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
+			System.out.println("Creando Registro para guardar las Ventas..");
+			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-		gf.checkFichero(rVenta);
-		gf.escribirFicheroVenta(rVenta, e.ventas, false);
-		gf.escribirFichero(rInventario, productos, false);
+			gf.checkFichero(rVenta);
+			gf.escribirFicheroVenta(rVenta, e.ventas, false);
+			gf.escribirFichero(rInventario, productos, false);
+		}
 	}
 }
