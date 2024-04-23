@@ -317,7 +317,7 @@ public class Programa {
 
 	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario){
 		if (e.getVentas().isEmpty()) {
-			System.out.println("No hay inventario registrado");
+			System.out.println("No hay ventas registradas");
 		} else {
 			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
 			System.out.println("Creando Registro para guardar las Ventas..");
