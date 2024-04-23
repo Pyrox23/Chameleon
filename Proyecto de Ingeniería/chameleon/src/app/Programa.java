@@ -5,19 +5,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 public class Programa {
 	public static void main(String[] args){
-		boolean log = true; //bandera para el bucle
-		String r[] = new String[4]; //array para guardar datos del usuario
-		Scanner sin = new Scanner(System.in); //teclado para ingresar datos por consola
-		GestorDatosFichero gf = new GestorDatosFichero(); //objeto GestorDatosFichero para la lectura y escritura de datos desde y hacia un archivo**
-		File rInventario = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); //ruta del archivo de registro de inventario
+		boolean log = true;
+		String r[] = new String[4]; 
+		Scanner sin = new Scanner(System.in);
+		GestorDatosFichero gf = new GestorDatosFichero(); 
+		File rInventario = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 
 		// File rVenta;
-		ArrayList<producto> productos = gf.lecturaFichero(rInventario); //arayList para guardar productos del inventario
+		ArrayList<producto> productos = gf.lecturaFichero(rInventario); 
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
-		//variables para los tipos de usuario
-		usuario u = null;
-		empleado e = null;
-		gerente g = null;
-		administrador a = null;
+		//Para pruebas, eliminar luego
 		usuarios.add(new administrador("admin", "admin", "Juan", "Moral"));
 		usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
 		usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
@@ -25,6 +21,10 @@ public class Programa {
 		boolean continuarEjecucion = true;
 		int opcion;
 		do {
+			usuario u = null;
+			empleado e = null;
+			gerente g = null;
+			administrador a = null;
 			do {
 				Menus.menuInicial();
 				try {
