@@ -135,7 +135,11 @@ public class Programa {
 								break;
 							case 8: //Ver Metricas
 								break;
-							case 9: 
+							case 9:
+								System.out.print("Indique la id del usuario a eliminar: ");
+								a.eliminarUsuario(sin.nextLine());
+								break;
+							case 0: 
 								System.out.println("Saliendo del programa...");
 								continuarEjecucionAdmin = false;
 								break;

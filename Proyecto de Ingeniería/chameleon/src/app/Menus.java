@@ -24,15 +24,16 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║                     MENU ADMIN                       ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t\t1. Agregar Nuevo usuario               ║");
-        System.out.println("║\t\t2. Agregar Producto al Inventario      ║");
-        System.out.println("║\t\t3. Crear Registro de Venta             ║");
-        System.out.println("║\t\t4. Ver lista de usuarios               ║");
-        System.out.println("║\t\t5. Ver Inventario                      ║");
-        System.out.println("║\t\t6. Modificar Inventario                ║");
-        System.out.println("║\t\t7. Modificar Registro de Venta#        ║");
-        System.out.println("║\t\t8. Ver Metricas                        ║");
-        System.out.println("║\t\t9. Salir                               ║");
+        System.out.println("║\t1. Agregar Nuevo usuario                       ║");
+        System.out.println("║\t2. Agregar Producto al Inventario              ║");
+        System.out.println("║\t3. Crear Registro de Venta                     ║");
+        System.out.println("║\t4. Ver lista de usuarios                       ║");
+        System.out.println("║\t5. Ver Inventario                              ║");
+        System.out.println("║\t6. Modificar Inventario                        ║");
+        System.out.println("║\t7. Modificar Registro de Venta#                ║");
+        System.out.println("║\t8. Ver Metricas                                ║");
+        System.out.println("║\t9. Eliminar Usuario                            ║");
+        System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 

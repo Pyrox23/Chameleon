@@ -42,14 +42,14 @@ public class administrador extends gerente {
 
 	public void eliminarUsuario(String idUsuario) {
 		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios();
-		for (usuario usuario : listaUsuarios) {
-			if (usuario.getId().equals(idUsuario)) {
-				listaUsuarios.remove(usuario);
-				System.out.println("¡Usuario eliminado correctamente!");
-				gf.EscribirUsuarios(listaUsuarios);
-			}
+		int i = 0;
+		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++) {
 		}
-		System.out.println("¡No se encontró ningún usuario con el ID especificado!");
+		listaUsuarios.remove(i);
+		System.out.println("¡Usuario eliminado correctamente!");
+		gf.EscribirUsuarios(listaUsuarios);
+		if(i == listaUsuarios.size())
+			System.out.println("¡No se encontró ningún usuario con el ID especificado!");
 
 	}
 }
