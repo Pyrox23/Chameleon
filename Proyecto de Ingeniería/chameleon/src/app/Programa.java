@@ -70,70 +70,80 @@ public class Programa {
 				int opcionAdmin;
 				do {
 					Menus.menuAdmin(); 
-					System.out.print("Ingrese una opción: ");
-					opcionAdmin = sin.nextInt();
-					sin.nextLine();
+					try{
+						System.out.print("Ingrese una opción: ");
+						opcionAdmin = sin.nextInt();
+						sin.nextLine();
 
-					switch (opcionAdmin) {
-						case 1:  
-							Menus.mostrarIngresarNuevUsuario();
-							a.agregarNuevoUsuario(sin);
-							break;
-						case 2: 
-							g.agregarProductoAlInventario(sin, productos, rInventario);
-							productos.clear();
-							break;
-						case 3:
-							boolean continuarEjecucionRegistro = true;
-							do{
-								Menus.menuRegistroVenta();
-								System.out.print("Ingrese una opción: ");
-								opcionAdmin = sin.nextInt();
-								sin.nextLine();
-								switch (opcionAdmin) {
-									case 1:	
-										registroVenta(sin, productos, a);
-										break;
-									case 2:
-										a.gestionarRegistro(sin, productos);
-										break;
-									case 3:
-										a.imprimirVentas();
-									case 4:    
-										cerrarRegistro(gf, a, productos, rInventario);
-										continuarEjecucionRegistro = false;
-										break;
-									default:
-										Menus.mensajeError();
-										break;
+						switch (opcionAdmin) {
+							case 1:  
+								Menus.mostrarIngresarNuevUsuario();
+								a.agregarNuevoUsuario(sin);
+								break;
+							case 2: 
+								g.agregarProductoAlInventario(sin, productos, rInventario);
+								productos.clear();
+								break;
+							case 3:
+								boolean continuarEjecucionRegistro = true;
+								do{
+									Menus.menuRegistroVenta();
+									try{
+										System.out.print("Ingrese una opción: ");
+										opcionAdmin = sin.nextInt();
+										sin.nextLine();
+										switch (opcionAdmin) {
+											case 1:	
+												registroVenta(sin, productos, a);
+												break;
+											case 2:
+												a.gestionarRegistro(sin, productos);
+												break;
+											case 3:
+												a.imprimirVentas();
+											case 4:    
+												cerrarRegistro(gf, a, productos, rInventario);
+												continuarEjecucionRegistro = false;
+												break;
+											default:
+												Menus.mensajeError();
+												break;
+										}
+									} catch (InputMismatchException ex) { 
+										System.out.println("Por favor, ingrese un número entero válido.");
+										sin.nextLine(); 
+									}
+								} while(continuarEjecucionRegistro);
+								break;
+							case 4: 
+								usuarios = gf.ListaUsuarios();
+								for(usuario x : usuarios){
+									System.out.println(x);
 								}
-							} while(continuarEjecucionRegistro);
-							break;
-						case 4: 
-							usuarios = gf.ListaUsuarios();
-							for(usuario x : usuarios){
+								break;
+							case 5: 
+								productos = gf.lecturaFichero(rInventario);
+								for(producto x : productos)
 								System.out.println(x);
+								break;
+							case 6: 
+								Menus.menuModificarInventario();
+								a.modificarRegistros(sin, rInventario);
+								productos = gf.lecturaFichero(rInventario);
+								break;
+							case 7: //Modificar Venta
+								break;
+							case 8: 
+								System.out.println("Saliendo del programa...");
+								continuarEjecucionAdmin = false;
+								break;
+							default:
+								Menus.mensajeError();
+								break;
 							}
-							break;
-						case 5: 
-							productos = gf.lecturaFichero(rInventario);
-							for(producto x : productos)
-							System.out.println(x);
-							break;
-						case 6: 
-							Menus.menuModificarInventario();
-							a.modificarRegistros(sin, rInventario);
-							productos = gf.lecturaFichero(rInventario);
-							break;
-						case 7: //Modificar Venta
-							break;
-						case 8: 
-							System.out.println("Saliendo del programa...");
-							continuarEjecucionAdmin = false;
-							break;
-						default:
-							Menus.mensajeError();
-							break;
+						} catch (InputMismatchException ex) { 
+							System.out.println("Por favor, ingrese un número entero válido.");
+							sin.nextLine(); 
 						}
 					} while (continuarEjecucionAdmin);
 
@@ -147,60 +157,70 @@ public class Programa {
 				int opcionGerente;
 				do {
 					Menus.menuGerente(); 
-					System.out.print("Ingrese una opción: ");
-					opcionGerente = sin.nextInt();
-					sin.nextLine();
+					try{
+						System.out.print("Ingrese una opción: ");
+						opcionGerente = sin.nextInt();
+						sin.nextLine();
 
-					switch (opcionGerente) {
-						case 1: 
-							g.agregarProductoAlInventario(sin, productos, rInventario);
-							productos = gf.lecturaFichero(rInventario);
-							break;
-						case 2: 
-							boolean continuarEjecucionRegistro = true;
-							do{
-								Menus.menuRegistroVenta();
-								System.out.print("Ingrese una opción: ");
-								opcionGerente = sin.nextInt();
-								sin.nextLine();
-								switch (opcionGerente) {
-									case 1:	
-										registroVenta(sin, productos, g);
-										break;
-									case 2:
-										g.gestionarRegistro(sin, productos);
-										break;
-									case 3:
-										g.imprimirVentas();
-										break;
-									case 4:    
-										cerrarRegistro(gf, g, productos, rInventario);
-										continuarEjecucionRegistro = false;
-										break;
-									default:
-										Menus.mensajeError();
-										break;
-								}
-							} while(continuarEjecucionRegistro);
-							break;
-						case 3:
-							productos = gf.lecturaFichero(rInventario);
-							for(producto x : productos)
-								System.out.println(x);
-							break;
-						case 4: 
-							Menus.menuModificarInventario();
-							g.modificarRegistros(sin, rInventario);
-							productos = gf.lecturaFichero(rInventario);
-							break;
-						case 5: 
-							System.out.println("Saliendo del programa...");
-							continuarEjecucionGerente = false;
-							break;
-						default:
-							Menus.mensajeError();
-							break;
+						switch (opcionGerente) {
+							case 1: 
+								g.agregarProductoAlInventario(sin, productos, rInventario);
+								productos = gf.lecturaFichero(rInventario);
+								break;
+							case 2: 
+								boolean continuarEjecucionRegistro = true;
+								do{
+									Menus.menuRegistroVenta();
+									try{
+										System.out.print("Ingrese una opción: ");
+										opcionGerente = sin.nextInt();
+										sin.nextLine();
+										switch (opcionGerente) {
+											case 1:	
+												registroVenta(sin, productos, g);
+												break;
+											case 2:
+												g.gestionarRegistro(sin, productos);
+												break;
+											case 3:
+												g.imprimirVentas();
+												break;
+											case 4:    
+												cerrarRegistro(gf, g, productos, rInventario);
+												continuarEjecucionRegistro = false;
+												break;
+											default:
+												Menus.mensajeError();
+												break;
+										}
+									} catch (InputMismatchException ex) { 
+										System.out.println("Por favor, ingrese un número entero válido.");
+										sin.nextLine(); 
+									}
+								} while(continuarEjecucionRegistro);
+								break;
+							case 3:
+								productos = gf.lecturaFichero(rInventario);
+								for(producto x : productos)
+									System.out.println(x);
+								break;
+							case 4: 
+								Menus.menuModificarInventario();
+								g.modificarRegistros(sin, rInventario);
+								productos = gf.lecturaFichero(rInventario);
+								break;
+							case 5: 
+								System.out.println("Saliendo del programa...");
+								continuarEjecucionGerente = false;
+								break;
+							default:
+								Menus.mensajeError();
+								break;
 						}
+					} catch (InputMismatchException ex) { 
+						System.out.println("Por favor, ingrese un número entero válido.");
+						sin.nextLine(); 
+					}
 				} while (continuarEjecucionGerente);
 
 			} 
@@ -212,45 +232,55 @@ public class Programa {
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
-					Menus.menuEmpleado(); 
-					System.out.print("Ingrese una opción: ");
-					opcionEmpleado = sin.nextInt();
-					sin.nextLine();
-					switch (opcionEmpleado) {
-						case 1:
-							do{
-								Menus.menuRegistroVenta();
-								System.out.print("Ingrese una opción: ");
-								opcionEmpleado = sin.nextInt();
-								sin.nextLine();
-								switch (opcionEmpleado) {
-									case 1:	
-										registroVenta(sin, productos, e);
-										break;
-									case 2:
-										e.gestionarRegistro(sin, productos);
-										break;
-									case 3:
-										e.imprimirVentas();
-										break;
-									case 4:    
-										cerrarRegistro(gf, e, productos, rInventario);
-										continuarEjecucionEmpleado = false;
-										break;
-									default:
-										Menus.mensajeError();
-										break;
-								}
-							} while(continuarEjecucionEmpleado);
-							break;
-						case 2:
-							System.out.println("Saliendo del Programa");
-							continuarEjecucionEmpleado = false;
-							break;
-						default:
-							Menus.mensajeError();
-							break;
-						}
+					Menus.menuEmpleado();
+					try{
+						System.out.print("Ingrese una opción: ");
+						opcionEmpleado = sin.nextInt();
+						sin.nextLine();
+						switch (opcionEmpleado) {
+							case 1:
+								do{
+									Menus.menuRegistroVenta();
+									try{
+										System.out.print("Ingrese una opción: ");
+										opcionEmpleado = sin.nextInt();
+										sin.nextLine();
+										switch (opcionEmpleado) {
+											case 1:	
+												registroVenta(sin, productos, e);
+												break;
+											case 2:
+												e.gestionarRegistro(sin, productos);
+												break;
+											case 3:
+												e.imprimirVentas();
+												break;
+											case 4:    
+												cerrarRegistro(gf, e, productos, rInventario);
+												continuarEjecucionEmpleado = false;
+												break;
+											default:
+												Menus.mensajeError();
+												break;
+										}
+									} catch (InputMismatchException ex) { 
+										System.out.println("Por favor, ingrese un número entero válido.");
+										sin.nextLine(); 
+									}
+								} while(continuarEjecucionEmpleado);
+								break;
+							case 2:
+								System.out.println("Saliendo del Programa");
+								continuarEjecucionEmpleado = false;
+								break;
+							default:
+								Menus.mensajeError();
+								break;
+							}
+					} catch (InputMismatchException ex) { 
+						System.out.println("Por favor, ingrese un número entero válido.");
+						sin.nextLine(); 
+					}
 				} while (continuarEjecucionEmpleado);
 			}
 		}while(continuarEjecucion);
