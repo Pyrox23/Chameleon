@@ -70,7 +70,7 @@ public class gerente extends empleado {
 				
 				System.out.print("\n Indique el producto a modificar: ");
 				opcion = sin.nextInt();
-				check = opcion<p.size();
+				check = (opcion < p.size()) && (opcion >= 0);
 				sin.nextLine();
 
 				if (check) {
@@ -118,7 +118,7 @@ public class gerente extends empleado {
 					System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 
 					System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-					if (sin.nextLine().equalsIgnoreCase("N")) {
+					if (!(sin.nextLine().equalsIgnoreCase("S"))) {
 						seguir = false;
 					}
 				}
