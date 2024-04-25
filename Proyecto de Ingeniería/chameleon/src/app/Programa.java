@@ -134,6 +134,36 @@ public class Programa {
 							case 7: //Modificar Venta
 								break;
 							case 8: //Ver Metricas
+							Menus.mostrarMetricas();
+                                try{
+                                    System.out.print("Ingrese una opción: ");
+                                    opcionAdmin = sin.nextInt();
+                                    sin.nextLine();
+                                    switch (opcionAdmin) {
+                                        case 1:
+                                            //mostrar producto mas vendido
+                                            System.out.println(a.productoMasVendido(rInventario));
+                                            break;
+                                        case 2:
+                                            //mostrar total de ventas
+                                            System.out.println(a.totalVentas(rInventario));
+                                            break;
+                                        case 3:
+                                            //mostrar cantidad producto vendidos
+											System.out.println(a.productosVendidos(rInventario));
+
+                                        case 4: 
+                                            //salir pa tras
+                                            continuarEjecucionRegistro = false;
+                                            break;
+                                        default:
+                                            Menus.mensajeError();
+                                            break;
+                                    }
+                                } catch (InputMismatchException ex) { 
+                                    System.out.println("Por favor, ingrese un número entero válido.");
+                                    sin.nextLine(); 
+                                }
 								break;
 							case 9:
 								System.out.print("Indique la id del usuario a eliminar: ");
@@ -216,6 +246,35 @@ public class Programa {
 								productos = gf.lecturaFichero(rInventario);
 								break;
 							case 5: //Ver metricas
+							Menus.mostrarMetricas();
+                            try{
+                                System.out.print("Ingrese una opción: ");
+                                opcionGerente = sin.nextInt();
+                                sin.nextLine();
+                                switch (opcionGerente) {
+                                    case 1:
+                                        //mostrar producto mas vendido
+                                        System.out.println(g.productoMasVendido(rInventario));
+                                        break;
+                                    case 2:
+                                        //mostrar total de ventas
+                                        System.out.println(g.totalVentas(rInventario));
+                                        break;
+                                    case 3:
+                                        //mostrar cantidad producto vendidos
+                                        System.out.println(g.productosVendidos(rInventario));
+                                    case 4: 
+                                        //salir pa tras
+                                        continuarEjecucionRegistro = false;
+                                        break;
+                                    default:
+                                        Menus.mensajeError();
+                                        break;
+                                }
+                            } catch (InputMismatchException ex) { 
+                                System.out.println("Por favor, ingrese un número entero válido.");
+                                sin.nextLine(); 
+                            }
 								break;
 							case 6: 
 								System.out.println("Saliendo del programa...");

@@ -115,4 +115,18 @@ public static void mostrarMenuVentas() {
         System.out.println("Opción no válida. Intente de nuevo.");
     }
 
+    public static void mostrarMetricas() {
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║                       METRICAS                        ║");
+        System.out.println("╠══════════════════════════════════════════════════════╣");
+        System.out.println("║\t1. Mostrar producto más vendido                 ║");
+        System.out.println("║\t2. Total de ventas                              ║");
+        System.out.println("║\t3. Cantidad de productos vendidos               ║");
+        System.out.println("║\t4. Salir                                        ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
+    }
+
+
+
+
 }
