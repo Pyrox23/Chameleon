@@ -397,13 +397,13 @@ public class Programa {
 				try{
 					input = sin.next();
 					check = true;
-				}catch(InputMismatchException ex){
+				} catch(InputMismatchException ex){
 					System.out.println("Opcion no valida.");
 					check = false;
 				}
 			} while(!check);
 			sin.nextLine();
-			}while(input.equalsIgnoreCase("s"));
+		}while(input.equalsIgnoreCase("s"));
 										
 									
 	}
