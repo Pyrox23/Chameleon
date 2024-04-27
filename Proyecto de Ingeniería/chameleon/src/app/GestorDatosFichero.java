@@ -18,7 +18,7 @@ public class GestorDatosFichero implements Serializable{
 				pw.flush(); //asegura la escritura de los datos en el fichero
 				pw.close(); 
 				bw.close();
-				System.out.println("\nFichero escrito con exito."); 
+				System.out.println("\nRegistro de Inventario escrito con exito."); 
 			} catch(IOException e){
 				e.printStackTrace();
 			}
@@ -38,7 +38,7 @@ public class GestorDatosFichero implements Serializable{
 				pw.flush(); //asegura la escritura de los datos en el fichero
 				pw.close(); 
 				bw.close();
-				System.out.println("\nFichero escrito con exito."); 
+				System.out.println("\nRegistro de Venta escrito con exito."); 
 			} catch(IOException e){
 				e.printStackTrace();
 			}

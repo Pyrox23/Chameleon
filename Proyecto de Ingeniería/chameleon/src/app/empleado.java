@@ -81,13 +81,11 @@ public class empleado extends usuario {
 							cantCambio = sin.nextInt();
 							ventas.get(opcion).setCantidad(cantCambio);
 							break;
-
 						case "b":
 							System.out.print("\n Eliminando " + nombre + " de ventas... ");
 							cantCambio = cantidadVenta;
 							ventas.remove(opcion);
 							break;
-
 						default:
 							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
@@ -101,6 +99,8 @@ public class empleado extends usuario {
 				if (!sin.next().equalsIgnoreCase("s")) {
 					seguir = false;
 				}
+			else
+				System.out.println("Indique un producto dentro del rango de numeros mostrado.");
 			} while (seguir);
 		}
 	}
