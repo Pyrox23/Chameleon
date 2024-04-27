@@ -15,6 +15,8 @@ public class empleado extends usuario {
 	}
 
 	public void imprimirVentas(){
+		if(this.ventas.isEmpty())
+			System.out.println("No hay ventas realizadas.");
 		for(producto x : this.ventas){
 			System.out.println(x.toStringVenta());
 		}
