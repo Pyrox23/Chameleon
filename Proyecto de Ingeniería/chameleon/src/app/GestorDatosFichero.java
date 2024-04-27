@@ -6,40 +6,42 @@ import java.util.Scanner;
 public class GestorDatosFichero implements Serializable{
 
 	public void escribirFichero(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
-        checkFichero(fichero); //sino existe el fichero, se crea
-		try{
-			//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
-        	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
-			PrintWriter pw = new PrintWriter(bw); 
+        if(fichero.exists()){
+			try{
+				//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
+				PrintWriter pw = new PrintWriter(bw); 
 
-			//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
-			for(producto x : p)
-				pw.println(x);
-			pw.flush(); //asegura la escritura de los datos en el fichero
-			pw.close(); 
-			bw.close();
-			System.out.println("\nFichero escrito con exito."); 
-		} catch(IOException e){
-			e.printStackTrace();
+				//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
+				for(producto x : p)
+					pw.println(x);
+				pw.flush(); //asegura la escritura de los datos en el fichero
+				pw.close(); 
+				bw.close();
+				System.out.println("\nFichero escrito con exito."); 
+			} catch(IOException e){
+				e.printStackTrace();
+			}
 		}
     }
 
 	public void escribirFicheroVenta(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
-        checkFichero(fichero); //sino existe el fichero, se crea
-		try{
-			//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
-        	BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
-			PrintWriter pw = new PrintWriter(bw); 
+        if(fichero.exists()){ 
+			try{
+				//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
+				PrintWriter pw = new PrintWriter(bw); 
 
-			//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
-			for(producto x : p)
-				pw.println(x.toStringRegistro());
-			pw.flush(); //asegura la escritura de los datos en el fichero
-			pw.close(); 
-			bw.close();
-			System.out.println("\nFichero escrito con exito."); 
-		} catch(IOException e){
-			e.printStackTrace();
+				//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
+				for(producto x : p)
+					pw.println(x.toStringRegistro());
+				pw.flush(); //asegura la escritura de los datos en el fichero
+				pw.close(); 
+				bw.close();
+				System.out.println("\nFichero escrito con exito."); 
+			} catch(IOException e){
+				e.printStackTrace();
+			}
 		}
     }
 
@@ -54,24 +56,45 @@ public class GestorDatosFichero implements Serializable{
     }
 
    public ArrayList<producto> lecturaFichero(File fichero){
-	checkFichero(fichero);
-	ArrayList<producto> p = new ArrayList<producto>();
-	producto product;
-	String prod[] = new String[6];
-       try{ 
-           Scanner s = new Scanner(fichero, "UTF-8");
-           while (s.hasNextLine()){ 
-               prod = s.nextLine().split(";");
-			   product = new producto(prod[1], prod[2], Integer.parseInt(prod[3]), Double.parseDouble(prod[4]), Double.parseDouble(prod[5]));
-			   product.setId(Integer.parseInt(prod[0]));
-			   p.add(product);
-           }
-           s.close();
-       } catch(IOException ex){ 
-			ex.printStackTrace();
-       }
-	   return p;
+		ArrayList<producto> p = new ArrayList<producto>();
+		if(fichero.exists()){
+			producto product;
+			String prod[] = new String[6];
+			try{ 
+				Scanner s = new Scanner(fichero, "UTF-8");
+				while (s.hasNextLine()){ 
+					prod = s.nextLine().split(";");
+					product = new producto(prod[1], prod[2], Integer.parseInt(prod[3]), Double.parseDouble(prod[4]), Double.parseDouble(prod[5]));
+					product.setId(Integer.parseInt(prod[0]));
+					p.add(product);
+				}
+				s.close();
+			} catch(IOException ex){ 
+					ex.printStackTrace();
+			}
+		}
+		return p;
    }
+
+   public ArrayList<producto> lecturaFicheroVenta(File fichero){
+	ArrayList<producto> p = new ArrayList<producto>();
+	if(fichero.exists()){
+		producto product;
+		String prod[] = new String[6];
+		try{ 
+			Scanner s = new Scanner(fichero, "UTF-8");
+			while (s.hasNextLine()){ 
+				prod = s.nextLine().split(";");
+   				product = new producto(prod[1], Integer.parseInt(prod[2]), Double.parseDouble(prod[3]), Integer.parseInt(prod[0]));
+				p.add(product);
+			}
+			s.close();
+		} catch(IOException ex){ 
+				ex.printStackTrace();
+		}
+	}
+	return p;
+}
 
 
     public ArrayList<usuario> ListaUsuarios() {

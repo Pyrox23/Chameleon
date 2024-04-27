@@ -9,8 +9,10 @@ public class Programa {
 		String r[] = new String[4]; 
 		Scanner sin = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero(); 
-		File rInventario = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"); 
-		// File rVenta;
+		String ruta = "./Proyecto de Ingeniería/chameleon/src/ficheros/";
+		File rInventario = new File(ruta + "Registro_Inventario.csv"); 
+		File rVenta;
+		String nombreRegVenta;
 		ArrayList<producto> productos = gf.lecturaFichero(rInventario); 
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		//Para pruebas, eliminar luego
@@ -101,8 +103,13 @@ public class Programa {
 												break;
 											case 3:
 												a.imprimirVentas();
+												break;
 											case 4:    
 												cerrarRegistro(gf, a, productos, rInventario);
+												continuarEjecucionRegistro = false;
+												break;
+											case 5:
+												System.out.println("Saliendo sin guardar registro...");
 												continuarEjecucionRegistro = false;
 												break;
 											default:
@@ -133,37 +140,46 @@ public class Programa {
 								break;
 							case 7: //Modificar Venta
 								break;
-							case 8: //Ver Metricas
-							Menus.mostrarMetricas();
-                                try{
-                                    System.out.print("Ingrese una opción: ");
-                                    opcionAdmin = sin.nextInt();
-                                    sin.nextLine();
-                                    switch (opcionAdmin) {
-                                        case 1:
-                                            //mostrar producto mas vendido
-                                            System.out.println(a.productoMasVendido(rInventario));
-                                            break;
-                                        case 2:
-                                            //mostrar total de ventas
-                                            System.out.println(a.totalVentas(rInventario));
-                                            break;
-                                        case 3:
-                                            //mostrar cantidad producto vendidos
-											System.out.println(a.productosVendidos(rInventario));
-
-                                        case 4: 
-                                            //salir pa tras
-                                            continuarEjecucionRegistro = false;
-                                            break;
-                                        default:
-                                            Menus.mensajeError();
-                                            break;
-                                    }
-                                } catch (InputMismatchException ex) { 
-                                    System.out.println("Por favor, ingrese un número entero válido.");
-                                    sin.nextLine(); 
-                                }
+							case 8: 
+							boolean continuarEjecucionMetricas = true;
+							System.out.print("Indique el nombre y apellido del creador del registro: ");
+							nombreRegVenta = sin.nextLine();
+							nombreRegVenta.replaceAll(" ", "_");
+							System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
+							nombreRegVenta += "_" + sin.nextLine();
+							rVenta = new File(ruta + nombreRegVenta + "_Registro_Venta.csv");
+								if(rVenta.exists()){
+									do {
+										Menus.mostrarMetricas();
+											try{
+												System.out.print("Ingrese una opción: ");
+												opcionAdmin = sin.nextInt();
+												sin.nextLine();
+												switch (opcionAdmin) {
+													case 1:
+														System.out.println(a.productoMasVendido(rVenta));
+														break;
+													case 2:
+														System.out.println(a.totalVentas(rVenta));
+														break;
+													case 3:
+														System.out.println(a.productosVendidos(rVenta));
+														break;
+													case 4: 
+														continuarEjecucionMetricas = false;
+														break;
+													default:
+														Menus.mensajeError();
+														break;
+												}
+											} catch (InputMismatchException ex) { 
+												System.out.println("Por favor, ingrese un número entero válido.");
+												sin.nextLine(); 
+											}
+									} while (continuarEjecucionMetricas);
+								}
+								else
+									System.out.println("El registro indicado no existe.");
 								break;
 							case 9:
 								System.out.print("Indique la id del usuario a eliminar: ");
@@ -225,6 +241,10 @@ public class Programa {
 												cerrarRegistro(gf, g, productos, rInventario);
 												continuarEjecucionRegistro = false;
 												break;
+											case 5:
+												System.out.println("Saliendo sin guardar registro...");
+												continuarEjecucionRegistro = false;
+												break;
 											default:
 												Menus.mensajeError();
 												break;
@@ -245,36 +265,46 @@ public class Programa {
 								g.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFichero(rInventario);
 								break;
-							case 5: //Ver metricas
-							Menus.mostrarMetricas();
-                            try{
-                                System.out.print("Ingrese una opción: ");
-                                opcionGerente = sin.nextInt();
-                                sin.nextLine();
-                                switch (opcionGerente) {
-                                    case 1:
-                                        //mostrar producto mas vendido
-                                        System.out.println(g.productoMasVendido(rInventario));
-                                        break;
-                                    case 2:
-                                        //mostrar total de ventas
-                                        System.out.println(g.totalVentas(rInventario));
-                                        break;
-                                    case 3:
-                                        //mostrar cantidad producto vendidos
-                                        System.out.println(g.productosVendidos(rInventario));
-                                    case 4: 
-                                        //salir pa tras
-                                        continuarEjecucionRegistro = false;
-                                        break;
-                                    default:
-                                        Menus.mensajeError();
-                                        break;
-                                }
-                            } catch (InputMismatchException ex) { 
-                                System.out.println("Por favor, ingrese un número entero válido.");
-                                sin.nextLine(); 
-                            }
+							case 5: 
+								boolean continuarEjecucionMetricas = true;
+								System.out.print("Indique el nombre y apellido del creador del registro: ");
+								nombreRegVenta = sin.nextLine();
+								nombreRegVenta.replaceAll(" ", "_");
+								System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
+								nombreRegVenta += "_" + sin.nextLine();
+								rVenta = new File(ruta + nombreRegVenta + "_Registro_Venta.csv");
+								if(rVenta.exists()){
+									do {
+										Menus.mostrarMetricas();
+											try{
+												System.out.print("Ingrese una opción: ");
+												opcionGerente = sin.nextInt();
+												sin.nextLine();
+												switch (opcionGerente) {
+													case 1:
+														System.out.println(g.productoMasVendido(rVenta));
+														break;
+													case 2:
+														System.out.println(g.totalVentas(rVenta));
+														break;
+													case 3:
+														System.out.println(g.productosVendidos(rVenta));
+														break;
+													case 4: 
+														continuarEjecucionMetricas = false;
+														break;
+													default:
+														Menus.mensajeError();
+														break;
+												}
+											} catch (InputMismatchException ex) { 
+												System.out.println("Por favor, ingrese un número entero válido.");
+												sin.nextLine(); 
+											}
+									} while (continuarEjecucionMetricas);
+								}
+								else
+									System.out.println("El registro indicado no existe.");
 								break;
 							case 6: 
 								System.out.println("Saliendo del programa...");
@@ -324,6 +354,10 @@ public class Programa {
 												break;
 											case 4:    
 												cerrarRegistro(gf, e, productos, rInventario);
+												continuarEjecucionEmpleado = false;
+												break;
+											case 5:
+												System.out.println("Saliendo sin guardar registro...");
 												continuarEjecucionEmpleado = false;
 												break;
 											default:
@@ -378,7 +412,7 @@ public class Programa {
 		if (e.getVentas().isEmpty()) {
 			System.out.println("No hay ventas registradas");
 		} else {
-			DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy");
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			System.out.println("Creando Registro para guardar las Ventas..");
 			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");

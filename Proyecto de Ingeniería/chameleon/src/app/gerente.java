@@ -131,7 +131,7 @@ public class gerente extends empleado {
 	}
 
 	public String productoMasVendido(File fichero){
-		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
 		ArrayList<producto> contador = new ArrayList<producto>();
 		String nombreFinal = "";
 		int cantidadFinal = 0;
@@ -157,7 +157,7 @@ public class gerente extends empleado {
 	}
 
 	public double totalVentas(File fichero){
-		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
 		double total = 0.0;
 		for(producto x : prod)
 			total += x.getPdv()*x.getCantidad();
@@ -165,7 +165,7 @@ public class gerente extends empleado {
 	}
 
 	public int productosVendidos(File fichero){
-		ArrayList<producto> prod = gf.lecturaFichero(fichero);
+		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
 		int cantidad = 0;
 		for(int i = 0; i<prod.size(); i++)
 			cantidad += prod.get(i).getCantidad();

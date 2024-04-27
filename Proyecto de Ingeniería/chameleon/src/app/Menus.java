@@ -62,6 +62,7 @@ public class Menus {
         System.out.println("║\t2. Modificar Venta                             ║");
         System.out.println("║\t3. Ver Ventas                                  ║");
         System.out.println("║\t4. Guardar Registro                            ║");
+        System.out.println("║\t5. Cancelar Registro                           ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -117,12 +118,12 @@ public static void mostrarMenuVentas() {
 
     public static void mostrarMetricas() {
         System.out.println("╔══════════════════════════════════════════════════════╗");
-        System.out.println("║                       METRICAS                        ║");
+        System.out.println("║                       METRICAS                       ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t1. Mostrar producto más vendido                 ║");
-        System.out.println("║\t2. Total de ventas                              ║");
-        System.out.println("║\t3. Cantidad de productos vendidos               ║");
-        System.out.println("║\t4. Salir                                        ║");
+        System.out.println("║\t1. Mostrar producto más vendido                ║");
+        System.out.println("║\t2. Total de ventas                             ║");
+        System.out.println("║\t3. Cantidad de productos vendidos              ║");
+        System.out.println("║\t4. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 

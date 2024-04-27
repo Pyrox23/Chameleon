@@ -45,10 +45,12 @@ public class administrador extends gerente {
 		int i = 0;
 		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++) {
 		}
-		listaUsuarios.remove(i);
-		System.out.println("¡Usuario eliminado correctamente!");
-		gf.EscribirUsuarios(listaUsuarios);
-		if(i == listaUsuarios.size())
+		if(i != listaUsuarios.size()){
+			listaUsuarios.remove(i);
+			System.out.println("¡Usuario eliminado correctamente!");
+			gf.EscribirUsuarios(listaUsuarios);
+		}
+		else
 			System.out.println("¡No se encontró ningún usuario con el ID especificado!");
 
 	}
