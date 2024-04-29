@@ -71,7 +71,7 @@ public class gerente extends empleado {
 				sin.nextLine();
 
 				if (check) {
-					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
+					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto \n \t g)Cancelar");
 					cambio = sin.nextLine();
 					nombre = p.get(opcion).getNombre();
 					switch (cambio.toLowerCase()) {
@@ -104,17 +104,27 @@ public class gerente extends empleado {
 							System.out.print("\n Eliminando" + nombre + " del registro... ");
 							p.remove(opcion);
 							break;
+						
+						case "g":
+							System.out.print("\n Cancelando..");
+							seguir = false;
+							break;
 
 						default:
+							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
 					}
-					gf.escribirFichero(registro, p, false);
 
-					System.out.println("\n******* Cambios realizados correctamente! ******* \n");
-
-					System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-					if (!(sin.nextLine().equalsIgnoreCase("S"))) {
-						seguir = false;
+					if (seguir && !cambio.equalsIgnoreCase("g")) {
+						gf.escribirFichero(registro, p, false);
+	
+						System.out.println("\n******* Cambios realizados correctamente! ******* \n");
+	
+						System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
+						if (!(sin.next().equalsIgnoreCase("S"))) {
+							seguir = false;
+						}
+						
 					}
 				}
 				else
