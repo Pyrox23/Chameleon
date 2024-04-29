@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GestorDatosFichero implements Serializable{
+public class GestorDatosFichero {
 
 	public void escribirFichero(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
         if(fichero.exists()){
