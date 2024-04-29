@@ -9,9 +9,9 @@ public class administrador extends gerente {
 	}
 	
 	public void agregarNuevoUsuario(Scanner sin) {
-		usuario u;
-		ArrayList<usuario> usuarios = new ArrayList<usuario>();
-		String r[] = new String[5];
+		usuario u; // Variable para almacenar el nuevo usuario
+		ArrayList<usuario> usuarios = new ArrayList<usuario>(); // Lista para almacenar todos los usuarios
+		String r[] = new String[5]; // cada dato esta separado por (;) y esos datos se guardan en el array
 
 		System.out.print("\nEscribe el id del nuevo usuario: ");
 		r[0] = sin.nextLine();
@@ -34,20 +34,23 @@ public class administrador extends gerente {
 			System.out.println("El perfil indicado no existe y el usuario fue asignado a empleado.");
 			u = new empleado(r[0], r[1], r[2], r[3]);
 		}
-		usuarios = gf.ListaUsuarios();
-		usuarios.add(u);
-		gf.EscribirUsuarios(usuarios);
+		usuarios = gf.ListaUsuarios(); 		 // obtiene la lista actual de usuarios
+		usuarios.add(u);        		    // agrega el nuevo usuario a la lista de usuarios
+		gf.EscribirUsuarios(usuarios);	   // escribe la lista actualizada de usuarios en el archivo binario
 	}
 
+	//Método para eliminar un usuario de la lista y actualizar el archivo binario
 	public void eliminarUsuario(String idUsuario) {
-		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios();
+		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios(); // lista de usuarios del archivo bin
 		int i = 0;
-		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++) {
-		}
-		if(i != listaUsuarios.size()){
-			listaUsuarios.remove(i);
+		//Buscar el usuario con el ID especificado en la lista
+		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++) { //mientras no se alcanzo el final de la lista
+		} 																	//y el ID del usuario en la posición actual no coincida con el ID especificado
+		//Verificar si se encontró el usuario con el ID especificado
+		if(i != listaUsuarios.size()){      // valor de i es diferente al tamaño de la lista de usuario
+			listaUsuarios.remove(i);       // elimina el usuario de la lista
 			System.out.println("¡Usuario eliminado correctamente!");
-			gf.EscribirUsuarios(listaUsuarios);
+			gf.EscribirUsuarios(listaUsuarios);  // actualiza el archivo binario con la lista de usuarios actualizada
 		}
 		else
 			System.out.println("¡No se encontró ningún usuario con el ID especificado!");

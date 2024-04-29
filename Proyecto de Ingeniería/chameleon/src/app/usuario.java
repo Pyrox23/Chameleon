@@ -17,12 +17,14 @@ public class usuario implements Serializable{
     }
 
     public usuario login(){
-        ArrayList <usuario> u = gf.ListaUsuarios();
+        ArrayList <usuario> u = gf.ListaUsuarios(); //obtiene la lista de usuarios del archivo binario
         usuario res = null;
+        //Se itera sobre la lista de usuarios para encontrar el usuario con las credenciales proporcionadas
         for(usuario x : u){
-            res = this.id.equals(x.id)&&this.contraseña.equals(x.contraseña) ? x : res;
+             //Verifica si las credenciales del usuario actual coinciden con las proporcionadas para iniciar sesión
+            res = this.id.equals(x.id)&&this.contraseña.equals(x.contraseña) ? x : res;  // devuelve el usuario o el valor de res
         }
-        return res;
+        return res; // devuelve el usuario encontrado (puede ser nulo si no se encontraron coincidencias)
     }
 
     public String getId() {

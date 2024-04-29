@@ -15,8 +15,10 @@ public class empleado extends usuario {
 	}
 
 	public void imprimirVentas(){
+		//Verifica si la lista de ventas está vacía
 		if(this.ventas.isEmpty())
 			System.out.println("No hay ventas realizadas.");
+		//Itera sobre la lista de ventas e imprimir cada venta
 		for(producto x : this.ventas){
 			System.out.println(x.toStringVenta());
 		}

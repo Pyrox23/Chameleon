@@ -3,7 +3,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GestorDatosFichero implements Serializable{
+//Serializable significa que los objetos de esta clase pueden ser convertidos en bytes y luego guardados en archivos como binarios
+public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfaz  
 
 	public void escribirFichero(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
         if(fichero.exists()){
@@ -56,35 +57,38 @@ public class GestorDatosFichero implements Serializable{
     }
 
    public ArrayList<producto> lecturaFicheroInv(File fichero){
-		ArrayList<producto> p = new ArrayList<producto>();
+		ArrayList<producto> p = new ArrayList<producto>(); // lista para almacenar los productos leídos del archivo
 		if(fichero.exists()){
-			producto product;
-			String prod[] = new String[6];
+			producto product; // variable para almacenar temporalmente cada producto leído del archivo
+			String prod[] = new String[6]; // array para almacenar temporalmente los datos de cada línea del archivo
 			try{ 
 				Scanner s = new Scanner(fichero, "UTF-8");
 				while (s.hasNextLine()){ 
 					prod = s.nextLine().split(";");
+					//Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
 					product = new producto(prod[1], prod[2], Integer.parseInt(prod[3]), Double.parseDouble(prod[4]), Double.parseDouble(prod[5]));
-					product.setId(Integer.parseInt(prod[0]));
-					p.add(product);
+					product.setId(Integer.parseInt(prod[0])); // establecer el ID del producto
+					p.add(product); // agregar el producto a la lista
 				}
 				s.close();
 			} catch(IOException ex){ 
 					ex.printStackTrace();
 			}
 		}
-		return p;
+		return p; // deveulve la lista de productos leídos del archivo
    }
 
    public ArrayList<producto> lecturaFicheroVenta(File fichero){
 	ArrayList<producto> p = new ArrayList<producto>();
 	if(fichero.exists()){
 		producto product;
-		String prod[] = new String[6];
+		//Array para almacenar temporalmente los datos de cada línea (;) del archivo
+		String prod[] = new String[6];  // osea cada dato esta separado por (;) y esos datos se guardan en el array
 		try{ 
 			Scanner s = new Scanner(fichero, "UTF-8");
 			while (s.hasNextLine()){ 
 				prod = s.nextLine().split(";");
+				//Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
    				product = new producto(prod[1], Integer.parseInt(prod[2]), Double.parseDouble(prod[3]), Integer.parseInt(prod[0]));
 				p.add(product);
 			}
@@ -93,23 +97,24 @@ public class GestorDatosFichero implements Serializable{
 				ex.printStackTrace();
 		}
 	}
-	return p;
+	return p; // devuelve la lista de productos leídos del archivo
 }
 
 
     public ArrayList<usuario> ListaUsuarios() {
-		InputStream is = null;
-		ObjectInputStream ois = null;
+		InputStream is = null;  // para leer archivo binario
+		ObjectInputStream ois = null;  // para leer objetos
 		ArrayList<usuario> u = new ArrayList<usuario>();
 		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 		if(fichero.exists()){
 			try {
 				is = new FileInputStream(fichero);
 				ois = new ObjectInputStream(is);
+				//Lee los objetos del archivo binario mientras haya objetos disponibles
 				while(is.available()>0) {
 					Object obj = ois.readObject();
-					if(obj instanceof usuario) {
-						u.add((usuario)obj);
+					if(obj instanceof usuario) {    // verifica si el objeto leído es de tipo Usuario
+						u.add((usuario)obj);       //  si es asi, se agrega a la lista de usuarios
 					}
 				}
 			} catch (FileNotFoundException e) {
@@ -119,6 +124,7 @@ public class GestorDatosFichero implements Serializable{
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} finally {
+				//Se cierra los streams de entrada (ois y is) en el bloque finally para asegurar que se cierren correctamente
 				try {
 					ois.close();
 					is.close();
@@ -129,18 +135,20 @@ public class GestorDatosFichero implements Serializable{
 				}
 			}
 		}
-		return u;
+		return u; // devuelve la lista de usuarios
 	}
 
 	public boolean EscribirUsuarios(ArrayList<usuario> u) {
 		OutputStream os = null;
 		ObjectOutputStream oos = null;
-		boolean c = true;
+		boolean c = true;  // variable para indicar si la escritura se realizo bien
+
 			try {
 				os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 				oos = new ObjectOutputStream(os);
+				//Escribe cada usuario de la lista en un archivo binario
 				for(usuario x : u)
-					oos.writeObject(x);
+					oos.writeObject(x); //escrbie el objeto en arch binario
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				c = false;
@@ -156,6 +164,6 @@ public class GestorDatosFichero implements Serializable{
 					c = false;
 				}
 			}
-		return c;
+		return c; //devuelve true o false de la escritura, si fue exitosa o no respectivamente
 	}
 }

@@ -10,14 +10,16 @@ public class gerente extends empleado {
 	}
 	
 	public void agregarProductoAlInventario(Scanner sin, ArrayList<producto> prodInventario, File rInventario) {
+		//Variables para almacenar los datos del nuevo producto
     	double pdv, ppu;
     	int cant;
-		String r[] = new String[6];
+		String r[] = new String[6]; //arreglo para almacenar temporalmente los datos del producto (;)
        try{ 
+		   //Leer el último ID de producto del archivo de inventario para asignar el siguiente ID disponible
            Scanner s = new Scanner(rInventario, "UTF-8");
            while (s.hasNextLine())
                r = s.nextLine().split(";");
-			producto.setSigId(Integer.parseInt(r[0])+1);
+			producto.setSigId(Integer.parseInt(r[0])+1); //establece el siguiente ID disponible
            s.close();
         } catch(IOException ex){ 
 			ex.printStackTrace();
@@ -43,7 +45,8 @@ public class gerente extends empleado {
         	r[0] = sin.nextLine();
 
    	 	} while (r[0].equalsIgnoreCase("s"));
-    	gf.escribirFichero(rInventario, prodInventario, false); 
+
+    	gf.escribirFichero(rInventario, prodInventario, false);  //escribir el inventario actualizado en el archivo de inventario
 	}
 
 	
@@ -136,29 +139,39 @@ public class gerente extends empleado {
 	}
 
 	public String productoMasVendido(File fichero){
-		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
-		ArrayList<producto> contador = new ArrayList<producto>();
+		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero); // lista de ventas del archivo
+		ArrayList<producto> contador = new ArrayList<producto>(); // lista para contar la cantidad de ventas de cada producto
+		//Variables para almacenar el nombre y la cantidad del producto más vendido
 		String nombreFinal = "";
 		int cantidadFinal = 0;
+
+		//Verificar si la lista de ventas no está vacía
 		if(!prod.isEmpty())
-			contador.add(new producto(prod.get(0)));
+			contador.add(new producto(prod.get(0))); // agregar el primer producto de la lista de ventas al contador
+
+		//Itera sobre la lista de ventas para contar la cantidad de ventas de cada producto	
 		for(int i = 1; i<prod.size(); i++){
 			for(int j = 0; j<contador.size(); j++){
+				//Verifica si el producto actual ya está en el contador
 				if(contador.get(j).getNombre().equals(prod.get(i).getNombre())){
+					//Si el producto ya está en el contador, incrementar la cantidad de ventas
 					producto p = new producto(contador.get(j));
 					p.setCantidad(p.getCantidad()+prod.get(i).getCantidad());
 				}
 				else if(j==contador.size()-1)
+					//Si el producto no está en el contador, agregarlo al contador
 					contador.add(new producto(prod.get(i)));
 			}
 		}
+		//Itera sobre el contador para encontrar el producto más vendido
 		for(producto x : contador){
 			if(cantidadFinal<x.getCantidad()){
+				//Actualiza el nombre y la cantidad del producto más vendido
 				nombreFinal = x.getNombre();
 				cantidadFinal = x.getCantidad();
 			}
 		}
-		return nombreFinal;
+		return nombreFinal; //Devuelve el nombre del producto más vendido
 	}
 
 	public double totalVentas(File fichero){
