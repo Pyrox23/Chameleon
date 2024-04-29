@@ -30,7 +30,7 @@ public class Menus {
         System.out.println("║\t4. Ver lista de usuarios                       ║");
         System.out.println("║\t5. Ver Inventario                              ║");
         System.out.println("║\t6. Modificar Inventario                        ║");
-        System.out.println("║\t7. Modificar Registro de Venta#                ║");
+        System.out.println("║\t7. Modificar Registro de Venta                 ║");
         System.out.println("║\t8. Ver Metricas                                ║");
         System.out.println("║\t9. Eliminar Usuario                            ║");
         System.out.println("║\t0. Salir                                       ║");

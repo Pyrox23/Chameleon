@@ -13,12 +13,13 @@ public class Programa {
 		File rInventario = new File(ruta + "Registro_Inventario.csv"); 
 		File rVenta;
 		ArrayList<producto> productos = gf.lecturaFicheroInv(rInventario); 
-		ArrayList<usuario> usuarios = new ArrayList<usuario>();
-		//Para pruebas, eliminar luego
-		usuarios.add(new administrador("admin", "admin", "Juan", "Moral"));
-		usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
-		usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
-		gf.EscribirUsuarios(usuarios);
+		ArrayList<usuario> usuarios = gf.ListaUsuarios();
+		if(usuarios.isEmpty()){
+			usuarios.add(new administrador("admin", "admin", "admin", "admin"));
+			// usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
+			// usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
+			gf.EscribirUsuarios(usuarios);
+		}	
 		boolean continuarEjecucion = true;
 		int opcion;
 		do {
@@ -35,7 +36,6 @@ public class Programa {
 
 					switch (opcion) {
 						case 1:
-							do {
 								if (!log) {
 									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
 								}
@@ -47,7 +47,9 @@ public class Programa {
 								u = new usuario(r[0], r[1], "", "");
 								u = u.login();
 								log = (u != null);
-							} while (!log);
+								if (!log) {
+									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
+								}
 							break;
 						case 2:
 							System.out.println("Saliendo del programa...");
@@ -138,10 +140,45 @@ public class Programa {
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 7: 
-								productos = gf.lecturaFicheroInv(rInventario);
 								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
-								if(rVenta.exists())
-									a.gestionarVentas(sin, productos, rVenta);
+								if(rVenta.exists()) {
+									a.ventas = gf.lecturaFicheroVenta(rVenta);
+									continuarEjecucionRegistro = true;
+									productos = gf.lecturaFicheroInv(rInventario);
+									do{
+										Menus.menuRegistroVenta();
+										try{
+											System.out.print("Ingrese una opción: ");
+											opcionAdmin = sin.nextInt();
+											sin.nextLine();
+											switch (opcionAdmin) {
+												case 1:	
+													registroVenta(sin, productos, a);
+													break;
+												case 2:
+													a.gestionarVentas(sin, productos);
+													break;
+												case 3:
+													a.imprimirVentas();
+													break;
+												case 4:    
+													cerrarRegistroMod(gf, a, productos, rInventario, rVenta);
+													continuarEjecucionRegistro = false;
+													break;
+												case 5:
+													System.out.println("Saliendo sin guardar registro...");
+													continuarEjecucionRegistro = false;
+													break;
+												default:
+													Menus.mensajeError();
+													break;
+											}
+										} catch (InputMismatchException ex) { 
+											System.out.println("Por favor, ingrese un número entero válido.");
+											sin.nextLine(); 
+										}
+									} while(continuarEjecucionRegistro);
+								}
 								else
 									System.out.println("El registro indicado no existe.");
 								a.ventas.clear();
@@ -415,18 +452,21 @@ public class Programa {
 			System.out.println("Creando Registro para guardar las Ventas..");
 			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
+			cerrarRegistroMod(gf, e, productos, rInventario, rVenta);
+		}
+	}
+
+	public static void cerrarRegistroMod(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario, File rVenta){
 			gf.checkFichero(rVenta);
 			gf.escribirFicheroVenta(rVenta, e.ventas, false);
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
-		}
 	}
 
 	public static String nombreVenta(Scanner sin){
 		String nombreRegVenta;
 		System.out.print("Indique el nombre y apellido del creador del registro en el formato Nombre_Apellido: ");
 		nombreRegVenta = sin.nextLine();
-		nombreRegVenta.replaceAll(" ", "_");
 		System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
 		nombreRegVenta += "_" + sin.nextLine();
 		return nombreRegVenta;

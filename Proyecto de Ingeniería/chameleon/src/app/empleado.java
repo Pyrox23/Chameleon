@@ -90,14 +90,14 @@ public class empleado extends usuario {
 							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
 					}
-					for(i = 0; i<productos.size()&&productos.get(i).getNombre()!=nombre; i++){
-					}
+					for(i = 0; i<productos.size()&&!productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
+
 					cantInventario = productos.get(i).getCantidad();
 					productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
-				}
-				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
-				if (!sin.next().equalsIgnoreCase("s")) {
-					seguir = false;
+
+					System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
+					sin.nextLine();
+					seguir = sin.nextLine().equalsIgnoreCase("s");
 				}
 			else
 				System.out.println("Indique un producto dentro del rango de numeros mostrado.");

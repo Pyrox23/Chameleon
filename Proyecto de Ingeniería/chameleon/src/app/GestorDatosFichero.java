@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GestorDatosFichero {
+public class GestorDatosFichero implements Serializable{
 
 	public void escribirFichero(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
         if(fichero.exists()){
@@ -101,8 +101,10 @@ public class GestorDatosFichero {
 		InputStream is = null;
 		ObjectInputStream ois = null;
 		ArrayList<usuario> u = new ArrayList<usuario>();
+		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
+		if(fichero.exists()){
 			try {
-				is = new FileInputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
+				is = new FileInputStream(fichero);
 				ois = new ObjectInputStream(is);
 				while(is.available()>0) {
 					Object obj = ois.readObject();
@@ -126,6 +128,7 @@ public class GestorDatosFichero {
 					e.printStackTrace();
 				}
 			}
+		}
 		return u;
 	}
 
