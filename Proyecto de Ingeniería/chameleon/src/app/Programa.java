@@ -424,7 +424,7 @@ public class Programa {
 
 	public static String nombreVenta(Scanner sin){
 		String nombreRegVenta;
-		System.out.print("Indique el nombre y apellido del creador del registro: ");
+		System.out.print("Indique el nombre y apellido del creador del registro en el formato Nombre_Apellido: ");
 		nombreRegVenta = sin.nextLine();
 		nombreRegVenta.replaceAll(" ", "_");
 		System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");

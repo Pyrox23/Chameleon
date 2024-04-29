@@ -78,7 +78,7 @@ public class administrador extends gerente {
 				check = (opcion<ventas.size()) && (opcion>=0);
 				sin.nextLine();
 				if (check) {
-					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar");
+					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar \n c) Cancelar");
 					cambio = sin.nextLine();
 					nombre = ventas.get(opcion).getNombre();
 					cantidadVenta = ventas.get(opcion).getCantidad();
@@ -93,24 +93,32 @@ public class administrador extends gerente {
 							cantCambio = cantidadVenta;
 							ventas.remove(opcion);
 							break;
+						case "c":
+							System.out.print("\n Cancelando Operación..");
+							seguir = false;
+							break;
 						default:
 							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
 					}
-					gf.escribirFicheroVenta(registro, this.ventas, false);
-					for(i = 0; i<productos.size()&&productos.get(i).getNombre()!=nombre; i++){
+					if (!cambio.equalsIgnoreCase("c")) {
+						gf.escribirFicheroVenta(registro, this.ventas, false);
+						for (i = 0; i < productos.size() && !productos.get(i).getNombre().equals(nombre); i++) {}
+						if (i != productos.size()) {
+							cantInventario = productos.get(i).getCantidad();
+							productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
+						} else {
+							System.out.println("El inventario no pudo ser manejado de manera automática debido a un error al buscar el producto " + nombre + " en el inventario.");
+						}
 					}
-					if(i != productos.size()){
-						cantInventario = productos.get(i).getCantidad();
-						productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
+					if (seguir && !cambio.equalsIgnoreCase("c")) {
+						System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
+						if (!sin.next().equalsIgnoreCase("s")) {
+							seguir = false;
+						}
 					}
-					else
-						System.out.println("El inventario no pudo ser manejado de manera automatica por un error al buscar el producto " + nombre + " en el inventario.");
 				}
-				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
-				if (!sin.next().equalsIgnoreCase("s")) {
-					seguir = false;
-				}
+					
 			else
 				System.out.println("Indique un producto dentro del rango de numeros mostrado.");
 			} while (seguir);
