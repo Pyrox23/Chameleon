@@ -42,13 +42,13 @@ public class usuario implements Serializable{
     }
     
     public String toString(){
-        String l = "Nombre: " + this.nombre + ", ID: " + this.id + ", Contraseña: " + this.contraseña; //Agregar apellido
+        String l = "[Nombre: " + this.nombre + " " + this.apellido + ", ID: " + this.id + ", Contraseña: " + this.contraseña;
         if(this instanceof administrador)
-            l += ", Perfil: " + "Administrador";
+            l += ", Perfil: " + "Administrador]";
         else if(this instanceof gerente)
-            l += ", Perfil: " + "Gerente";
+            l += ", Perfil: " + "Gerente]";
         else
-            l += ", Perfil: " + "Empleado";
+            l += ", Perfil: " + "Empleado]";
         return l;
     }
 }

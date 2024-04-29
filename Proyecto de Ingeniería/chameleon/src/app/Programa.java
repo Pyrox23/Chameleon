@@ -12,8 +12,7 @@ public class Programa {
 		String ruta = "./Proyecto de Ingeniería/chameleon/src/ficheros/";
 		File rInventario = new File(ruta + "Registro_Inventario.csv"); 
 		File rVenta;
-		String nombreRegVenta;
-		ArrayList<producto> productos = gf.lecturaFichero(rInventario); 
+		ArrayList<producto> productos = gf.lecturaFicheroInv(rInventario); 
 		ArrayList<usuario> usuarios = new ArrayList<usuario>();
 		//Para pruebas, eliminar luego
 		usuarios.add(new administrador("admin", "admin", "Juan", "Moral"));
@@ -67,7 +66,7 @@ public class Programa {
 			
 			if (u instanceof administrador && continuarEjecucion) {
 				a = (administrador) u;
-				productos = gf.lecturaFichero(rInventario);
+				productos = gf.lecturaFicheroInv(rInventario);
 				boolean continuarEjecucionAdmin = true;
 				int opcionAdmin;
 				do {
@@ -87,7 +86,7 @@ public class Programa {
 								break;
 							case 3:
 								boolean continuarEjecucionRegistro = true;
-								productos = gf.lecturaFichero(rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								do{
 									Menus.menuRegistroVenta();
 									try{
@@ -121,33 +120,35 @@ public class Programa {
 										sin.nextLine(); 
 									}
 								} while(continuarEjecucionRegistro);
+								a.ventas.clear();
 								break;
 							case 4: 
 								usuarios = gf.ListaUsuarios();
-								for(usuario x : usuarios){
+								for(usuario x : usuarios)
 									System.out.println(x);
-								}
 								break;
 							case 5: 
-								productos = gf.lecturaFichero(rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								for(producto x : productos)
-								System.out.println(x.toStringInventario());
+									System.out.println(x.toStringInventario());
 								break;
 							case 6:
 								Menus.menuModificarInventario();
-								a.modificarInventario(sin, rInventario);
-								productos = gf.lecturaFichero(rInventario);
+								a.modificarRegistro(sin, rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								break;
-							case 7: //Modificar Venta
+							case 7: 
+								productos = gf.lecturaFicheroInv(rInventario);
+								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
+								if(rVenta.exists())
+									a.gestionarVentas(sin, productos, rVenta);
+								else
+									System.out.println("El registro indicado no existe.");
+								a.ventas.clear();
 								break;
 							case 8: 
+								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
 								boolean continuarEjecucionMetricas = true;
-								System.out.print("Indique el nombre y apellido del creador del registro: ");
-								nombreRegVenta = sin.nextLine();
-								nombreRegVenta.replaceAll(" ", "_");
-								System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
-								nombreRegVenta += "_" + sin.nextLine();
-								rVenta = new File(ruta + nombreRegVenta + "_Registro_Venta.csv");
 								if(rVenta.exists()){
 									do {
 										Menus.mostrarMetricas();
@@ -204,7 +205,7 @@ public class Programa {
 			else if (u instanceof gerente && continuarEjecucion) {
 
 				g = (gerente) u;
-				productos = gf.lecturaFichero(rInventario);
+				productos = gf.lecturaFicheroInv(rInventario);
 				boolean continuarEjecucionGerente = true;
 				int opcionGerente;
 				do {
@@ -217,7 +218,7 @@ public class Programa {
 						switch (opcionGerente) {
 							case 1: 
 								g.agregarProductoAlInventario(sin, productos, rInventario);
-								productos = gf.lecturaFichero(rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 2: 
 								boolean continuarEjecucionRegistro = true;
@@ -254,25 +255,21 @@ public class Programa {
 										sin.nextLine(); 
 									}
 								} while(continuarEjecucionRegistro);
+								g.ventas.clear();
 								break;
 							case 3:
-								productos = gf.lecturaFichero(rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								for(producto x : productos)
 									System.out.println(x.toStringInventario());
 								break;
 							case 4: 
 								Menus.menuModificarInventario();
-								g.modificarInventario(sin, rInventario);
-								productos = gf.lecturaFichero(rInventario);
+								g.modificarRegistro(sin, rInventario);
+								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 5: 
+								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
 								boolean continuarEjecucionMetricas = true;
-								System.out.print("Indique el nombre y apellido del creador del registro: ");
-								nombreRegVenta = sin.nextLine();
-								nombreRegVenta.replaceAll(" ", "_");
-								System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
-								nombreRegVenta += "_" + sin.nextLine();
-								rVenta = new File(ruta + nombreRegVenta + "_Registro_Venta.csv");
 								if(rVenta.exists()){
 									do {
 										Menus.mostrarMetricas();
@@ -325,7 +322,7 @@ public class Programa {
 			else if (u instanceof empleado && continuarEjecucion) 
 			{
 				e = (empleado) u;
-				productos = gf.lecturaFichero(rInventario);
+				productos = gf.lecturaFicheroInv(rInventario);
 				boolean continuarEjecucionEmpleado = true;
 				int opcionEmpleado;
 				do {
@@ -369,6 +366,7 @@ public class Programa {
 										sin.nextLine(); 
 									}
 								} while(continuarEjecucionEmpleado);
+								e.ventas.clear();
 								break;
 							case 2:
 								System.out.println("Saliendo del Programa");
@@ -422,5 +420,15 @@ public class Programa {
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 		}
+	}
+
+	public static String nombreVenta(Scanner sin){
+		String nombreRegVenta;
+		System.out.print("Indique el nombre y apellido del creador del registro: ");
+		nombreRegVenta = sin.nextLine();
+		nombreRegVenta.replaceAll(" ", "_");
+		System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
+		nombreRegVenta += "_" + sin.nextLine();
+		return nombreRegVenta;
 	}
 }

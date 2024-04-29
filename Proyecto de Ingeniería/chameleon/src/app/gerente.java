@@ -47,10 +47,9 @@ public class gerente extends empleado {
 	}
 
 	
-	public void modificarInventario(Scanner sin, File registro) {
+	public void modificarRegistro(Scanner sin, File registro) {
 		GestorDatosFichero gf = new GestorDatosFichero();
-		ArrayList<producto> p = gf.lecturaFichero(registro);
-		System.out.println();
+		ArrayList<producto> p = gf.lecturaFicheroInv(registro);
 
 		boolean seguir = true;
 		int i = 0, opcion = 0;
@@ -58,16 +57,14 @@ public class gerente extends empleado {
 		String nombre = "";
 
 		if (p.isEmpty()){
-			System.out.println("No hay inventario registrado, sera redirigido a agregar un producto al inventario.");
+			System.out.println("El registro especificado esta vacio. Sera redirigido a agregar un producto al inventario.");
 			this.agregarProductoAlInventario(sin, p, registro);
 		}
 		else {
 			do {
 				boolean check = false;
-				for (i = 0; i < p.size(); i++) {
+				for (i = 0; i < p.size(); i++)
 					System.out.println(i + ". " + p.get(i).toStringInventario());
-				}
-				
 				System.out.print("\n Indique el producto a modificar: ");
 				opcion = sin.nextInt();
 				check = (opcion < p.size()) && (opcion >= 0);
@@ -76,7 +73,6 @@ public class gerente extends empleado {
 				if (check) {
 					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto");
 					cambio = sin.nextLine();
-
 					nombre = p.get(opcion).getNombre();
 					switch (cambio.toLowerCase()) {
 						case "a":
@@ -103,16 +99,15 @@ public class gerente extends empleado {
 							System.out.print("\n Ingrese el nuevo PDV de " + nombre + ": ");
 							p.get(opcion).setPdv(sin.nextDouble());
 							break;
-							
+								
 						case "f":
-							System.out.print("\n Eliminando" + nombre + " de ventas... ");
+							System.out.print("\n Eliminando" + nombre + " del registro... ");
 							p.remove(opcion);
 							break;
 
 						default:
 							break;
 					}
-
 					gf.escribirFichero(registro, p, false);
 
 					System.out.println("\n******* Cambios realizados correctamente! ******* \n");

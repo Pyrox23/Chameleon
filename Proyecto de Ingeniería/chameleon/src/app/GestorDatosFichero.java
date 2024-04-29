@@ -55,7 +55,7 @@ public class GestorDatosFichero implements Serializable{
 		}
     }
 
-   public ArrayList<producto> lecturaFichero(File fichero){
+   public ArrayList<producto> lecturaFicheroInv(File fichero){
 		ArrayList<producto> p = new ArrayList<producto>();
 		if(fichero.exists()){
 			producto product;
