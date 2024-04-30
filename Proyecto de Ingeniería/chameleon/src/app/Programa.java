@@ -16,8 +16,6 @@ public class Programa {
 		ArrayList<usuario> usuarios = gf.ListaUsuarios();
 		if(usuarios.isEmpty()){
 			usuarios.add(new administrador("admin", "admin", "admin", "admin"));
-			// usuarios.add(new gerente("gerente", "123", "Jose", "Picans"));
-			// usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
 			gf.EscribirUsuarios(usuarios);
 		}	
 		if(!rInventario.exists())
