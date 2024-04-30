@@ -1,7 +1,7 @@
 package app;
 import java.io.Serializable;
 
-public class producto implements Serializable{
+public class producto implements Serializable, Comparable<producto>{
 	private int cantidad;
 	private String nombre;
 	private String descripcion;
@@ -106,5 +106,11 @@ public class producto implements Serializable{
 
 	public String toStringInventario(){
 		return "[ID: " + id + ", Nombre: " + nombre + ", Descripcion: " + descripcion + ", Cantidad: " + cantidad + ", Precio por Unidad: " + ppu + ", Precio de venta: " + pdv + "]";
+	}
+
+	@Override
+	public int compareTo(producto o) {
+		// Hace que se puedan ordenar de Mayor a Menor
+		return Integer.compare(o.getCantidad(), this.cantidad);
 	}
 }
