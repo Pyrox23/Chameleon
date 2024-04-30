@@ -2,6 +2,7 @@ package app;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Collections;
 import java.io.*;
 
 public class gerente extends empleado {
@@ -140,40 +141,32 @@ public class gerente extends empleado {
 
 	}
 
-	public String productoMasVendido(File fichero){
+	public String productoMasVendido(File fichero) {
 		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero); // lista de ventas del archivo
-		ArrayList<producto> contador = new ArrayList<producto>(); // lista para contar la cantidad de ventas de cada producto
-		//Variables para almacenar el nombre y la cantidad del producto más vendido
-		String nombreFinal = "";
-		int cantidadFinal = 0;
+		ArrayList<producto> inventario = gf
+				.lecturaFicheroInv(new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"));
+		ArrayList<producto> x = new ArrayList<>();
 
-		//Verificar si la lista de ventas no está vacía
-		if(!prod.isEmpty())
-			contador.add(new producto(prod.get(0))); // agregar el primer producto de la lista de ventas al contador
+		// Agregar todas las opciones del inventario
+		for (producto p : inventario) {
+			x.add(new producto(p.getNombre(), 0));
+		}
 
-		//Itera sobre la lista de ventas para contar la cantidad de ventas de cada producto	
-		for(int i = 1; i<prod.size(); i++){
-			for(int j = 0; j<contador.size(); j++){
-				//Verifica si el producto actual ya está en el contador
-				if(contador.get(j).getNombre().equals(prod.get(i).getNombre())){
-					//Si el producto ya está en el contador, incrementar la cantidad de ventas
-					producto p = new producto(contador.get(j));
-					p.setCantidad(p.getCantidad()+prod.get(i).getCantidad());
+		// Agregar cantidades
+		for (int i = 0; i < x.size(); i++) {
+			producto actual = x.get(i);
+			for (int j = 0; j < prod.size(); j++) {
+				if (prod.get(j).getNombre().equals(actual.getNombre())) {
+					actual.setCantidad(actual.getCantidad() + prod.get(j).getCantidad());
 				}
-				else if(j==contador.size()-1)
-					//Si el producto no está en el contador, agregarlo al contador
-					contador.add(new producto(prod.get(i)));
 			}
 		}
-		//Itera sobre el contador para encontrar el producto más vendido
-		for(producto x : contador){
-			if(cantidadFinal<x.getCantidad()){
-				//Actualiza el nombre y la cantidad del producto más vendido
-				nombreFinal = x.getNombre();
-				cantidadFinal = x.getCantidad();
-			}
-		}
-		return nombreFinal; //Devuelve el nombre del producto más vendido
+		
+		// Sortear de mayor a menor cantidad
+		Collections.sort(x);
+
+		String masVendido = x.get(0).getNombre() + ";" + x.get(0).getCantidad(); // Como ya están ordenadas, simplemente se manda el primer index
+		return masVendido;
 	}
 
 	public double totalVentas(File fichero){

@@ -142,7 +142,7 @@ public class Programa {
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 7: 
-								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
+								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
 								if(rVenta.exists()) {
 									a.ventas = gf.lecturaFicheroVenta(rVenta);
 									continuarEjecucionRegistro = true;
@@ -188,7 +188,7 @@ public class Programa {
 								a.ventas.clear();
 								break;
 							case 8: 
-								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
+								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
 								boolean continuarEjecucionMetricas = true;
 								if(rVenta.exists()){
 									do {

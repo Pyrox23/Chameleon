@@ -2,6 +2,8 @@ package app;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.awt.FileDialog;
+import java.awt.Frame;
 
 //Serializable significa que los objetos de esta clase pueden ser convertidos en bytes y luego guardados en archivos como binarios
 public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfaz  
@@ -165,5 +167,26 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
 				}
 			}
 		return c; //devuelve true o false de la escritura, si fue exitosa o no respectivamente
+	}
+
+	public String seleccionarArchivo(String ruta){
+		try {
+            Runtime.getRuntime().exec("open " + ruta);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileDialog dialog = new FileDialog((Frame)null, "Seleccionar archivo", FileDialog.LOAD);
+
+        // Establecer el directorio inicial del diálogo en la carpeta del proyecto
+        dialog.setDirectory(ruta);
+        
+        // Mostrar el diálogo
+        dialog.setVisible(true);
+        
+        // Obtener la ruta del archivo seleccionado por el usuario
+        String selectedFilePath = dialog.getDirectory() + dialog.getFile();
+        
+        // Imprimir la ruta del archivo seleccionado por consola
+        return selectedFilePath;
 	}
 }
