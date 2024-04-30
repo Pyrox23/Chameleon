@@ -20,6 +20,8 @@ public class Programa {
 			// usuarios.add(new empleado("empleado", "123", "Roberto", "Amo"));
 			gf.EscribirUsuarios(usuarios);
 		}	
+		if(!rInventario.exists())
+			gf.checkFichero(rInventario);
 		boolean continuarEjecucion = true;
 		int opcion;
 		do {
@@ -131,12 +133,14 @@ public class Programa {
 								break;
 							case 5: 
 								productos = gf.lecturaFicheroInv(rInventario);
+								if(productos.isEmpty())
+									System.out.println("El registro de inventario esta vacio.");
 								for(producto x : productos)
 									System.out.println(x.toStringInventario());
 								break;
 							case 6:
 								Menus.menuModificarInventario();
-								a.modificarRegistro(sin, rInventario);
+								a.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 7: 
@@ -168,7 +172,7 @@ public class Programa {
 												case 5:
 													System.out.println("Desea elminiar el registro? (S/N)");
 													continuarEjecucionRegistro = !sin.nextLine().equalsIgnoreCase("s");
-													if(continuarEjecucionRegistro)
+													if(!continuarEjecucionRegistro)
 														rVenta.delete();
 													break;
 												default:
@@ -303,7 +307,7 @@ public class Programa {
 								break;
 							case 4: 
 								Menus.menuModificarInventario();
-								g.modificarRegistro(sin, rInventario);
+								g.modificarInventario(sin, rInventario);
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 5: 

@@ -12,17 +12,23 @@ public class administrador extends gerente {
 		usuario u; // Variable para almacenar el nuevo usuario
 		ArrayList<usuario> usuarios = new ArrayList<usuario>(); // Lista para almacenar todos los usuarios
 		String r[] = new String[5]; // cada dato esta separado por (;) y esos datos se guardan en el array
-
-		System.out.print("\nEscribe el id del nuevo usuario: ");
-		r[0] = sin.nextLine();
-		System.out.print("Escribe la contraseña: ");
-		r[1] = sin.nextLine();
-		System.out.print("Nombre del usuario: ");
-		r[2] = sin.nextLine();
-		System.out.print("Apellido del usuario: ");
-		r[3] = sin.nextLine();
-		System.out.print("Perfil del usuario: ");
-		r[4] = sin.nextLine();
+		boolean check = false;
+		int i;
+		do{
+			if(check)
+				System.out.println("Los datos vacios no son aceptados.");
+			System.out.print("\nEscribe el id del nuevo usuario: ");
+			r[0] = sin.nextLine();
+			System.out.print("Escribe la contraseña: ");
+			r[1] = sin.nextLine();
+			System.out.print("Nombre del usuario: ");
+			r[2] = sin.nextLine();
+			System.out.print("Apellido del usuario: ");
+			r[3] = sin.nextLine();
+			System.out.print("Perfil del usuario: ");
+			r[4] = sin.nextLine();
+			check = r[0].equals("") || r[1].equals("") || r[2].equals("") || r[3].equals("");
+		} while(check);
 
 		if (r[4].equalsIgnoreCase("administrador"))
 			u = new administrador(r[0], r[1], r[2], r[3]);
@@ -34,26 +40,27 @@ public class administrador extends gerente {
 			System.out.println("El perfil indicado no existe y el usuario fue asignado a empleado.");
 			u = new empleado(r[0], r[1], r[2], r[3]);
 		}
-		usuarios = gf.ListaUsuarios(); 		 // obtiene la lista actual de usuarios
-		usuarios.add(u);        		    // agrega el nuevo usuario a la lista de usuarios
-		gf.EscribirUsuarios(usuarios);	   // escribe la lista actualizada de usuarios en el archivo binario
-	}
-
-	//Método para eliminar un usuario de la lista y actualizar el archivo binario
-	public void eliminarUsuario(String idUsuario) {
-		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios(); // lista de usuarios del archivo bin
-		int i = 0;
-		//Buscar el usuario con el ID especificado en la lista
-		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++) { //mientras no se alcanzo el final de la lista
-		} 																	//y el ID del usuario en la posición actual no coincida con el ID especificado
-		//Verificar si se encontró el usuario con el ID especificado
-		if(i != listaUsuarios.size()){      // valor de i es diferente al tamaño de la lista de usuario
-			listaUsuarios.remove(i);       // elimina el usuario de la lista
-			System.out.println("¡Usuario eliminado correctamente!");
-			gf.EscribirUsuarios(listaUsuarios);  // actualiza el archivo binario con la lista de usuarios actualizada
+		usuarios = gf.ListaUsuarios();
+		for (i = 0; i<usuarios.size()&&!usuarios.get(i).getId().equals(r[0]); i++);
+		if(i == usuarios.size()){
+			usuarios.add(u);
+			gf.EscribirUsuarios(usuarios);
 		}
 		else
-			System.out.println("¡No se encontró ningún usuario con el ID especificado!");
+			System.out.println("Ya existe un usuario con el id especificado");
+	}
+
+	public void eliminarUsuario(String idUsuario) {
+		ArrayList<usuario> listaUsuarios = gf.ListaUsuarios();
+		int i = 0;
+		for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++);
+		if(i != listaUsuarios.size()){
+			listaUsuarios.remove(i);
+			System.out.println("Usuario eliminado correctamente");
+			gf.EscribirUsuarios(listaUsuarios);
+		}
+		else
+			System.out.println("No se encontró ningún usuario con el ID especificado");
 
 	}
 }

@@ -1,6 +1,7 @@
 package app;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.io.*;
 
 public class gerente extends empleado {
@@ -27,30 +28,31 @@ public class gerente extends empleado {
 		}
     	do {
 			Menus.mostrarIngresarProducto();
-        	System.out.print("Nombre del producto: ");
-        	r[0] = sin.nextLine();
-        	System.out.print("Descripcion del producto: ");
-        	r[1] = sin.nextLine();
-        	System.out.print("Cantidad disponible: ");
-        	cant = sin.nextInt();
-        	System.out.print("Precio de Unidad: ");
-        	ppu = sin.nextDouble();
-        	System.out.print("Precio de Venta: ");
-        	pdv = sin.nextDouble();
-
-        	prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
-			
-        	System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
+			try{
+				System.out.print("Nombre del producto: ");
+				r[0] = sin.nextLine();
+				System.out.print("Descripcion del producto: ");
+				r[1] = sin.nextLine();
+				System.out.print("Cantidad disponible: ");
+				cant = sin.nextInt();
+				System.out.print("Precio de Unidad: ");
+				ppu = sin.nextDouble();
+				System.out.print("Precio de Venta: ");
+				pdv = sin.nextDouble();
+				prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
+			} catch(InputMismatchException e){
+				System.out.println("Por favor, ingrese un número entero válido.");
+			}
+			System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
 			sin.next();
-        	r[0] = sin.nextLine();
-
+			r[0] = sin.nextLine();
    	 	} while (r[0].equalsIgnoreCase("s"));
 
     	gf.escribirFichero(rInventario, prodInventario, false);  //escribir el inventario actualizado en el archivo de inventario
 	}
 
 	
-	public void modificarRegistro(Scanner sin, File registro) {
+	public void modificarInventario(Scanner sin, File registro) {
 		GestorDatosFichero gf = new GestorDatosFichero();
 		ArrayList<producto> p = gf.lecturaFicheroInv(registro);
 
@@ -60,7 +62,7 @@ public class gerente extends empleado {
 		String nombre = "";
 
 		if (p.isEmpty()){
-			System.out.println("El registro especificado esta vacio. Sera redirigido a agregar un producto al inventario.");
+			System.out.println("El registro de inventario esta vacio. Sera redirigido a agregar un producto al inventario.");
 			this.agregarProductoAlInventario(sin, p, registro);
 		}
 		else {
