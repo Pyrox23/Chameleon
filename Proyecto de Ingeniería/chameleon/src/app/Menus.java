@@ -60,9 +60,9 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar Venta                               ║");
         System.out.println("║\t2. Modificar Venta                             ║");
-        System.out.println("║\t3. Ver Ventas                                  ║");
+        System.out.println("║\t3. Ver Ventas Actuales                         ║");
         System.out.println("║\t4. Guardar Registro                            ║");
-        System.out.println("║\t5. Cancelar Registro                           ║");
+        System.out.println("║\t5. Eliminar Registro                           ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 

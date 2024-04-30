@@ -166,8 +166,10 @@ public class Programa {
 													continuarEjecucionRegistro = false;
 													break;
 												case 5:
-													System.out.println("Saliendo sin guardar registro...");
-													continuarEjecucionRegistro = false;
+													System.out.println("Desea elminiar el registro? (S/N)");
+													continuarEjecucionRegistro = !sin.nextLine().equalsIgnoreCase("s");
+													if(continuarEjecucionRegistro)
+														rVenta.delete();
 													break;
 												default:
 													Menus.mensajeError();
@@ -452,7 +454,11 @@ public class Programa {
 			System.out.println("Creando Registro para guardar las Ventas..");
 			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-			cerrarRegistroMod(gf, e, productos, rInventario, rVenta);
+			
+			gf.checkFichero(rVenta);
+			gf.escribirFicheroVenta(rVenta, e.ventas, rVenta.exists());
+			gf.escribirFichero(rInventario, productos, false);
+			e.ventas.clear();
 		}
 	}
 
