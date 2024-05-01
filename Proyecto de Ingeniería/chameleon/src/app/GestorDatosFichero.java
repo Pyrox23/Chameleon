@@ -170,11 +170,6 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
 	}
 
 	public String seleccionarArchivo(String ruta){
-		try {
-            Runtime.getRuntime().exec("open " + ruta);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         FileDialog dialog = new FileDialog((Frame)null, "Seleccionar archivo", FileDialog.LOAD);
 
         // Establecer el directorio inicial del diálogo en la carpeta del proyecto

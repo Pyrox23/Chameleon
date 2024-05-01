@@ -141,10 +141,10 @@ public class gerente extends empleado {
 
 	}
 
-	public String productoMasVendido(File fichero) {
-		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero); // lista de ventas del archivo
+	public String productoMasVendido(File ficheroVenta, File ficheroInv) {
+		ArrayList<producto> prod = gf.lecturaFicheroVenta(ficheroVenta); // lista de ventas del archivo
 		ArrayList<producto> inventario = gf
-				.lecturaFicheroInv(new File("./Proyecto de Ingeniería/chameleon/src/ficheros/Registro_Inventario.csv"));
+				.lecturaFicheroInv(ficheroInv);
 		ArrayList<producto> x = new ArrayList<>();
 
 		// Agregar todas las opciones del inventario
@@ -165,7 +165,7 @@ public class gerente extends empleado {
 		// Sortear de mayor a menor cantidad
 		Collections.sort(x);
 
-		String masVendido = x.get(0).getNombre() + ";" + x.get(0).getCantidad(); // Como ya están ordenadas, simplemente se manda el primer index
+		String masVendido = x.get(0).getNombre() + ": " + x.get(0).getCantidad(); // Como ya están ordenadas, simplemente se manda el primer index
 		return masVendido;
 	}
 

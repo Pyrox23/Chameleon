@@ -189,8 +189,8 @@ public class Programa {
 								break;
 							case 8: 
 								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
-								boolean continuarEjecucionMetricas = true;
-								if(rVenta.exists()){
+								boolean continuarEjecucionMetricas = true, check = rVenta.getName().contains("Registro_Venta.csv");
+								if(rVenta.exists()&&check){
 									do {
 										Menus.mostrarMetricas();
 											try{
@@ -199,7 +199,7 @@ public class Programa {
 												sin.nextLine();
 												switch (opcionAdmin) {
 													case 1:
-														System.out.println(a.productoMasVendido(rVenta));
+														System.out.println(a.productoMasVendido(rVenta, rInventario));
 														break;
 													case 2:
 														System.out.println(a.totalVentas(rVenta));
@@ -220,6 +220,8 @@ public class Programa {
 											}
 									} while (continuarEjecucionMetricas);
 								}
+								else if(!check)
+									System.out.println("El registro indicado no es valido.");
 								else
 									System.out.println("El registro indicado no existe.");
 								break;
@@ -320,7 +322,7 @@ public class Programa {
 											sin.nextLine();
 											switch (opcionGerente) {
 												case 1:
-													System.out.println(g.productoMasVendido(rVenta));
+													System.out.println(g.productoMasVendido(rVenta, rInventario));
 													break;
 												case 2:
 													System.out.println(g.totalVentas(rVenta));
