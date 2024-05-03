@@ -16,6 +16,7 @@ public class gerente extends empleado {
     	double pdv, ppu;
     	int cant;
 		String r[] = new String[6]; //arreglo para almacenar temporalmente los datos del producto (;)
+		boolean check;
        try{ 
 		   //Leer el último ID de producto del archivo de inventario para asignar el siguiente ID disponible
            Scanner s = new Scanner(rInventario, "UTF-8");
@@ -31,22 +32,26 @@ public class gerente extends empleado {
 			Menus.mostrarIngresarProducto();
 			try{
 				System.out.print("Nombre del producto: ");
-				r[0] = sin.nextLine();
+				r[0] = sin.nextLine().trim();
 				System.out.print("Descripcion del producto: ");
-				r[1] = sin.nextLine();
+				r[1] = sin.nextLine().trim();
 				System.out.print("Cantidad disponible: ");
 				cant = sin.nextInt();
 				System.out.print("Precio de Unidad: ");
 				ppu = sin.nextDouble();
 				System.out.print("Precio de Venta: ");
 				pdv = sin.nextDouble();
-				prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv)); 
+				check = r[0].equals("") || r[1].equals("");
+				if(!check)
+					prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv));
+				else
+					System.out.println("Los datos vacios no son aceptados.");
 			} catch(InputMismatchException e){
 				System.out.println("Por favor, ingrese un número entero válido.");
 			}
 			System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
-			sin.next();
-			r[0] = sin.nextLine();
+			sin.nextLine();
+			r[0] = sin.nextLine().trim();
    	 	} while (r[0].equalsIgnoreCase("s"));
 
     	gf.escribirFichero(rInventario, prodInventario, false);  //escribir el inventario actualizado en el archivo de inventario
@@ -78,7 +83,7 @@ public class gerente extends empleado {
 
 				if (check) {
 					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto \n \t g)Cancelar");
-					cambio = sin.nextLine();
+					cambio = sin.nextLine().trim();
 					nombre = p.get(opcion).getNombre();
 					switch (cambio.toLowerCase()) {
 						case "a":
@@ -127,7 +132,7 @@ public class gerente extends empleado {
 						System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 	
 						System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-						if (!(sin.next().equalsIgnoreCase("S"))) {
+						if (!(sin.nextLine().trim().equalsIgnoreCase("S"))) {
 							seguir = false;
 						}
 						

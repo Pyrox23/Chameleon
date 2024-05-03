@@ -169,7 +169,7 @@ public class Programa {
 													break;
 												case 5:
 													System.out.println("Desea elminiar el registro? (S/N)");
-													continuarEjecucionRegistro = !sin.nextLine().equalsIgnoreCase("s");
+													continuarEjecucionRegistro = !sin.nextLine().trim().equalsIgnoreCase("s");
 													if(!continuarEjecucionRegistro)
 														rVenta.delete();
 													break;
@@ -436,7 +436,7 @@ public class Programa {
 			do{
 				System.out.println("Presione 's' para realizar otra venta.");
 				try{
-					input = sin.next();
+					input = sin.nextLine();
 					check = true;
 				} catch(InputMismatchException ex){
 					System.out.println("Opcion no valida.");

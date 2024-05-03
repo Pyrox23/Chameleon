@@ -1,6 +1,7 @@
 package app;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class empleado extends usuario {
 	protected ArrayList<producto> ventas;
@@ -31,22 +32,26 @@ public class empleado extends usuario {
 		boolean exit = true;
 		System.out.println("Ingrese los detalles de la venta:");
 		System.out.print("Nombre del producto: ");
-		nombreProducto = sin.nextLine();
-		System.out.print("Cantidad vendida: ");
-		cantidadVendida = sin.nextInt();
+		try{
+			nombreProducto = sin.nextLine().trim();
+			System.out.print("Cantidad vendida: ");
+			cantidadVendida = sin.nextInt();
 
-		for (int i = 0; i < inventario.size() && exit; i++) {
-			p = inventario.get(i);
-			if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad() >= cantidadVendida) {
-				this.ventas.add(new producto(p.getNombre(), cantidadVendida, p.getPdv(), p.getId()));
-				p.setCantidad(p.getCantidad() - cantidadVendida);
-				inventario.set(i, p);
-				System.out.println("Venta agregada correctamente");
-				exit = false;
+			for (int i = 0; i < inventario.size() && exit; i++) {
+				p = inventario.get(i);
+				if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad() >= cantidadVendida) {
+					this.ventas.add(new producto(p.getNombre(), cantidadVendida, p.getPdv(), p.getId()));
+					p.setCantidad(p.getCantidad() - cantidadVendida);
+					inventario.set(i, p);
+					System.out.println("Venta agregada correctamente");
+					exit = false;
+				}
 			}
-		}
-		if (exit) {
-			System.out.println("El producto no está disponible en el inventario");
+			if (exit) {
+				System.out.println("El producto no está disponible en el inventario");
+			}
+		} catch(InputMismatchException e){
+			System.out.println("Por favor, ingrese un número entero válido.");
 		}
 
 	}
@@ -74,7 +79,7 @@ public class empleado extends usuario {
 				sin.nextLine();
 				if (check) {
 					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar");
-					cambio = sin.nextLine();
+					cambio = sin.nextLine().trim();
 					nombre = ventas.get(opcion).getNombre();
 					cantidadVenta = ventas.get(opcion).getCantidad();
 					switch (cambio.toLowerCase()) {
@@ -99,7 +104,7 @@ public class empleado extends usuario {
 
 					System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
 					sin.nextLine();
-					seguir = sin.nextLine().equalsIgnoreCase("s");
+					seguir = sin.nextLine().trim().equalsIgnoreCase("s");
 				}
 			else
 				System.out.println("Indique un producto dentro del rango de numeros mostrado.");
