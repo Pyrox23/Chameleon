@@ -143,7 +143,9 @@ public class Programa {
 								break;
 							case 7: 
 								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
-								if(rVenta.exists()) {
+								continuarEjecucionRegistro = true;
+								boolean check = rVenta.getName().contains("Registro_Venta.csv");
+								if(rVenta.exists()&&check) {
 									a.ventas = gf.lecturaFicheroVenta(rVenta);
 									continuarEjecucionRegistro = true;
 									productos = gf.lecturaFicheroInv(rInventario);
@@ -189,7 +191,8 @@ public class Programa {
 								break;
 							case 8: 
 								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
-								boolean continuarEjecucionMetricas = true, check = rVenta.getName().contains("Registro_Venta.csv");
+								boolean continuarEjecucionMetricas = true;
+								check = rVenta.getName().contains("Registro_Venta.csv");
 								if(rVenta.exists()&&check){
 									do {
 										Menus.mostrarMetricas();
@@ -311,38 +314,40 @@ public class Programa {
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 5: 
-								rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
-								boolean continuarEjecucionMetricas = true;
-								if(rVenta.exists()){
+								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
+								boolean continuarEjecucionMetricas = true, check = rVenta.getName().contains("Registro_Venta.csv");
+								if(rVenta.exists()&&check){
 									do {
 										Menus.mostrarMetricas();
-										try{
-											System.out.print("Ingrese una opción: ");
-											opcionGerente = sin.nextInt();
-											sin.nextLine();
-											switch (opcionGerente) {
-												case 1:
-													System.out.println(g.productoMasVendido(rVenta, rInventario));
-													break;
-												case 2:
-													System.out.println(g.totalVentas(rVenta));
-													break;
-												case 3:
-													System.out.println(g.productosVendidos(rVenta));
-													break;
-												case 4: 
-													continuarEjecucionMetricas = false;
-													break;
-												default:
-													Menus.mensajeError();
-													break;
+											try{
+												System.out.print("Ingrese una opción: ");
+												opcionGerente = sin.nextInt();
+												sin.nextLine();
+												switch (opcionGerente) {
+													case 1:
+														System.out.println(g.productoMasVendido(rVenta, rInventario));
+														break;
+													case 2:
+														System.out.println(g.totalVentas(rVenta));
+														break;
+													case 3:
+														System.out.println(g.productosVendidos(rVenta));
+														break;
+													case 4: 
+														continuarEjecucionMetricas = false;
+														break;
+													default:
+														Menus.mensajeError();
+														break;
+												}
+											} catch (InputMismatchException ex) { 
+												System.out.println("Por favor, ingrese un número entero válido.");
+												sin.nextLine(); 
 											}
-										} catch (InputMismatchException ex) { 
-											System.out.println("Por favor, ingrese un número entero válido.");
-											sin.nextLine(); 
-										}
 									} while (continuarEjecucionMetricas);
 								}
+								else if(!check)
+									System.out.println("El registro indicado no es valido.");
 								else
 									System.out.println("El registro indicado no existe.");
 								break;
@@ -430,20 +435,11 @@ public class Programa {
 
 	public static void registroVenta(Scanner sin, ArrayList<producto> productos, empleado e){
 		String input = "";
-		boolean check = true;
 		do{
 			e.agregarVenta(sin, productos);
-			do{
-				System.out.println("Presione 's' para realizar otra venta.");
-				try{
-					input = sin.nextLine();
-					check = true;
-				} catch(InputMismatchException ex){
-					System.out.println("Opcion no valida.");
-					check = false;
-				}
-			} while(!check);
 			sin.nextLine();
+			System.out.println("Presione 's' para realizar otra venta.");
+			input = sin.nextLine().trim();
 		}while(input.equalsIgnoreCase("s"));
 										
 									
@@ -481,4 +477,40 @@ public class Programa {
 		nombreRegVenta += "_" + sin.nextLine();
 		return nombreRegVenta;
 	}
+
+	// rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
+	// 							boolean continuarEjecucionMetricas = true;
+	// 							if(rVenta.exists()){
+	// 								do {
+	// 									Menus.mostrarMetricas();
+	// 									try{
+	// 										System.out.print("Ingrese una opción: ");
+	// 										opcionGerente = sin.nextInt();
+	// 										sin.nextLine();
+	// 										switch (opcionGerente) {
+	// 											case 1:
+	// 												System.out.println(g.productoMasVendido(rVenta, rInventario));
+	// 												break;
+	// 											case 2:
+	// 												System.out.println(g.totalVentas(rVenta));
+	// 												break;
+	// 											case 3:
+	// 												System.out.println(g.productosVendidos(rVenta));
+	// 												break;
+	// 											case 4: 
+	// 												continuarEjecucionMetricas = false;
+	// 												break;
+	// 											default:
+	// 												Menus.mensajeError();
+	// 												break;
+	// 										}
+	// 									} catch (InputMismatchException ex) { 
+	// 										System.out.println("Por favor, ingrese un número entero válido.");
+	// 										sin.nextLine(); 
+	// 									}
+	// 								} while (continuarEjecucionMetricas);
+	// 							}
+	// 							else
+	// 								System.out.println("El registro indicado no existe.");
+	// 							break;
 }
