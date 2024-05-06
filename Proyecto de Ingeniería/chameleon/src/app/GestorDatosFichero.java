@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.awt.FileDialog;
 import java.awt.Frame;
 
+
 //Serializable significa que los objetos de esta clase pueden ser convertidos en bytes y luego guardados en archivos como binarios
 public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfaz  
 
@@ -184,5 +185,30 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
         // Imprimir la ruta del archivo seleccionado por consola
         return selectedFilePath;
 	}
+
+	public boolean copyFile(String fromFile, String toFile) {
+        File origen = new File(fromFile);
+        File destino = new File(toFile);
+        if (origen.exists()) {
+            try {
+                InputStream in = new FileInputStream(origen);
+                OutputStream out = new FileOutputStream(destino);
+                // We use a buffer for the copy (Usamos un buffer para la copia).
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) {
+                    out.write(buf, 0, len);
+                }
+                in.close();
+                out.close();
+                return true;
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
 }
