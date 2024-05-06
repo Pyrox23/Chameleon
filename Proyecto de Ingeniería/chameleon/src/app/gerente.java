@@ -170,24 +170,23 @@ public class gerente extends empleado {
 		// Sortear de mayor a menor cantidad
 		Collections.sort(x);
 
-		String masVendido = x.get(0).getNombre() + ": " + x.get(0).getCantidad(); // Como ya están ordenadas, simplemente se manda el primer index
-		return masVendido;
+		return "Producto mas vendido: " + x.get(0).getNombre() + "\nCantidad vendida: " + x.get(0).getCantidad() + " unidades";
 	}
 
-	public double totalVentas(File fichero){
+	public String totalVentas(File fichero){
 		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
 		double total = 0.0;
 		for(producto x : prod)
 			total += x.getPdv()*x.getCantidad();
-		return total;
+		return "Total de ventas: " + total + "$";
 	}
 
-	public int productosVendidos(File fichero){
+	public String productosVendidos(File fichero){
 		ArrayList<producto> prod = gf.lecturaFicheroVenta(fichero);
 		int cantidad = 0;
 		for(int i = 0; i<prod.size(); i++)
 			cantidad += prod.get(i).getCantidad();
-		return cantidad;
+		return "Productos vendidos: " + cantidad;
 	}
 
 }

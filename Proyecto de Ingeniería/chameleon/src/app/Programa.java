@@ -235,7 +235,6 @@ public class Programa {
 								System.out.print("Indique la id del usuario a eliminar: ");
 								a.eliminarUsuario(sin.nextLine());
 								break;
-								
 							case 10: // Descargar archivo
 								rVenta = new File(gf.seleccionarArchivo(ruta));
 
@@ -247,6 +246,21 @@ public class Programa {
 								// Llenarlo con los datos del fichero a descargar
 								gf.copyFile(rVenta.getPath(), x.getPath());
 								System.out.println("Archivo descargado correctamente en: "  + rutaDescargas);
+								break;
+							case 11:
+								rVenta = new File(gf.seleccionarArchivo(ruta));
+								check = rVenta.getName().contains("Registro_Venta.csv");
+								if(check){
+									System.out.println("Desea elminiar el registro? (S/N)"); 
+									if(sin.nextLine().trim().equalsIgnoreCase("s"))
+										rVenta.delete();
+								}
+								else if(rVenta.getName().contains("Registro_Inventario.csv"))
+									System.out.println("El registro de inventario no puede ser eliminado, solo modificado.");
+								else if(rVenta.getName().contains("credendiales"))
+									System.out.println("No puede eliminar las credenciales del sistema.");
+								else
+									System.out.println("El registro indicado es invalido.");
 								break;
 							case 0: 
 								System.out.println("Saliendo del programa...");
