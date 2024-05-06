@@ -3,6 +3,8 @@ import java.util.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.filechooser.FileSystemView;
+
 public class Programa {
 	public static void main(String[] args){
 		boolean log = true;
@@ -231,6 +233,23 @@ public class Programa {
 							case 9:
 								System.out.print("Indique la id del usuario a eliminar: ");
 								a.eliminarUsuario(sin.nextLine());
+								break;
+								
+							case 10: // Descargar archivo
+								System.out.print("Seleccione el archivo a descargar: ");
+								rVenta = new File(gf.seleccionarArchivo(ruta));
+
+								// Obtener la ruta de la carpeta de descargas
+								FileSystemView view = FileSystemView.getFileSystemView();
+        							String rutaDescargas = view.getDefaultDirectory().getPath();
+
+								// Crear un fichero vacío en descargas
+								File x = new File(rutaDescargas, "copia_de_" + rVenta.getName());
+
+								// Llenarlo con los datos del fichero a descargar
+								gf.copyFile(rVenta.getPath(), x.getPath());
+								System.out.println("Archivo descargado correctamente!");
+
 								break;
 							case 0: 
 								System.out.println("Saliendo del programa...");
