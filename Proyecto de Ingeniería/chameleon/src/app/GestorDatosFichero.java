@@ -48,6 +48,25 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
 			}
 		}
     }
+	public void escribirFicheroVentaGeneral(File fichero, ArrayList<producto> p, boolean sobreescribir, String id){ 
+        if(fichero.exists()){ 
+			try{
+				//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
+				PrintWriter pw = new PrintWriter(bw); 
+
+				//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
+				for(producto x : p)
+					pw.println(x.toStringRegistro() + ";" + id);
+				pw.flush(); //asegura la escritura de los datos en el fichero
+				pw.close(); 
+				bw.close();
+				System.out.println("\nRegistro de Venta escrito con exito."); 
+			} catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+    }
 
 	public boolean checkFichero(File fichero){ 
        try { 
@@ -93,6 +112,29 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
 				prod = s.nextLine().split(";");
 				//Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
    				product = new producto(prod[1], Integer.parseInt(prod[2]), Double.parseDouble(prod[3]), Integer.parseInt(prod[0]));
+				p.add(product);
+			}
+			s.close();
+		} catch(IOException ex){ 
+				ex.printStackTrace();
+		}
+	}
+	return p; // devuelve la lista de productos leídos del archivo
+}
+
+public ArrayList<producto> lecturaFicheroVentaGeneral(File fichero){
+	ArrayList<producto> p = new ArrayList<producto>();
+	if(fichero.exists()){
+		producto product;
+		//Array para almacenar temporalmente los datos de cada línea (;) del archivo
+		String prod[] = new String[6];  // osea cada dato esta separado por (;) y esos datos se guardan en el array
+		try{ 
+			Scanner s = new Scanner(fichero, "UTF-8");
+			while (s.hasNextLine()){ 
+				prod = s.nextLine().split(";");
+				//Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
+   				product = new producto(prod[1], Integer.parseInt(prod[2]), Double.parseDouble(prod[3]), Integer.parseInt(prod[0]));
+				product.setDescripcion(prod[4]);
 				p.add(product);
 			}
 			s.close();

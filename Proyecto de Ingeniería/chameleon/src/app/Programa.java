@@ -478,15 +478,22 @@ public class Programa {
 			gf.checkFichero(rVenta);
 			gf.checkFichero(rVentaGeneral);
 			gf.escribirFicheroVenta(rVenta, e.ventas, rVenta.exists());
-			gf.escribirFicheroVenta(rVentaGeneral, e.ventas, rVentaGeneral.exists());
+			gf.escribirFicheroVentaGeneral(rVentaGeneral, e.ventas, rVentaGeneral.exists(), e.getId());
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 		}
 	}
 
 	public static void cerrarRegistroMod(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario, File rVenta){
-			gf.checkFichero(rVenta);
+			String fecha[] = rVenta.getName().split("_");
+			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + fecha[2] + "_Registro_Venta.csv");
+			ArrayList<producto> prod = gf.lecturaFicheroVentaGeneral(rVentaGeneral);
+			for(int i = 0; i<prod.size(); i++){
+				if(prod.get(i).getDescripcion().equals(e.id))
+					prod.remove(i);
+			}
 			gf.escribirFicheroVenta(rVenta, e.ventas, false);
+			gf.escribirFicheroVentaGeneral(rVentaGeneral, e.ventas, false, e.getId());
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 	}
