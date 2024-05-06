@@ -193,11 +193,10 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
             try {
                 InputStream in = new FileInputStream(origen);
                 OutputStream out = new FileOutputStream(destino);
-                // We use a buffer for the copy (Usamos un buffer para la copia).
-                byte[] buf = new byte[1024];
+                byte[] buff = new byte[1024];
                 int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
+                while ((len = in.read(buff)) > 0) {
+                    out.write(buff, 0, len);
                 }
                 in.close();
                 out.close();
