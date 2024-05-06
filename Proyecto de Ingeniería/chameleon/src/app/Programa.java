@@ -142,7 +142,7 @@ public class Programa {
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 7: 
-								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
+								rVenta = new File(gf.seleccionarArchivo(ruta));
 								continuarEjecucionRegistro = true;
 								boolean check = rVenta.getName().contains("Registro_Venta.csv");
 								if(rVenta.exists()&&check) {
@@ -190,7 +190,7 @@ public class Programa {
 								a.ventas.clear();
 								break;
 							case 8: 
-								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
+								rVenta = new File(gf.seleccionarArchivo(ruta));
 								boolean continuarEjecucionMetricas = true;
 								check = rVenta.getName().contains("Registro_Venta.csv");
 								if(rVenta.exists()&&check){
@@ -314,7 +314,7 @@ public class Programa {
 								productos = gf.lecturaFicheroInv(rInventario);
 								break;
 							case 5: 
-								rVenta = new File(gf.seleccionarArchivo(ruta)); // Cambio con gestor
+								rVenta = new File(gf.seleccionarArchivo(ruta));
 								boolean continuarEjecucionMetricas = true, check = rVenta.getName().contains("Registro_Venta.csv");
 								if(rVenta.exists()&&check){
 									do {
@@ -454,9 +454,12 @@ public class Programa {
 			System.out.println("Creando Registro para guardar las Ventas..");
 			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
+			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
 			
 			gf.checkFichero(rVenta);
+			gf.checkFichero(rVentaGeneral);
 			gf.escribirFicheroVenta(rVenta, e.ventas, rVenta.exists());
+			gf.escribirFicheroVenta(rVentaGeneral, e.ventas, rVentaGeneral.exists());
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 		}
@@ -477,40 +480,4 @@ public class Programa {
 		nombreRegVenta += "_" + sin.nextLine();
 		return nombreRegVenta;
 	}
-
-	// rVenta = new File(ruta + nombreVenta(sin) + "_Registro_Venta.csv");
-	// 							boolean continuarEjecucionMetricas = true;
-	// 							if(rVenta.exists()){
-	// 								do {
-	// 									Menus.mostrarMetricas();
-	// 									try{
-	// 										System.out.print("Ingrese una opción: ");
-	// 										opcionGerente = sin.nextInt();
-	// 										sin.nextLine();
-	// 										switch (opcionGerente) {
-	// 											case 1:
-	// 												System.out.println(g.productoMasVendido(rVenta, rInventario));
-	// 												break;
-	// 											case 2:
-	// 												System.out.println(g.totalVentas(rVenta));
-	// 												break;
-	// 											case 3:
-	// 												System.out.println(g.productosVendidos(rVenta));
-	// 												break;
-	// 											case 4: 
-	// 												continuarEjecucionMetricas = false;
-	// 												break;
-	// 											default:
-	// 												Menus.mensajeError();
-	// 												break;
-	// 										}
-	// 									} catch (InputMismatchException ex) { 
-	// 										System.out.println("Por favor, ingrese un número entero válido.");
-	// 										sin.nextLine(); 
-	// 									}
-	// 								} while (continuarEjecucionMetricas);
-	// 							}
-	// 							else
-	// 								System.out.println("El registro indicado no existe.");
-	// 							break;
 }
