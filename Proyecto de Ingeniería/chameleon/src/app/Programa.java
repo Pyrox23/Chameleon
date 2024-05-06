@@ -145,8 +145,9 @@ public class Programa {
 								break;
 							case 7: 
 								rVenta = new File(gf.seleccionarArchivo(ruta));
+								String nombreCheck[] = rVenta.getName().split("_");
 								continuarEjecucionRegistro = true;
-								boolean check = rVenta.getName().contains("Registro_Venta.csv");
+								boolean check = rVenta.getName().contains("Registro_Venta.csv")&&nombreCheck.length>3;
 								if(rVenta.exists()&&check) {
 									a.ventas = gf.lecturaFicheroVenta(rVenta);
 									continuarEjecucionRegistro = true;

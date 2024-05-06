@@ -78,7 +78,7 @@ public class empleado extends usuario {
 				check = (opcion<ventas.size()) && (opcion>=0);
 				sin.nextLine();
 				if (check) {
-					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar");
+					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar \n c) Cancelar");
 					cambio = sin.nextLine().trim();
 					nombre = ventas.get(opcion).getNombre();
 					cantidadVenta = ventas.get(opcion).getCantidad();
@@ -92,6 +92,9 @@ public class empleado extends usuario {
 							System.out.print("\n Eliminando " + nombre + " de ventas... ");
 							cantCambio = cantidadVenta;
 							ventas.remove(opcion);
+							break;
+						case "c":
+							System.out.println("Cancelando cambio...");
 							break;
 						default:
 							System.out.println("Opcion no valida, intente de nuevo.");
