@@ -236,7 +236,6 @@ public class Programa {
 								break;
 								
 							case 10: // Descargar archivo
-								System.out.print("Seleccione el archivo a descargar: ");
 								rVenta = new File(gf.seleccionarArchivo(ruta));
 
 								// Obtener la ruta de la carpeta de descargas
