@@ -240,15 +240,12 @@ public class Programa {
 
 								// Obtener la ruta de la carpeta de descargas
 								FileSystemView view = FileSystemView.getFileSystemView();
-        							String rutaDescargas = view.getDefaultDirectory().getPath();
-
+        						String rutaDescargas = view.getHomeDirectory().getPath();
 								// Crear un fichero vacío en descargas
 								File x = new File(rutaDescargas, "copia_de_" + rVenta.getName());
-
 								// Llenarlo con los datos del fichero a descargar
 								gf.copyFile(rVenta.getPath(), x.getPath());
-								System.out.println("Archivo descargado correctamente!");
-
+								System.out.println("Archivo descargado correctamente en: "  + rutaDescargas);
 								break;
 							case 0: 
 								System.out.println("Saliendo del programa...");
