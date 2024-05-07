@@ -242,9 +242,11 @@ public class Programa {
 								FileSystemView view = FileSystemView.getFileSystemView();
         						String rutaDescargas = view.getHomeDirectory().getPath();
 								// Crear un fichero vacío en descargas
-								File x = new File(rutaDescargas, "copia_de_" + rVenta.getName());
+								File descarga = new File(rutaDescargas, "copia_de_" + rVenta.getName());
 								// Llenarlo con los datos del fichero a descargar
-								gf.copyFile(rVenta.getPath(), x.getPath());
+								gf.copyFile(rVenta.getPath(), descarga.getPath());
+								productos = gf.lecturaFicheroVenta(descarga);
+								gf.escribirFicheroVentaDes(rVenta, productos, false);
 								System.out.println("Archivo descargado correctamente en: "  + rutaDescargas);
 								break;
 							case 11:
