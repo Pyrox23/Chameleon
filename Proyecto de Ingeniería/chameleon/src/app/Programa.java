@@ -11,7 +11,7 @@ public class Programa {
 		String r[] = new String[4]; 
 		Scanner sin = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero(); 
-		String ruta = "./Proyecto de Ingeniería/chameleon/src/ficheros/";
+		String ruta = "./ficheros/";
 		File rInventario = new File(ruta + "Registro_Inventario.csv"); 
 		File rVenta;
 		ArrayList<producto> productos = gf.lecturaFicheroInv(rInventario); 
@@ -490,9 +490,9 @@ public class Programa {
 		else {
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			System.out.println("Creando Registro para guardar las Ventas..");
-			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" 
+			File rVenta = new File("./ficheros/" 
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
-			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
+			File rVentaGeneral = new File("./ficheros/" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
 			
 			gf.checkFichero(rVenta);
 			gf.checkFichero(rVentaGeneral);
@@ -505,7 +505,7 @@ public class Programa {
 
 	public static void cerrarRegistroMod(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario, File rVenta){
 			String fecha[] = rVenta.getName().split("_");
-			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + fecha[2] + "_Registro_Venta.csv");
+			File rVentaGeneral = new File("./ficheros/" + fecha[2] + "_Registro_Venta.csv");
 			ArrayList<producto> prod = gf.lecturaFicheroVentaGeneral(rVentaGeneral);
 			for(int i = 0; i<prod.size(); i++){
 				if(prod.get(i).getDescripcion().equals(e.id))
@@ -516,13 +516,4 @@ public class Programa {
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 	}
-
-	// public static String nombreVenta(Scanner sin){
-	// 	String nombreRegVenta;
-	// 	System.out.print("Indique el nombre y apellido del creador del registro en el formato Nombre_Apellido: ");
-	// 	nombreRegVenta = sin.nextLine();
-	// 	System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
-	// 	nombreRegVenta += "_" + sin.nextLine();
-	// 	return nombreRegVenta;
-	// }
 }
