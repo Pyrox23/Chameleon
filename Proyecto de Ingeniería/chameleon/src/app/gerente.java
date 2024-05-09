@@ -18,7 +18,7 @@ public class gerente extends empleado {
 		String r[] = new String[6]; //arreglo para almacenar temporalmente los datos del producto (;)
 		boolean check = true;
 		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
-		String error = "";
+		String error = null;
 
        try{ 
 		   //Leer el último ID de producto del archivo de inventario para asignar el siguiente ID disponible
@@ -48,24 +48,19 @@ public class gerente extends empleado {
 
 				// Chequeos:
 				// Checar producto vacío
-				if (r[0].equals("") || r[1].equals("")){
-					check = false;
-					error = "No se pueden agregar productos vacíos";
-				}
+				check = r[0].equals("") || r[1].equals("");
+				error = !check ? "No se pueden agregar productos vacíos" : null;
 				// Checar producto repetido
-				for (int i = 0; i < p.size() && check == true; i++) {
-					if (p.get(i).getNombre().equals(r[0])) {
-						check = false;
-						error = "El producto seleccionado ya existe";
-					} 
+				for (int i = 0; i < p.size() && check; i++) {
+						check = !p.get(i).getNombre().equals(r[0]);
+						error = !check ? "El producto con este nombre seleccionado ya existe" : null;
 				}
 				// Checar datos negativos
-				if (cant < 0 || ppu < 0 || pdv < 0){
-					check = false;
-					error = "Los números negativos no son válidos";
-				}
+				
+				check = cant > 0 || ppu > 0 || pdv > 0;
+				error = !check ? "Los números negativos no son válidos" : null;
 
-				if(check == true)
+				if(check)
 					prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv));
 				else
 					System.out.println(error);
@@ -99,6 +94,9 @@ public class gerente extends empleado {
 		else {
 			do {
 				boolean check = false;
+				String error = null;
+				int cant;
+				double pdv, ppu;
 				for (i = 0; i < p.size(); i++)
 					System.out.println(i + ". " + p.get(i).toStringInventario());
 				System.out.print("\n Indique el producto a modificar: ");
@@ -107,42 +105,60 @@ public class gerente extends empleado {
 				sin.nextLine();
 
 				if (check) {
-					System.out.println(" \nIndique el cambio a realizar: \n \t a)Cambiar nombre \n \t b)Cambiar descripción \n \t c)Cambiar cantidad \n \t d)Cambiar PPU (Precio por Unidad) \n \t e)Cambiar PDV (Precio de Venta) \n \t f)Eliminar producto \n \t g)Cancelar");
+					System.out.println("\nIndique el cambio a realizar:\n\ta)Cambiar nombre\n\tb)Cambiar descripción\n\tc)Cambiar cantidad\n\td)Cambiar PPU (Precio por Unidad)\n\te)Cambiar PDV (Precio de Venta)\n\tf)Eliminar producto\n\tg)Cancelar");
 					cambio = sin.nextLine().trim();
 					nombre = p.get(opcion).getNombre();
 					switch (cambio.toLowerCase()) {
 						case "a":
-							System.out.print("\n Ingrese el nuevo nombre de " + nombre + ": ");
-							p.get(opcion).setNombre(sin.nextLine());
+							System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
+							nombre = sin.nextLine();
+							for (int j = 0; j < p.size() && check; j++) {
+								check = !p.get(j).getNombre().equals(nombre);
+								error = !check ? "El producto con este nombre seleccionado ya existe" : null;
+							}
+							if(check)
+								p.get(opcion).setNombre(nombre);
 							break;
 
 						case "b":
-							System.out.print("\n Ingrese la nueva descripción de " + nombre + ": ");
+							System.out.print("\nIngrese la nueva descripción de " + nombre + ": ");
 							p.get(opcion).setDescripcion(sin.nextLine());
 							break;
 
 						case "c":
-							System.out.print("\n Ingrese la nueva cantidad de " + nombre + ": ");
-							p.get(opcion).setCantidad(sin.nextInt());
+							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
+							cant = sin.nextInt();
+							check = cant > 0;
+							error = !check ? "Los números negativos no son válidos" : null;
+							if(check)
+								p.get(opcion).setCantidad(cant);
 							break;
 
 						case "d":
-							System.out.print("\n Ingrese el nuevo PPU de " + nombre + ": ");
-							p.get(opcion).setPpu(sin.nextDouble());
+							System.out.print("\nIngrese el nuevo PPU de " + nombre + ": ");
+							ppu = sin.nextDouble();
+							check = ppu > 0;
+							error = !check ? "Los números negativos no son válidos" : null;
+							if(check)
+								p.get(opcion).setPpu(ppu);
 							break;
 
 						case "e":
-							System.out.print("\n Ingrese el nuevo PDV de " + nombre + ": ");
-							p.get(opcion).setPdv(sin.nextDouble());
+							System.out.print("\nIngrese el nuevo PDV de " + nombre + ": ");
+							pdv = sin.nextDouble();
+							check = pdv > 0;
+							error = !check ? "Los números negativos no son válidos" : null;
+							if(check)
+								p.get(opcion).setPdv(pdv);
 							break;
 								
 						case "f":
-							System.out.print("\n Eliminando" + nombre + " del registro... ");
+							System.out.print("\nEliminando" + nombre + " del registro... ");
 							p.remove(opcion);
 							break;
 						
 						case "g":
-							System.out.print("\n Cancelando..");
+							System.out.print("\nCancelando..");
 							seguir = false;
 							break;
 
@@ -151,10 +167,12 @@ public class gerente extends empleado {
 							break;
 					}
 
-					if (seguir && !cambio.equalsIgnoreCase("g")) {
+					if (seguir && !cambio.equalsIgnoreCase("g") && check) {
 						gf.escribirFichero(registro, p, false);
-	
-						System.out.println("\n******* Cambios realizados correctamente! ******* \n");
+						
+						if(check)
+							System.out.println("\n******* Cambios realizados correctamente! ******* \n");
+
 	
 						System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
 						if (!(sin.nextLine().trim().equalsIgnoreCase("S"))) {
@@ -162,6 +180,8 @@ public class gerente extends empleado {
 						}
 						
 					}
+					else if(error != null)
+						System.out.println(error + "\n");
 				}
 				else
 					System.out.println("Indique un valor numerico valido.");

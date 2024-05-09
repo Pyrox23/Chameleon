@@ -78,18 +78,18 @@ public class empleado extends usuario {
 				check = (opcion<ventas.size()) && (opcion>=0);
 				sin.nextLine();
 				if (check) {
-					System.out.println(" \n Indique el cambio a realizar: \n a) Cambiar cantidad \n b) Eliminar \n c) Cancelar");
+					System.out.println("\nIndique el cambio a realizar:\na) Cambiar cantidad\nb) Eliminar\nc) Cancelar");
 					cambio = sin.nextLine().trim();
 					nombre = ventas.get(opcion).getNombre();
 					cantidadVenta = ventas.get(opcion).getCantidad();
 					switch (cambio.toLowerCase()) {
 						case "a":
-							System.out.print("\n Ingrese la nueva cantidad de " + nombre + ": ");
+							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
 							cantCambio = sin.nextInt();
 							ventas.get(opcion).setCantidad(cantCambio);
 							break;
 						case "b":
-							System.out.print("\n Eliminando " + nombre + " de ventas... ");
+							System.out.print("\nEliminando " + nombre + " de ventas... ");
 							cantCambio = cantidadVenta;
 							ventas.remove(opcion);
 							break;
