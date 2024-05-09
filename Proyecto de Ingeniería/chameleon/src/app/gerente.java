@@ -16,13 +16,17 @@ public class gerente extends empleado {
     	double pdv, ppu;
     	int cant;
 		String r[] = new String[6]; //arreglo para almacenar temporalmente los datos del producto (;)
-		boolean check;
+		boolean check = true;
+		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
+		String error = "";
+
        try{ 
 		   //Leer el último ID de producto del archivo de inventario para asignar el siguiente ID disponible
            Scanner s = new Scanner(rInventario, "UTF-8");
            while (s.hasNextLine())
                r = s.nextLine().split(";");
 			producto.setSigId(Integer.parseInt(r[0])+1); //establece el siguiente ID disponible
+
            s.close();
         } catch(IOException ex){ 
 			ex.printStackTrace();
@@ -41,14 +45,35 @@ public class gerente extends empleado {
 				ppu = sin.nextDouble();
 				System.out.print("Precio de Venta: ");
 				pdv = sin.nextDouble();
-				check = r[0].equals("") || r[1].equals("");
-				if(!check)
+
+				// Chequeos:
+				// Checar producto vacío
+				if (r[0].equals("") || r[1].equals("")){
+					check = false;
+					error = "No se pueden agregar productos vacíos";
+				}
+				// Checar producto repetido
+				for (int i = 0; i < p.size() && check == true; i++) {
+					if (p.get(i).getNombre().equals(r[0])) {
+						check = false;
+						error = "El producto seleccionado ya existe";
+					} 
+				}
+				// Checar datos negativos
+				if (cant < 0 || ppu < 0 || pdv < 0){
+					check = false;
+					error = "Los números negativos no son válidos";
+				}
+
+				if(check == true)
 					prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv));
 				else
-					System.out.println("Los datos vacios no son aceptados.");
+					System.out.println(error);
 			} catch(InputMismatchException e){
 				System.out.println("Por favor, ingrese un número entero válido.");
 			}
+			
+
 			System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
 			sin.nextLine();
 			r[0] = sin.nextLine().trim();
