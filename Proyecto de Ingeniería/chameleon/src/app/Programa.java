@@ -7,7 +7,7 @@ import javax.swing.filechooser.FileSystemView;
 
 public class Programa {
 	public static void main(String[] args){
-		boolean log = true;
+		boolean log;
 		String r[] = new String[4]; 
 		Scanner sin = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero(); 
@@ -29,6 +29,7 @@ public class Programa {
 			empleado e = null;
 			gerente g = null;
 			administrador a = null;
+			log = true;
 			do {
 				Menus.menuInicial();
 				try {
@@ -133,10 +134,12 @@ public class Programa {
 								break;
 							case 5: 
 								productos = gf.lecturaFicheroInv(rInventario);
-								if(productos.isEmpty())
-									System.out.println("El registro de inventario esta vacio.");
-								for(producto x : productos)
-									System.out.println(x.toStringInventario());
+								if(!productos.isEmpty()){
+									for(producto x : productos)
+										System.out.println(x.toStringInventario());
+								}
+								else
+									System.out.println("El inventario esta vacio.");
 								break;
 							case 6:
 								Menus.menuModificarInventario();
@@ -337,8 +340,12 @@ public class Programa {
 								break;
 							case 3:
 								productos = gf.lecturaFicheroInv(rInventario);
-								for(producto x : productos)
-									System.out.println(x.toStringInventario());
+								if(!productos.isEmpty()){
+									for(producto x : productos)
+										System.out.println(x.toStringInventario());
+								}
+								else
+									System.out.println("El inventario esta vacio.");
 								break;
 							case 4: 
 								Menus.menuModificarInventario();
@@ -399,8 +406,7 @@ public class Programa {
 
 			} 
 
-			else if (u instanceof empleado && continuarEjecucion) 
-			{
+			else if (u instanceof empleado && continuarEjecucion) {
 				e = (empleado) u;
 				productos = gf.lecturaFicheroInv(rInventario);
 				boolean continuarEjecucionEmpleado = true;
@@ -462,7 +468,7 @@ public class Programa {
 					}
 				} while (continuarEjecucionEmpleado);
 			}
-		}while(continuarEjecucion);
+		} while(continuarEjecucion);
 	}
 
 	public static void registroVenta(Scanner sin, ArrayList<producto> productos, empleado e){
@@ -511,12 +517,12 @@ public class Programa {
 			e.ventas.clear();
 	}
 
-	public static String nombreVenta(Scanner sin){
-		String nombreRegVenta;
-		System.out.print("Indique el nombre y apellido del creador del registro en el formato Nombre_Apellido: ");
-		nombreRegVenta = sin.nextLine();
-		System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
-		nombreRegVenta += "_" + sin.nextLine();
-		return nombreRegVenta;
-	}
+	// public static String nombreVenta(Scanner sin){
+	// 	String nombreRegVenta;
+	// 	System.out.print("Indique el nombre y apellido del creador del registro en el formato Nombre_Apellido: ");
+	// 	nombreRegVenta = sin.nextLine();
+	// 	System.out.print("Indique la fecha del registro a ver en el formato dd-mm-yyyy: ");
+	// 	nombreRegVenta += "_" + sin.nextLine();
+	// 	return nombreRegVenta;
+	// }
 }
