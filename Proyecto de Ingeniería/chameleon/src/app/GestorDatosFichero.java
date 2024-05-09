@@ -172,7 +172,7 @@ public ArrayList<producto> lecturaFicheroVentaGeneral(File fichero){
 		InputStream is = null;  // para leer archivo binario
 		ObjectInputStream ois = null;  // para leer objetos
 		ArrayList<usuario> u = new ArrayList<usuario>();
-		File fichero = new File("./ficheros/credenciales.bin");
+		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 		if(fichero.exists()){
 			try {
 				is = new FileInputStream(fichero);
@@ -211,7 +211,7 @@ public ArrayList<producto> lecturaFicheroVentaGeneral(File fichero){
 		boolean c = true;  // variable para indicar si la escritura se realizo bien
 
 			try {
-				os = new FileOutputStream("./ficheros/credenciales.bin");
+				os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
 				oos = new ObjectOutputStream(os);
 				//Escribe cada usuario de la lista en un archivo binario
 				for(usuario x : u)
