@@ -55,13 +55,16 @@ public class administrador extends gerente {
 		if(listaUsuarios.size() != 1){
 			int i = 0;
 			for (; i<listaUsuarios.size()&&!listaUsuarios.get(i).getId().equals(idUsuario); i++);
-			if(i != listaUsuarios.size() && !this.getId().equals(listaUsuarios.get(i).getId())){
-				listaUsuarios.remove(i);
-				System.out.println("Usuario eliminado correctamente");
-				gf.EscribirUsuarios(listaUsuarios);
-			}
-			else if(this.getId().equals(listaUsuarios.get(i).getId()))
+			if(i != listaUsuarios.size()){
+				if(!this.getId().equals(listaUsuarios.get(i).getId())){
+					listaUsuarios.remove(i);
+					System.out.println("Usuario eliminado correctamente");
+					gf.EscribirUsuarios(listaUsuarios);
+				}
+			else
 				System.out.println("No puedes eliminar tu propio usuario");
+			}
+			
 			else
 				System.out.println("No se encontró ningún usuario con el ID especificado");
 		}

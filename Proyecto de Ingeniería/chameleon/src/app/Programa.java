@@ -43,7 +43,7 @@ public class Programa {
 									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
 								}
 								Menus.mostrarIngresarSesion();
-								System.out.print("\nIntroduce tu usuario: ");
+								System.out.print("\nIntroduce tu id: ");
 								r[0] = sin.nextLine();
 								System.out.print("Introduce tu contraseña: ");
 								r[1] = sin.nextLine();
@@ -505,7 +505,8 @@ public class Programa {
 							+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
 			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/" + dateFormat.format(new Date()) + "_Registro_Venta.csv");
 			
-			gf.checkFichero(rVenta);
+			if(!gf.checkFichero(rVenta))
+				System.out.println("Ya has creado un registro para este dia y tus ventas han sido agregadas.\nNombre del registro: " + rVenta.getName());
 			gf.checkFichero(rVentaGeneral);
 			gf.escribirFicheroVenta(rVenta, e.ventas, rVenta.exists());
 			gf.escribirFicheroVentaGeneral(rVentaGeneral, e.ventas, rVentaGeneral.exists(), e.getId());

@@ -36,20 +36,23 @@ public class empleado extends usuario {
 			nombreProducto = sin.nextLine().trim();
 			System.out.print("Cantidad vendida: ");
 			cantidadVendida = sin.nextInt();
-
-			for (int i = 0; i < inventario.size() && exit; i++) {
-				p = inventario.get(i);
-				if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad() >= cantidadVendida) {
-					this.ventas.add(new producto(p.getNombre(), cantidadVendida, p.getPdv(), p.getId()));
-					p.setCantidad(p.getCantidad() - cantidadVendida);
-					inventario.set(i, p);
-					System.out.println("Venta agregada correctamente");
-					exit = false;
+			if(cantidadVendida > 0){
+				for (int i = 0; i < inventario.size() && exit; i++) {
+					p = inventario.get(i);
+					if (p.getNombre().equalsIgnoreCase(nombreProducto) && p.getCantidad() >= cantidadVendida) {
+						this.ventas.add(new producto(p.getNombre(), cantidadVendida, p.getPdv(), p.getId()));
+						p.setCantidad(p.getCantidad() - cantidadVendida);
+						inventario.set(i, p);
+						System.out.println("Venta agregada correctamente");
+						exit = false;
+					}
+				}
+				if (exit) {
+					System.out.println("El producto no está disponible en el inventario");
 				}
 			}
-			if (exit) {
-				System.out.println("El producto no está disponible en el inventario");
-			}
+			else
+				System.out.println("No se aceptan ventas con cantidades negativas o con 0");
 		} catch(InputMismatchException e){
 			System.out.println("Por favor, ingrese un número entero válido.");
 		}

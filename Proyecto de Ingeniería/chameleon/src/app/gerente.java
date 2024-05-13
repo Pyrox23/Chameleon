@@ -17,7 +17,6 @@ public class gerente extends empleado {
     	int cant;
 		String r[] = new String[6]; //arreglo para almacenar temporalmente los datos del producto (;)
 		boolean check = true;
-		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
 		String error = null;
 
        try{ 
@@ -47,20 +46,23 @@ public class gerente extends empleado {
 				pdv = sin.nextDouble();
 
 				// Chequeos:
-				// Checar producto vacío
+				// Producto vacío
 				check = r[0].equals("") || r[1].equals("");
-				error = !check ? "No se pueden agregar productos vacíos" : null;
-				// Checar producto repetido
-				for (int i = 0; i < p.size() && check; i++) {
-						check = !p.get(i).getNombre().equals(r[0]);
-						error = !check ? "El producto con este nombre seleccionado ya existe" : null;
+				error = check ? "No se pueden agregar productos con nombre y descripcion vacíos" : null;
+				if(!check){
+				// Producto repetido
+					for (int i = 0; i < prodInventario.size() && !check; i++) {
+							check = prodInventario.get(i).getNombre().equals(r[0]);
+							error = check ? "El producto con este nombre seleccionado ya existe" : null;
+					}
 				}
-				// Checar datos negativos
-				
-				check = cant > 0 || ppu > 0 || pdv > 0;
-				error = !check ? "Los números negativos no son válidos" : null;
+				// Datos negativos
+				if(!check){
+					check = cant < 0 || ppu < 0 || pdv < 0;
+					error = check ? "Los números negativos o 0 no son válidos" : null;
+				}
 
-				if(check)
+				if(!check)
 					prodInventario.add(new producto(r[0], r[1], cant, ppu, pdv));
 				else
 					System.out.println(error);
@@ -84,8 +86,7 @@ public class gerente extends empleado {
 
 		boolean seguir = true;
 		int i = 0, opcion = 0;
-		String cambio = "";
-		String nombre = "";
+		String cambio = "", nombre = "", descripcion = "";
 
 		do {
 			boolean check = false;
@@ -113,6 +114,8 @@ public class gerente extends empleado {
 						case "a":
 							System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
 							nombre = sin.nextLine();
+							check = !nombre.equals("");
+							error = !check ? "No se pueden agregar productos con nombre y descripcion vacíos" : null;
 							for (int j = 0; j < p.size() && check; j++) {
 								check = !p.get(j).getNombre().equals(nombre);
 								error = !check ? "El producto con este nombre seleccionado ya existe" : null;
@@ -123,14 +126,19 @@ public class gerente extends empleado {
 
 						case "b":
 							System.out.print("\nIngrese la nueva descripción de " + nombre + ": ");
-							p.get(opcion).setDescripcion(sin.nextLine());
+							descripcion = sin.nextLine();
+							check = !descripcion.equals("");
+							error = !check ? "No se pueden agregar productos con nombre y descripcion vacíos" : null;
+							if(check)
+								p.get(opcion).setDescripcion(descripcion);
 							break;
 
 						case "c":
 							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
 							cant = sin.nextInt();
+							sin.nextLine();
 							check = cant > 0;
-							error = !check ? "Los números negativos no son válidos" : null;
+							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if(check)
 								p.get(opcion).setCantidad(cant);
 							break;
@@ -138,8 +146,9 @@ public class gerente extends empleado {
 						case "d":
 							System.out.print("\nIngrese el nuevo PPU de " + nombre + ": ");
 							ppu = sin.nextDouble();
+							sin.nextLine();
 							check = ppu > 0;
-							error = !check ? "Los números negativos no son válidos" : null;
+							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if(check)
 								p.get(opcion).setPpu(ppu);
 							break;
@@ -147,8 +156,9 @@ public class gerente extends empleado {
 						case "e":
 							System.out.print("\nIngrese el nuevo PDV de " + nombre + ": ");
 							pdv = sin.nextDouble();
+							sin.nextLine();
 							check = pdv > 0;
-							error = !check ? "Los números negativos no son válidos" : null;
+							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if(check)
 								p.get(opcion).setPdv(pdv);
 							break;
@@ -170,15 +180,7 @@ public class gerente extends empleado {
 
 					if (seguir && !cambio.equalsIgnoreCase("g") && check) {
 						gf.escribirFichero(registro, p, false);
-						
-						if(check)
-							System.out.println("\n******* Cambios realizados correctamente! ******* \n");
-
-		
-						System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-						if (!(sin.nextLine().trim().equalsIgnoreCase("S"))) {
-							seguir = false;
-						}
+						System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 							
 					}
 					else if(error != null)
@@ -186,6 +188,10 @@ public class gerente extends empleado {
 				}
 				else
 					System.out.println("Indique un valor numerico valido.");
+
+				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
+					if (!(sin.nextLine().trim().equalsIgnoreCase("S"))) 
+						seguir = false;
 			}
 		} while (seguir);
 	}
