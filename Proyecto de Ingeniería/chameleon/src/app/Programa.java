@@ -191,6 +191,8 @@ public class Programa {
 										}
 									} while(continuarEjecucionRegistro);
 								}
+								else if(!check)
+									System.out.println("El registro indicado no es valido.");
 								else
 									System.out.println("El registro indicado no existe.");
 								a.ventas.clear();
