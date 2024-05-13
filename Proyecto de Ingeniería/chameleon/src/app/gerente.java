@@ -52,7 +52,7 @@ public class gerente extends empleado {
 				if(!check){
 				// Producto repetido
 					for (int i = 0; i < prodInventario.size() && !check; i++) {
-							check = prodInventario.get(i).getNombre().equals(r[0]);
+							check = prodInventario.get(i).getNombre().equalsIgnoreCase(r[0]);
 							error = check ? "El producto con este nombre seleccionado ya existe" : null;
 					}
 				}
@@ -71,7 +71,7 @@ public class gerente extends empleado {
 			}
 			
 
-			System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto");
+			System.out.println("Desea añadir otro producto? \nPresione 's' para añadir otro producto\nPulse cualquier otro boton para salir");
 			sin.nextLine();
 			r[0] = sin.nextLine().trim();
    	 	} while (r[0].equalsIgnoreCase("s"));
@@ -137,7 +137,7 @@ public class gerente extends empleado {
 							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
 							cant = sin.nextInt();
 							sin.nextLine();
-							check = cant > 0;
+							check = cant >= 0;
 							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if(check)
 								p.get(opcion).setCantidad(cant);
@@ -170,7 +170,6 @@ public class gerente extends empleado {
 							
 						case "g":
 							System.out.print("\nCancelando..");
-							seguir = false;
 							break;
 
 						default:

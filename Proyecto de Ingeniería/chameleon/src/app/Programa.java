@@ -43,9 +43,9 @@ public class Programa {
 									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
 								}
 								Menus.mostrarIngresarSesion();
-								System.out.print("\nIntroduce tu id: ");
+								System.out.print("\nId: ");
 								r[0] = sin.nextLine();
-								System.out.print("Introduce tu contraseña: ");
+								System.out.print("Contraseña: ");
 								r[1] = sin.nextLine();
 								u = new usuario(r[0], r[1], "", "");
 								u = u.login();
@@ -249,17 +249,18 @@ public class Programa {
 								break;
 							case 10: 
 								rVenta = new File(gf.seleccionarArchivo(ruta));
-
-								// Obtener la ruta de la carpeta de descargas
-								FileSystemView view = FileSystemView.getFileSystemView();
-        						String rutaExportar = view.getHomeDirectory().getPath();
-								// Crear un fichero vacío en descargas
-								File exportar = new File(rutaExportar, "copia_de_" + rVenta.getName());
-								// Llenarlo con los datos del fichero a descargar
-								gf.copyFile(rVenta.getPath(), exportar.getPath());
-								productos = gf.lecturaFicheroVenta(rVenta);
-								gf.escribirFicheroVentaDes(exportar, productos, false);
-								System.out.println("Archivo exportado correctamente en: "  + rutaExportar);
+								if(rVenta.getName().contains("Registro_Venta.csv") || rVenta.getName().equalsIgnoreCase("Registro_Inventario.csv") || rVenta.getName().equalsIgnoreCase("credenciales.bin")){
+									// Obtener la ruta de la carpeta de descargas
+									FileSystemView view = FileSystemView.getFileSystemView();
+									String rutaExportar = view.getHomeDirectory().getPath();
+									// Crear un fichero vacío en descargas
+									File exportar = new File(rutaExportar, "copia_de_" + rVenta.getName());
+									// Llenarlo con los datos del fichero a descargar
+									gf.copyFile(rVenta.getPath(), exportar.getPath());
+									System.out.println("Archivo exportado correctamente en: "  + rutaExportar);
+								}
+								else
+									System.out.println("El archivo indicano no es valido.");
 								break;
 							case 11:
 								rVenta = new File(gf.seleccionarArchivo(ruta));
@@ -487,7 +488,7 @@ public class Programa {
 		do{
 			e.agregarVenta(sin, productos);
 			sin.nextLine();
-			System.out.println("Presione 's' para realizar otra venta.");
+			System.out.println("Presione 's' para realizar otra venta.\nPulse cualquier otro boton para salir");
 			input = sin.nextLine().trim();
 		}while(input.equalsIgnoreCase("s"));
 										

@@ -47,28 +47,7 @@ public class GestorDatosFichero implements Serializable{ //Clase de tipo Interfa
 				e.printStackTrace();
 			}
 		}
-    }
-
-	public void escribirFicheroVentaDes(File fichero, ArrayList<producto> p, boolean sobreescribir){ 
-        if(fichero.exists()){ 
-			try{
-				//"BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir líneas en el BufferedWriter
-				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));  
-				PrintWriter pw = new PrintWriter(bw); 
-				pw.write("ID;Nombre;Cantidad;PDV");
-
-				//Se recorre la lista de productos y se escribe cada uno en una línea del fichero
-				for(producto x : p)
-					pw.println(x.toStringRegistro());
-				pw.flush(); //asegura la escritura de los datos en el fichero
-				pw.close(); 
-				bw.close();
-				System.out.println("\nRegistro de Venta escrito con exito."); 
-			} catch(IOException e){
-				e.printStackTrace();
-			}
-		}
-    }
+	}
 
 	public void escribirFicheroExportar(File fichero, File rVenta, File rInventario, gerente g){
 		checkFichero(fichero);

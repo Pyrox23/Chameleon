@@ -89,11 +89,12 @@ public class empleado extends usuario {
 						case "a":
 							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
 							cantCambio = sin.nextInt();
+							sin.nextLine();
 							for(i = 0; i<productos.size()&&!productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
 							if(i != productos.size()){
 								cantInventario = productos.get(i).getCantidad();
 								numeroValido = cantInventario + cantidadVenta - cantCambio;
-								if(numeroValido >= 0){
+								if(numeroValido > 0){
 									productos.get(i).setCantidad(numeroValido);
 									ventas.get(opcion).setCantidad(cantCambio);
 								}
@@ -103,8 +104,12 @@ public class empleado extends usuario {
 							break;
 						case "b":
 							System.out.print("\nEliminando " + nombre + " de ventas... ");
-							cantCambio = cantidadVenta;
-							ventas.remove(opcion);
+							for(i = 0; i<productos.size()&&!productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
+							if(i != productos.size()){
+								cantInventario = productos.get(i).getCantidad();
+								productos.get(i).setCantidad(cantInventario + cantidadVenta);
+								ventas.remove(opcion);
+							}
 							break;
 						case "c":
 							System.out.println("Cancelando cambio...");
@@ -115,7 +120,6 @@ public class empleado extends usuario {
 					}
 
 					System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
-					sin.nextLine();
 					seguir = sin.nextLine().trim().equalsIgnoreCase("s");
 				}
 			else
