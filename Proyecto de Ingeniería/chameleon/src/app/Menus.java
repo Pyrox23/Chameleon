@@ -35,6 +35,7 @@ public class Menus {
         System.out.println("║\t9. Eliminar Usuario                            ║");
         System.out.println("║\t10. Exportar Registro                          ║");
         System.out.println("║\t11. Eliminar Registro                          ║");
+        System.out.println("║\t12. Ver ventas de registros pasados            ║");
         System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }

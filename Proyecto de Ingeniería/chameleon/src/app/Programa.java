@@ -277,6 +277,18 @@ public class Programa {
 								else
 									System.out.println("El registro indicado es invalido.");
 								break;
+							case 12:
+								rVenta = new File(gf.seleccionarArchivo(ruta));
+								check = rVenta.getName().contains("Registro_Venta.csv");
+								if(check){
+									System.out.println("Ventas del registro: " + rVenta.getName());
+									productos = gf.lecturaFicheroVenta(rVenta);
+									for(producto x : productos)
+										System.out.println(x.toStringVenta());
+								}
+								else
+									System.out.println("El registro indicado es invalido.");
+								break;
 							case 0: 
 								System.out.println("Saliendo del programa...");
 								continuarEjecucionAdmin = false;
@@ -524,8 +536,10 @@ public class Programa {
 				if(prod.get(i).getDescripcion().equals(e.id))
 					prod.remove(i);
 			}
+			for(int i = 0; i<e.ventas.size(); i++)
+				prod.add(e.ventas.get(i));
 			gf.escribirFicheroVenta(rVenta, e.ventas, false);
-			gf.escribirFicheroVentaGeneral(rVentaGeneral, e.ventas, false, e.getId());
+			gf.escribirFicheroVentaGeneral(rVentaGeneral, prod, false, e.getId());
 			gf.escribirFichero(rInventario, productos, false);
 			e.ventas.clear();
 	}

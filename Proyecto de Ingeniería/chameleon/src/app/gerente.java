@@ -91,7 +91,7 @@ public class gerente extends empleado {
 		do {
 			boolean check = false;
 			String error = null;
-			int cant;
+			int cant, cantInicial;
 			double pdv, ppu;
 			for (i = 0; i < p.size(); i++)
 				System.out.println(i + ". " + p.get(i).toStringInventario());
@@ -110,6 +110,7 @@ public class gerente extends empleado {
 					System.out.println("\nIndique el cambio a realizar:\n\ta)Cambiar nombre\n\tb)Cambiar descripción\n\tc)Cambiar cantidad\n\td)Cambiar PPU (Precio por Unidad)\n\te)Cambiar PDV (Precio de Venta)\n\tf)Eliminar producto\n\tg)Cancelar");
 					cambio = sin.nextLine().trim();
 					nombre = p.get(opcion).getNombre();
+					cantInicial = p.get(opcion).getCantidad();
 					switch (cambio.toLowerCase()) {
 						case "a":
 							System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
@@ -134,13 +135,43 @@ public class gerente extends empleado {
 							break;
 
 						case "c":
-							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
-							cant = sin.nextInt();
-							sin.nextLine();
-							check = cant >= 0;
-							error = !check ? "Los números negativos y 0 no son válidos" : null;
-							if(check)
-								p.get(opcion).setCantidad(cant);
+							System.out.println("Indique que operacion quiere hacer:\na) Sumar cantidad\nb) Restar cantidad\nc) Introducir nueva cantidad\nd) Cancelar");
+							cambio = sin.nextLine().trim();
+							switch(cambio.toLowerCase()){
+								case "a":
+									System.out.print("\nIngrese la cantidad a sumar para la venta de " + nombre + ": ");
+									cant = sin.nextInt();
+									sin.nextLine();
+									check = cant >= 0;
+									error = !check ? "Los números negativos y 0 no son válidos" : null;
+									if(check)
+										p.get(opcion).setCantidad(cantInicial + cant);
+									break;
+								case "b":
+									System.out.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
+									cant = sin.nextInt();
+									sin.nextLine();
+									check = cant >= 0;
+									error = !check ? "Los números negativos y 0 no son válidos" : null;
+									if(check)
+										p.get(opcion).setCantidad(cantInicial - cant);
+									break;
+								case "c":
+									System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
+									cant = sin.nextInt();
+									sin.nextLine();
+									check = cant >= 0;
+									error = !check ? "Los números negativos y 0 no son válidos" : null;
+									if(check)
+										p.get(opcion).setCantidad(cant);
+									break;
+								case "d":
+									System.out.print("\nCancelando..");
+									break;
+								default:
+									System.out.println("Opcion no valida, intente de nuevo.");
+									break;
+							}
 							break;
 
 						case "d":
