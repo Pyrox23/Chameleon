@@ -176,10 +176,8 @@ public class Programa {
 													continuarEjecucionRegistro = false;
 													break;
 												case 5:
-													System.out.println("Desea elminiar el registro? (S/N)");
-													continuarEjecucionRegistro = !sin.nextLine().trim().equalsIgnoreCase("s");
-													if(!continuarEjecucionRegistro)
-														rVenta.delete();
+													System.out.println("Saliendo sin guardar registro...");
+													continuarEjecucionRegistro = false;
 													break;
 												default:
 													Menus.mensajeError();
@@ -218,7 +216,16 @@ public class Programa {
 													case 3:
 														System.out.println(a.productosVendidos(rVenta));
 														break;
-													case 4: 
+													case 4:
+														FileSystemView view = FileSystemView.getFileSystemView();
+														String rutaExportar = view.getHomeDirectory().getPath();
+														// Crear un fichero vacío en descargas
+														File exportar = new File(rutaExportar, "Metricas.txt");
+														// Llenarlo con los datos del fichero a descargar
+														gf.escribirFicheroExportar(exportar, rVenta, rInventario, a);
+														System.out.println("Archivo exportado correctamente en: "  + rutaExportar);
+														break;
+													case 0: 
 														continuarEjecucionMetricas = false;
 														break;
 													default:
@@ -240,19 +247,19 @@ public class Programa {
 								System.out.print("Indique la id del usuario a eliminar: ");
 								a.eliminarUsuario(sin.nextLine());
 								break;
-							case 10: // Descargar archivo
+							case 10: 
 								rVenta = new File(gf.seleccionarArchivo(ruta));
 
 								// Obtener la ruta de la carpeta de descargas
 								FileSystemView view = FileSystemView.getFileSystemView();
-        						String rutaDescargas = view.getHomeDirectory().getPath();
+        						String rutaExportar = view.getHomeDirectory().getPath();
 								// Crear un fichero vacío en descargas
-								File descarga = new File(rutaDescargas, "copia_de_" + rVenta.getName());
+								File exportar = new File(rutaExportar, "copia_de_" + rVenta.getName());
 								// Llenarlo con los datos del fichero a descargar
-								gf.copyFile(rVenta.getPath(), descarga.getPath());
-								productos = gf.lecturaFicheroVenta(descarga);
-								gf.escribirFicheroVentaDes(rVenta, productos, false);
-								System.out.println("Archivo descargado correctamente en: "  + rutaDescargas);
+								gf.copyFile(rVenta.getPath(), exportar.getPath());
+								productos = gf.lecturaFicheroVenta(rVenta);
+								gf.escribirFicheroVentaDes(exportar, productos, false);
+								System.out.println("Archivo exportado correctamente en: "  + rutaExportar);
 								break;
 							case 11:
 								rVenta = new File(gf.seleccionarArchivo(ruta));
@@ -374,7 +381,9 @@ public class Programa {
 													case 3:
 														System.out.println(g.productosVendidos(rVenta));
 														break;
-													case 4: 
+													case 4:
+														break;
+													case 0: 
 														continuarEjecucionMetricas = false;
 														break;
 													default:
@@ -392,7 +401,7 @@ public class Programa {
 								else
 									System.out.println("El registro indicado no existe.");
 								break;
-							case 6: 
+							case 0: 
 								System.out.println("Saliendo del programa...");
 								continuarEjecucionGerente = false;
 								break;
@@ -456,7 +465,7 @@ public class Programa {
 								} while(continuarEjecucionEmpleado);
 								e.ventas.clear();
 								break;
-							case 2:
+							case 0:
 								System.out.println("Saliendo del Programa");
 								continuarEjecucionEmpleado = false;
 								break;

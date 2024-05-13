@@ -59,7 +59,7 @@ public class empleado extends usuario {
 
 	public void gestionarVentas(Scanner sin, ArrayList<producto> productos) {
 		boolean seguir = true;
-		int i = 0, opcion = 0, cantCambio = 0, cantidadVenta = 0, cantInventario = 0;
+		int i = 0, opcion = 0, cantCambio = 0, cantidadVenta = 0, cantInventario = 0, numeroValido;
 		String cambio = "";
 		String nombre = "";
 
@@ -86,7 +86,17 @@ public class empleado extends usuario {
 						case "a":
 							System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
 							cantCambio = sin.nextInt();
-							ventas.get(opcion).setCantidad(cantCambio);
+							for(i = 0; i<productos.size()&&!productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
+							if(i != productos.size()){
+								cantInventario = productos.get(i).getCantidad();
+								numeroValido = cantInventario + cantidadVenta - cantCambio;
+								if(numeroValido >= 0){
+									productos.get(i).setCantidad(numeroValido);
+									ventas.get(opcion).setCantidad(cantCambio);
+								}
+								else
+									System.out.println("La cantidad indicada no es posible.");
+							}
 							break;
 						case "b":
 							System.out.print("\nEliminando " + nombre + " de ventas... ");
@@ -100,10 +110,6 @@ public class empleado extends usuario {
 							System.out.println("Opcion no valida, intente de nuevo.");
 							break;
 					}
-					for(i = 0; i<productos.size()&&!productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
-
-					cantInventario = productos.get(i).getCantidad();
-					productos.get(i).setCantidad(cantInventario + cantidadVenta - cantCambio);
 
 					System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
 					sin.nextLine();

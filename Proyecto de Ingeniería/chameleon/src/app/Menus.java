@@ -33,7 +33,7 @@ public class Menus {
         System.out.println("║\t7. Modificar Registro de Venta                 ║");
         System.out.println("║\t8. Ver Metricas                                ║");
         System.out.println("║\t9. Eliminar Usuario                            ║");
-        System.out.println("║\t10. Descargar Registro                         ║");
+        System.out.println("║\t10. Exportar Registro                          ║");
         System.out.println("║\t11. Eliminar Registro                          ║");
         System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
@@ -50,7 +50,7 @@ public class Menus {
         System.out.println("║\t3. Ver Inventario                              ║");
         System.out.println("║\t4. Modificar Inventario                        ║");
         System.out.println("║\t5. Ver Metricas                                ║");
-        System.out.println("║\t6. Salir                                       ║");
+        System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -63,8 +63,8 @@ public class Menus {
         System.out.println("║\t1. Agregar Venta                               ║");
         System.out.println("║\t2. Modificar Venta                             ║");
         System.out.println("║\t3. Ver Ventas Actuales                         ║");
-        System.out.println("║\t4. Guardar Registro                            ║");
-        System.out.println("║\t5. Eliminar Registro                           ║");
+        System.out.println("║\t4. Salir y Guardar                             ║");
+        System.out.println("║\t5. Salir sin Guardar                           ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -75,7 +75,7 @@ public class Menus {
         System.out.println("║                     MENU EMPLEADO                    ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Crear Registro de Venta                     ║");
-        System.out.println("║\t2. Salir                                       ║");
+        System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
 
@@ -125,7 +125,8 @@ public static void mostrarMenuVentas() {
         System.out.println("║\t1. Mostrar producto más vendido                ║");
         System.out.println("║\t2. Total de ventas                             ║");
         System.out.println("║\t3. Cantidad de productos vendidos              ║");
-        System.out.println("║\t4. Salir                                       ║");
+        System.out.println("║\t4. Exportar metricas actuales                  ║");
+        System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 
