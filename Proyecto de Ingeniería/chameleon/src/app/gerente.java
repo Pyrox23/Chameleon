@@ -87,18 +87,19 @@ public class gerente extends empleado {
 		String cambio = "";
 		String nombre = "";
 
-		if (p.isEmpty()){
-			System.out.println("El registro de inventario esta vacio. Sera redirigido a agregar un producto al inventario.");
-			this.agregarProductoAlInventario(sin, p, registro);
-		}
-		else {
-			do {
-				boolean check = false;
-				String error = null;
-				int cant;
-				double pdv, ppu;
-				for (i = 0; i < p.size(); i++)
-					System.out.println(i + ". " + p.get(i).toStringInventario());
+		do {
+			boolean check = false;
+			String error = null;
+			int cant;
+			double pdv, ppu;
+			for (i = 0; i < p.size(); i++)
+				System.out.println(i + ". " + p.get(i).toStringInventario());
+			if (p.isEmpty()){
+				System.out.println("El registro de inventario esta vacio. Sera redirigido a agregar un producto al inventario.");
+				producto.setSigId(0);
+				this.agregarProductoAlInventario(sin, p, registro);
+			}
+			else {
 				System.out.print("\n Indique el producto a modificar: ");
 				opcion = sin.nextInt();
 				check = (opcion < p.size()) && (opcion >= 0);
@@ -151,12 +152,12 @@ public class gerente extends empleado {
 							if(check)
 								p.get(opcion).setPdv(pdv);
 							break;
-								
+									
 						case "f":
-							System.out.print("\nEliminando" + nombre + " del registro... ");
+							System.out.print("\nEliminando " + nombre + " del registro... ");
 							p.remove(opcion);
 							break;
-						
+							
 						case "g":
 							System.out.print("\nCancelando..");
 							seguir = false;
@@ -173,22 +174,20 @@ public class gerente extends empleado {
 						if(check)
 							System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 
-	
+		
 						System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
 						if (!(sin.nextLine().trim().equalsIgnoreCase("S"))) {
 							seguir = false;
 						}
-						
+							
 					}
 					else if(error != null)
 						System.out.println(error + "\n");
 				}
 				else
 					System.out.println("Indique un valor numerico valido.");
-			
-			} while (seguir);
-		}
-
+			}
+		} while (seguir);
 	}
 
 	public String productoMasVendido(File ficheroVenta, File ficheroInv) {
