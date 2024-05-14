@@ -188,7 +188,8 @@ public class empleado extends usuario {
 		if(!p.isEmpty()){
 			System.out.println("Nombre | Cantidad disponible");
 			for(producto x : p) {
-				System.out.println(x.getNombre() + " " + x.getCantidad());
+				if(x.getCantidad() == 0)
+					System.out.println(x.getNombre() + " " + x.getCantidad());
 			}
 		}
 		else
