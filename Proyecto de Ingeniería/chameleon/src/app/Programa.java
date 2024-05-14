@@ -112,7 +112,7 @@ public class Programa {
 												a.imprimirVentas();
 												break;
 											case 4:
-												a.verProductos(rInventario);
+												a.verProductos(productos);
 												break;
 											case 5: // Guardar y salir
 												cerrarRegistro(gf, a, productos, rInventario);
@@ -178,7 +178,7 @@ public class Programa {
 													a.imprimirVentas();
 													break;
 												case 4:
-													a.verProductos(rInventario);
+													a.verProductos(productos);
 													break;
 												case 5: // Salir y Guardar
 													cerrarRegistroMod(gf, a, productos, rInventario, rVenta);
@@ -266,10 +266,10 @@ public class Programa {
 								if (rVenta.getName().contains("Registro_Venta.csv")
 										|| rVenta.getName().equalsIgnoreCase("Registro_Inventario.csv")
 										|| rVenta.getName().equalsIgnoreCase("credenciales.bin")) {
-									// Obtener la ruta de la carpeta de descargas
+									// Obtener la ruta de la carpeta de escritorio
 									FileSystemView view = FileSystemView.getFileSystemView();
 									String rutaExportar = view.getHomeDirectory().getPath();
-									// Crear un fichero vacío en descargas
+									// Crear un fichero vacío en escritorio
 									File exportar = new File(rutaExportar, "copia_de_" + rVenta.getName());
 									// Llenarlo con los datos del fichero a exportar
 									gf.copyFile(rVenta.getPath(), exportar.getPath());
@@ -357,7 +357,7 @@ public class Programa {
 												g.imprimirVentas();
 												break;
 											case 4:
-												g.verProductos(rInventario);
+												g.verProductos(productos);
 												break;
 											case 5: // Salir y Guardar
 												cerrarRegistro(gf, g, productos, rInventario);
@@ -486,7 +486,7 @@ public class Programa {
 												e.imprimirVentas();
 												break;
 											case 4:
-												e.verProductos(rInventario);
+												e.verProductos(productos);
 												break;
 											case 5: // Salir y Guardar
 												cerrarRegistro(gf, e, productos, rInventario);

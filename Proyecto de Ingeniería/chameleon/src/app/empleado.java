@@ -1,6 +1,5 @@
 package app;
 import java.util.Scanner;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -185,8 +184,7 @@ public class empleado extends usuario {
 		}
 	}
 
-	public void verProductos(File rInventario){ // Cambito
-		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
+	public void verProductos(ArrayList<producto> p){ // Cambito
 		if(!p.isEmpty()){
 			System.out.println("Nombre | Cantidad disponible");
 			for(producto x : p) {
