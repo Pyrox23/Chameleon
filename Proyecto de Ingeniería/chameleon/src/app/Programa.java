@@ -54,7 +54,7 @@ public class Programa {
 									System.out.println("\nEl usuario indicado es incorrecto, intenta de nuevo.");
 								}
 							break;
-						case 2:
+						case 0:
 							System.out.println("Saliendo del programa...");
 							continuarEjecucion = false;
 							break;

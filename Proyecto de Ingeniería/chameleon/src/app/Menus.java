@@ -13,7 +13,7 @@ public class Menus {
         System.out.println("║                    MENU INICIAL                      ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t\t1. Iniciar sesión                      ║");
-        System.out.println("║\t\t2. Salir del programa                  ║");
+        System.out.println("║\t\t0. Salir del programa                  ║");
         System.out.println("╚══════════════════════════════════════════════════════╝"); 
     }
     
