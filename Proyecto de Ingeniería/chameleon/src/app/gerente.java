@@ -103,12 +103,8 @@ public class gerente extends empleado {
 				producto.setSigId(0);
 				this.agregarProductoAlInventario(sin, p, registro);
 			} else {
-				System.out.print("\n Indique el ID del producto a modificar: ");
+				System.out.print("\n Indique el producto a modificar: ");
 				opcion = sin.nextInt();
-				for (int j = 0; j < p.size() && !check; j++){
-					check = p.get(j).getId() == opcion;
-				}
-
 				check = (opcion < p.size()) && (opcion >= 0);
 				sin.nextLine();
 
