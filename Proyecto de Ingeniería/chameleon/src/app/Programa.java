@@ -544,13 +544,13 @@ public class Programa {
 			System.out.println("Creando Registro para guardar las Ventas..");
 			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/"
 					+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date())
-					+ "_Registro_Venta.csv");
+					+ "_Registro_Venta.csv"); // Venta de empleado
 			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/"
-					+ dateFormat.format(new Date()) + "_Registro_Venta.csv");
+					+ dateFormat.format(new Date()) + "_Registro_Venta.csv"); // Venta general de ese día
 
 			if (!gf.checkFichero(rVenta))
 				System.out.println(
-						"Ya has creado un registro para este dia y tus ventas han sido agregadas.\nNombre del registro: "
+						"Ya has creado un registro para este día y tus ventas han sido agregadas.\nNombre del registro: "
 								+ rVenta.getName());
 			gf.checkFichero(rVentaGeneral);
 			gf.escribirFicheroVenta(rVenta, e.ventas, rVenta.exists());

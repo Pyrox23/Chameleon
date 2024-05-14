@@ -121,7 +121,7 @@ public class gerente extends empleado {
 							check = !nombre.equals("");
 							error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
 							for (int j = 0; j < p.size() && check; j++) {
-								check = !p.get(j).getNombre().equals(nombre); 
+								check = !p.get(j).getNombre().equals(nombre);
 								error = !check ? "El producto con este nombre seleccionado ya existe" : null;
 							}
 							if (check)
@@ -199,12 +199,12 @@ public class gerente extends empleado {
 								p.get(opcion).setPdv(pdv);
 							break;
 
-						case "f":
+						case "f": // Eliminar producto
 							System.out.print("\nEliminando " + nombre + " del registro... ");
 							p.remove(opcion);
 							break;
 
-						case "g":
+						case "g": // Cancelar
 							System.out.print("\nCancelando..");
 							break;
 
@@ -220,7 +220,7 @@ public class gerente extends empleado {
 					} else if (error != null)
 						System.out.println(error + "\n");
 				} else
-					System.out.println("Indique un valor numérico vélido.");
+					System.out.println("Indique un valor numérico válido.");
 
 				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
 				if (!(sin.nextLine().trim().equalsIgnoreCase("S")))
