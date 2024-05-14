@@ -187,10 +187,14 @@ public class empleado extends usuario {
 
 	public void verProductos(File rInventario){ // Cambito
 		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
-		System.out.println("Nombre    |    Cantidad");
-		for(producto x : p) {
-			System.out.println(x.getNombre() + " " + x.getCantidad());
+		if(!p.isEmpty()){
+			System.out.println("Nombre | Cantidad disponible");
+			for(producto x : p) {
+				System.out.println(x.getNombre() + " " + x.getCantidad());
+			}
 		}
+		else
+			System.out.println("El inventario esta vacio");
 	}
 
 }

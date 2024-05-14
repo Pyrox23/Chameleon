@@ -111,11 +111,14 @@ public class Programa {
 											case 3: // Ver Ventas Actuales
 												a.imprimirVentas();
 												break;
-											case 4: // Guardar y salir
+											case 4:
+												a.verProductos(rInventario);
+												break;
+											case 5: // Guardar y salir
 												cerrarRegistro(gf, a, productos, rInventario);
 												continuarEjecucionRegistro = false;
 												break;
-											case 5: // Salir sin guardar
+											case 6: // Salir sin guardar
 												System.out.println("Saliendo sin guardar registro...");
 												continuarEjecucionRegistro = false;
 												break;
@@ -174,11 +177,14 @@ public class Programa {
 												case 3: // Ver Ventas Actuales
 													a.imprimirVentas();
 													break;
-												case 4: // Salir y Guardar
+												case 4:
+													a.verProductos(rInventario);
+													break;
+												case 5: // Salir y Guardar
 													cerrarRegistroMod(gf, a, productos, rInventario, rVenta);
 													continuarEjecucionRegistro = false;
 													break;
-												case 5: // Salir sin Guardar
+												case 6: // Salir sin Guardar
 													System.out.println("Saliendo sin guardar registro...");
 													continuarEjecucionRegistro = false;
 													break;
@@ -249,7 +255,7 @@ public class Programa {
 								ArrayList<usuario> listaUsuarios = gf.ListaUsuarios();
 
 								for (usuario x : listaUsuarios) { // Cambito
-									System.out.println(x.getId() + " " + x.getNombre() + " " + x.getApellido());
+									System.out.println(x);
 								}
 
 								System.out.print("Indique la id del usuario a eliminar: ");
@@ -350,11 +356,14 @@ public class Programa {
 											case 3: // Ver Ventas Actuales
 												g.imprimirVentas();
 												break;
-											case 4: // Salir y Guardar
+											case 4:
+												g.verProductos(rInventario);
+												break;
+											case 5: // Salir y Guardar
 												cerrarRegistro(gf, g, productos, rInventario);
 												continuarEjecucionRegistro = false;
 												break;
-											case 5: // Salir Sin Guardar
+											case 6: // Salir Sin Guardar
 												System.out.println("Saliendo sin guardar registro...");
 												continuarEjecucionRegistro = false;
 												break;
@@ -404,6 +413,14 @@ public class Programa {
 													System.out.println(g.productosVendidos(rVenta));
 													break;
 												case 4: // Exportar Métricas Actuales
+													FileSystemView view = FileSystemView.getFileSystemView();
+													String rutaExportar = view.getHomeDirectory().getPath();
+													// Crear un fichero vacío en descargas
+													File exportar = new File(rutaExportar, "Metricas.txt");
+													// Llenarlo con los datos del fichero a exportar
+													gf.escribirFicheroExportar(exportar, rVenta, rInventario, a);
+													System.out.println(
+															"Archivo exportado correctamente en: " + rutaExportar);
 													break;
 												case 0: // Salir
 													continuarEjecucionMetricas = false;
@@ -468,11 +485,14 @@ public class Programa {
 											case 3: // Ver Ventas Actuales
 												e.imprimirVentas();
 												break;
-											case 4: // Salir y Guardar
+											case 4:
+												e.verProductos(rInventario);
+												break;
+											case 5: // Salir y Guardar
 												cerrarRegistro(gf, e, productos, rInventario);
 												continuarEjecucionEmpleado = false;
 												break;
-											case 5: // Salir Sin Guardar
+											case 6: // Salir Sin Guardar
 												System.out.println("Saliendo sin guardar registro...");
 												continuarEjecucionEmpleado = false;
 												break;
@@ -486,9 +506,6 @@ public class Programa {
 									}
 								} while (continuarEjecucionEmpleado);
 								e.ventas.clear(); // Limpiar atributo ArrayList ventas
-								break;
-							case 2: // Ver Productos Disponibles
-								e.verProductos(rInventario);
 								break;
 							case 0: // Salir
 								System.out.println("Saliendo del Programa");
@@ -519,8 +536,7 @@ public class Programa {
 	}
 
 	// Para registro nuevo
-	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos,
-			File rInventario) {
+	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario) {
 		if (e.getVentas().isEmpty()) {
 			System.out.println("No hay ventas registradas");
 		} else {
