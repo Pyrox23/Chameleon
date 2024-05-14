@@ -17,7 +17,7 @@ public class administrador extends gerente {
 		int i;
 		do {
 			if (check)
-				System.out.println("Los datos vacíos no son aceptados.");
+				System.out.println("Los datos introducidos no son validos.\nNo se aceptan datos vacios ni datos con '_'");
 			System.out.print("\nEscribe el id del nuevo usuario: ");
 			r[0] = sin.nextLine().trim();
 			System.out.print("Escribe la contraseña: ");
