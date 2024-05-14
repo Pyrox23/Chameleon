@@ -1,5 +1,6 @@
 package app;
 import java.util.Scanner;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
@@ -181,6 +182,14 @@ public class empleado extends usuario {
 			else
 				System.out.println("Indique un producto dentro del rango de numeros mostrado.");
 			} while (seguir);
+		}
+	}
+
+	public void verProductos(File rInventario){ // Cambito
+		ArrayList<producto> p = gf.lecturaFicheroInv(rInventario);
+		System.out.println("Nombre    |    Cantidad");
+		for(producto x : p) {
+			System.out.println(x.getNombre() + " " + x.getCantidad());
 		}
 	}
 
