@@ -46,6 +46,7 @@ public class gerente extends empleado {
 				ppu = sin.nextDouble();
 				System.out.print("Precio de Venta: ");
 				pdv = sin.nextDouble();
+				sin.nextLine();
 
 				// Chequeos:
 				// Producto vacío
@@ -74,7 +75,6 @@ public class gerente extends empleado {
 
 			System.out.println(
 					"Desea añadir otro producto? \nPresione 's' para añadir otro producto\nPulse cualquier otro botón para salir");
-			sin.nextLine();
 			r[0] = sin.nextLine().trim();
 		} while (r[0].equalsIgnoreCase("s"));
 
