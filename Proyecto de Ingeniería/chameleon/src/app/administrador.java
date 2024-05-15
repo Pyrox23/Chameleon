@@ -29,7 +29,8 @@ public class administrador extends gerente {
 			System.out.print("Perfil del usuario: ");
 			r[4] = sin.nextLine().trim();
 			check = r[0].equals("") || r[1].equals("") || r[2].equals("") || r[3].equals("");
-			check = r[0].contains("_") || r[1].contains("_") || r[2].contains("_") || r[3].contains("_");
+			if(!check)
+				check = r[0].contains("_") || r[1].contains("_") || r[2].contains("_") || r[3].contains("_");
 		} while (check);
 
 		if (r[4].equalsIgnoreCase("administrador"))

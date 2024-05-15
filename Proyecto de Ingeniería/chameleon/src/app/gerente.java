@@ -19,20 +19,7 @@ public class gerente extends empleado {
 		String r[] = new String[6]; // Arreglo para almacenar temporalmente los datos del producto (;)
 		boolean check = true;
 		String error = null;
-
-		try {
-			// Leer el último ID de producto del archivo de inventario para asignar el
-			// siguiente ID disponible
-			Scanner s = new Scanner(rInventario, "UTF-8");
-			while (s.hasNextLine())
-				r = s.nextLine().split(";");
-			producto.setSigId(Integer.parseInt(r[0]) + 1); // establece el siguiente ID disponible
-
-			s.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} catch (NumberFormatException e) {
-		}
+		
 		do {
 			Menus.mostrarIngresarProducto();
 			try {
@@ -70,6 +57,7 @@ public class gerente extends empleado {
 				else
 					System.out.println(error);
 			} catch (InputMismatchException e) {
+				sin.nextLine();
 				System.out.println("Por favor, ingrese un número entero válido.");
 			}
 

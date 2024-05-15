@@ -97,7 +97,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			producto product; // Variable para almacenar temporalmente cada producto leído del archivo
 			String prod[] = new String[6]; // Array para almacenar temporalmente los datos de cada línea del archivo
 			try {
-				Scanner s = new Scanner(fichero, "UTF-8");
+				Scanner s = new Scanner(fichero, "ISO-8859-1");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
@@ -105,6 +105,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 							Double.parseDouble(prod[5]));
 					product.setId(Integer.parseInt(prod[0])); // Establecer el ID del producto
 					p.add(product); // Agregar el producto a la lista
+					producto.setSigId(product.getId()+1);
 				}
 				s.close();
 			} catch (IOException ex) {
@@ -121,7 +122,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			// Array para almacenar temporalmente los datos de cada línea (;) del archivo
 			String prod[] = new String[6]; // Cada dato esta separado por (;) y esos datos se guardan en el array
 			try {
-				Scanner s = new Scanner(fichero, "UTF-8");
+				Scanner s = new Scanner(fichero, "ISO-8859-1");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
@@ -144,7 +145,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			// Array para almacenar temporalmente los datos de cada línea (;) del archivo
 			String prod[] = new String[6]; // Cada dato esta separado por (;) y esos datos se guardan en el array
 			try {
-				Scanner s = new Scanner(fichero, "UTF-8");
+				Scanner s = new Scanner(fichero, "ISO-8859-1");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista

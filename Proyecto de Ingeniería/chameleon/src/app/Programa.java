@@ -576,9 +576,7 @@ public class Programa {
 				archivos = carpeta.listFiles();
 				// Busca el archivo de ventas de ese empleado
 				for (int i = 0; i < archivos.length; i++) {
-					if (archivos[i].getName().contains("Registro_Venta.csv")
-							&& !archivos[i].getName().equals(rVentaGeneral.getName())
-							&& (archivos[i].getName().contains(fecha[2]))) {
+					if (archivos[i].getName().contains("Registro_Venta.csv") && !archivos[i].getName().equals(rVentaGeneral.getName()) && (archivos[i].getName().contains(fecha[2]))) {
 						gf.escribirFicheroVenta(rVentaGeneral, gf.lecturaFicheroVenta(archivos[i]), sobreescribir);
 						sobreescribir = true;
 					}

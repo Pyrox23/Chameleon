@@ -93,6 +93,10 @@ public class producto implements Serializable, Comparable<producto> {
 		return id;
 	}
 
+	public static int getSigId(){
+		return sigId;
+	}
+
 	public String toString() {
 		return id + ";" + nombre + ";" + descripcion + ";" + cantidad + ";" + ppu + ";" + pdv;
 	}
