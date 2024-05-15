@@ -105,7 +105,7 @@ public class gerente extends empleado {
 					}
 
 					if (!encontrado)
-					System.out.println("Ingrese un ID válido!");
+						System.out.println("Ingrese un ID válido!");
 
 				} while (!encontrado);
 
@@ -205,6 +205,7 @@ public class gerente extends empleado {
 						case "f": // Eliminar producto
 							System.out.print("\nEliminando " + nombre + " del registro... ");
 							p.remove(posicion);
+							check = true;
 							break;
 
 						case "g": // Cancelar
