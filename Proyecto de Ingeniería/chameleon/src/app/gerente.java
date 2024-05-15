@@ -96,24 +96,39 @@ public class gerente extends empleado {
 			int cant, cantInicial;
 			double pdv, ppu;
 			for (i = 0; i < p.size(); i++)
-				System.out.println(i + ". " + p.get(i).toStringInventario());
+				System.out.println(p.get(i).toStringInventario());
 			if (p.isEmpty()) {
 				System.out.println(
 						"El registro de inventario esta vacío. Será redirigido a agregar un producto al inventario.");
 				producto.setSigId(0);
 				this.agregarProductoAlInventario(sin, p, registro);
 			} else {
-				System.out.print("\n Indique el producto a modificar: ");
-				opcion = sin.nextInt();
-				check = (opcion < p.size()) && (opcion >= 0);
+				boolean encontrado = false;
+				int posicion = 0;
+				do {
+					System.out.print("\n Indique el ID del producto a modificar: ");
+					opcion = sin.nextInt();
+	
+					for (int x = 0; x < p.size() && !encontrado; x++) {
+						if (p.get(x).getId() == opcion) {
+							posicion = x;
+							encontrado = true;
+						}
+					}
+
+					if (!encontrado)
+					System.out.println("Ingrese un ID válido!");
+
+				} while (!encontrado);
+
 				sin.nextLine();
 
-				if (check) { // Si el producto existe
+				if (encontrado) { // Si el producto existe
 					System.out.println(
 							"\nIndique el cambio a realizar:\n\ta)Cambiar nombre\n\tb)Cambiar descripción\n\tc)Cambiar cantidad\n\td)Cambiar PPU (Precio por Unidad)\n\te)Cambiar PDV (Precio de Venta)\n\tf)Eliminar producto\n\tg)Cancelar");
 					cambio = sin.nextLine().trim();
-					nombre = p.get(opcion).getNombre(); // Buscar la opción en el array de productos
-					cantInicial = p.get(opcion).getCantidad();
+					nombre = p.get(posicion).getNombre(); // Buscar la opción en el array de productos
+					cantInicial = p.get(posicion).getCantidad();
 					switch (cambio.toLowerCase()) {
 						case "a": // Cambiar nombre
 							System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
@@ -125,7 +140,7 @@ public class gerente extends empleado {
 								error = !check ? "El producto con este nombre seleccionado ya existe" : null;
 							}
 							if (check)
-								p.get(opcion).setNombre(nombre);
+								p.get(posicion).setNombre(nombre);
 							break;
 
 						case "b": // Cambiar descripción
@@ -134,7 +149,7 @@ public class gerente extends empleado {
 							check = !descripcion.equals("");
 							error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
 							if (check)
-								p.get(opcion).setDescripcion(descripcion);
+								p.get(posicion).setDescripcion(descripcion);
 							break;
 
 						case "c": // Cambiar cantidad
@@ -149,7 +164,7 @@ public class gerente extends empleado {
 									check = cant >= 0;
 									error = !check ? "Los números negativos y 0 no son válidos" : null;
 									if (check)
-										p.get(opcion).setCantidad(cantInicial + cant);
+										p.get(posicion).setCantidad(cantInicial + cant);
 									break;
 								case "b":
 									System.out
@@ -159,7 +174,7 @@ public class gerente extends empleado {
 									check = cant >= 0;
 									error = !check ? "Los números negativos y 0 no son válidos" : null;
 									if (check)
-										p.get(opcion).setCantidad(cantInicial - cant);
+										p.get(posicion).setCantidad(cantInicial - cant);
 									break;
 								case "c":
 									System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
@@ -168,7 +183,7 @@ public class gerente extends empleado {
 									check = cant >= 0;
 									error = !check ? "Los números negativos y 0 no son válidos" : null;
 									if (check)
-										p.get(opcion).setCantidad(cant);
+										p.get(posicion).setCantidad(cant);
 									break;
 								case "d":
 									System.out.print("\nCancelando..");
@@ -186,7 +201,7 @@ public class gerente extends empleado {
 							check = ppu > 0;
 							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if (check)
-								p.get(opcion).setPpu(ppu);
+								p.get(posicion).setPpu(ppu);
 							break;
 
 						case "e": // Cambiar PDV
@@ -196,12 +211,12 @@ public class gerente extends empleado {
 							check = pdv > 0;
 							error = !check ? "Los números negativos y 0 no son válidos" : null;
 							if (check)
-								p.get(opcion).setPdv(pdv);
+								p.get(posicion).setPdv(pdv);
 							break;
 
 						case "f": // Eliminar producto
 							System.out.print("\nEliminando " + nombre + " del registro... ");
-							p.remove(opcion);
+							p.remove(posicion);
 							break;
 
 						case "g": // Cancelar
