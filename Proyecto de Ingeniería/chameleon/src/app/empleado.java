@@ -69,120 +69,121 @@ public class empleado extends usuario {
 			System.out.println("No hay ventas registradas");
 		else {
 			do {
-				boolean check = false;
-				System.out.println("\n ----- VENTAS ACTUALES: -----");
-				for (i = 0; i < ventas.size(); i++) {
-					System.out.println(i + ". " + ventas.get(i).toStringVenta());
-				}
-
-				System.out.print("\n Indique el producto a modificar: ");
-				opcion = sin.nextInt();
-				check = (opcion < ventas.size()) && (opcion >= 0);
-				sin.nextLine();
-				if (check) {
-					System.out
-							.println("\nIndique el cambio a realizar:\na) Cambiar cantidad\nb) Eliminar\nc) Cancelar");
-					cambio = sin.nextLine().trim();
-					nombre = ventas.get(opcion).getNombre();
-					cantidadVenta = ventas.get(opcion).getCantidad();
-					switch (cambio.toLowerCase()) {
-						case "a": // Cambiar cantidad
-							System.out.println(
-									"Indique que operación quiere hacer:\na) Sumar cantidad\nb) Restar cantidad\nc) Introducir nueva cantidad\nd) Cancelar");
-							cambio = sin.nextLine().trim();
-							switch (cambio.toLowerCase()) {
-								case "a": // Sumar
-									System.out.print("\nIngrese la cantidad a sumar para la venta de " + nombre + ": ");
-									cantCambio = sin.nextInt();
-									sin.nextLine();
-									if (cantCambio > 0) {
-										for (i = 0; i < productos.size()
-												&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
-											;
-										if (i != productos.size()) {
-											cantInventario = productos.get(i).getCantidad();
-											numeroValido = cantInventario - cantCambio;
-											if (numeroValido > 0 && cantidadVenta + cantCambio > 0) {
-												productos.get(i).setCantidad(numeroValido);
-												ventas.get(opcion).setCantidad(cantidadVenta + cantCambio);
-											} else
-												System.out.println("La cantidad indicada no es posible.");
-										}
-									} else
-										System.out.println("No se aceptan valores negativos o 0");
-									break;
-								case "b": // Restar
-									System.out
-											.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
-									cantCambio = sin.nextInt();
-									sin.nextLine();
-									if (cantCambio > 0) {
-										for (i = 0; i < productos.size()
-												&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
-											;
-										if (i != productos.size()) {
-											cantInventario = productos.get(i).getCantidad();
-											numeroValido = cantInventario + cantCambio;
-											if (numeroValido > 0 && cantidadVenta - cantCambio > 0) {
-												productos.get(i).setCantidad(numeroValido);
-												ventas.get(opcion).setCantidad(cantidadVenta - cantCambio);
-											} else
-												System.out.println("La cantidad indicada no es posible.");
-										}
-									} else
-										System.out.println("No se aceptan valores negativos o 0");
-									break;
-								case "c": // Nueva cantidad
-									System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
-									cantCambio = sin.nextInt();
-									sin.nextLine();
-									if (cantCambio > 0) {
-										for (i = 0; i < productos.size()
-												&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
-											;
-										if (i != productos.size()) {
-											cantInventario = productos.get(i).getCantidad();
-											numeroValido = cantInventario + cantidadVenta - cantCambio;
-											if (numeroValido > 0) {
-												productos.get(i).setCantidad(numeroValido);
-												ventas.get(opcion).setCantidad(cantCambio);
-											} else
-												System.out.println("La cantidad indicada no es posible.");
-										}
-									} else
-										System.out.println("No se aceptan valores negativos o 0");
-									break;
-								case "d":
-									System.out.println("Cancelando cambio...");
-									break;
-								default:
-									System.out.println("Opción no válida, intente de nuevo.");
-									break;
-							}
-							break;
-						case "b": // Eliminar
-							System.out.print("\nEliminando " + nombre + " de ventas... ");
-							for (i = 0; i < productos.size()
-									&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
-								;
-							if (i != productos.size()) {
-								cantInventario = productos.get(i).getCantidad();
-								productos.get(i).setCantidad(cantInventario + cantidadVenta);
-								ventas.remove(opcion);
-							}
-							break;
-						case "c": // Cancelar
-							System.out.println("Cancelando cambio...");
-							break;
-						default:
-							System.out.println("Opción no válida, intente de nuevo.");
-							break;
+				try {
+					boolean check = false;
+					System.out.println("\n ----- VENTAS ACTUALES: -----");
+					for (i = 0; i < ventas.size(); i++) {
+						System.out.println(i + ". " + ventas.get(i).toStringVenta());
 					}
 
-					System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
-					seguir = sin.nextLine().trim().equalsIgnoreCase("s");
-				} else
-					System.out.println("Indique un producto dentro del rango de números mostrado.");
+					System.out.print("\n Indique el producto a modificar: ");
+					opcion = sin.nextInt();
+					check = (opcion < ventas.size()) && (opcion >= 0);
+					sin.nextLine();
+					if (check) {
+						System.out
+								.println("\nIndique el cambio a realizar:\na) Cambiar cantidad\nb) Eliminar\nc) Cancelar");
+						cambio = sin.nextLine().trim();
+						nombre = ventas.get(opcion).getNombre();
+						cantidadVenta = ventas.get(opcion).getCantidad();
+						switch (cambio.toLowerCase()) {
+							case "a": // Cambiar cantidad
+								System.out.println(
+										"Indique que operación quiere hacer:\na) Sumar cantidad\nb) Restar cantidad\nc) Introducir nueva cantidad\nd) Cancelar");
+								cambio = sin.nextLine().trim();
+								switch (cambio.toLowerCase()) {
+									case "a": // Sumar
+										System.out.print("\nIngrese la cantidad a sumar para la venta de " + nombre + ": ");
+										cantCambio = sin.nextInt();
+										sin.nextLine();
+										if (cantCambio > 0) {
+											for (i = 0; i < productos.size() && !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++);
+											if (i != productos.size()) {
+												cantInventario = productos.get(i).getCantidad();
+												numeroValido = cantInventario - cantCambio;
+												if (numeroValido >= 0 && cantidadVenta + cantCambio > 0) {
+													productos.get(i).setCantidad(numeroValido);
+													ventas.get(opcion).setCantidad(cantidadVenta + cantCambio);
+												} else
+													System.out.println("La cantidad indicada no es posible.");
+											}
+										} else
+											System.out.println("No se aceptan valores negativos o 0");
+										break;
+									case "b": // Restar
+										System.out
+												.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
+										cantCambio = sin.nextInt();
+										sin.nextLine();
+										if (cantCambio > 0) {
+											for (i = 0; i < productos.size()
+													&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
+												;
+											if (i != productos.size()) {
+												cantInventario = productos.get(i).getCantidad();
+												numeroValido = cantInventario + cantCambio;
+												if (numeroValido >= 0 && cantidadVenta - cantCambio > 0) {
+													productos.get(i).setCantidad(numeroValido);
+													ventas.get(opcion).setCantidad(cantidadVenta - cantCambio);
+												} else
+													System.out.println("La cantidad indicada no es posible.");
+											}
+										} else
+											System.out.println("No se aceptan valores negativos o 0");
+										break;
+									case "c": // Nueva cantidad
+										System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
+										cantCambio = sin.nextInt();
+										sin.nextLine();
+										if (cantCambio > 0) {
+											for (i = 0; i < productos.size()
+													&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
+												;
+											if (i != productos.size()) {
+												cantInventario = productos.get(i).getCantidad();
+												numeroValido = cantInventario + cantidadVenta - cantCambio;
+												if (numeroValido >= 0) {
+													productos.get(i).setCantidad(numeroValido);
+													ventas.get(opcion).setCantidad(cantCambio);
+												} else
+													System.out.println("La cantidad indicada no es posible.");
+											}
+										} else
+											System.out.println("No se aceptan valores negativos o 0");
+										break;
+									case "d":
+										System.out.println("Cancelando cambio...");
+										break;
+									default:
+										System.out.println("Opción no válida, intente de nuevo.");
+										break;
+								}
+								break;
+							case "b": // Eliminar
+								System.out.print("\nEliminando " + nombre + " de ventas... ");
+								for (i = 0; i < productos.size()
+										&& !productos.get(i).getNombre().equalsIgnoreCase(nombre); i++)
+									;
+								if (i != productos.size()) {
+									cantInventario = productos.get(i).getCantidad();
+									productos.get(i).setCantidad(cantInventario + cantidadVenta);
+									ventas.remove(opcion);
+								}
+								break;
+							case "c": // Cancelar
+								System.out.println("Cancelando cambio...");
+								break;
+							default:
+								System.out.println("Opción no válida, intente de nuevo.");
+								break;
+						}
+					} else
+						System.out.println("Indique un producto dentro del rango de números mostrado.");
+				} catch(InputMismatchException e){
+					System.out.println("Por favor, ingrese un número entero válido.");
+				}
+				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
+				seguir = sin.nextLine().trim().equalsIgnoreCase("s");
 			} while (seguir);
 		}
 	}

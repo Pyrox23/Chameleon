@@ -48,7 +48,7 @@ public class gerente extends empleado {
 				}
 				// Datos negativos
 				if (!check) {
-					check = cant < 0 || ppu < 0 || pdv < 0;
+					check = cant < 0 || ppu <= 0 || pdv <= 0;
 					error = check ? "Los números negativos o 0 no son válidos" : null;
 				}
 
@@ -79,157 +79,161 @@ public class gerente extends empleado {
 		String cambio = "", nombre = "", descripcion = "";
 
 		do {
-			boolean check = false;
-			String error = null;
-			int cant, cantInicial;
-			double pdv, ppu;
-			for (i = 0; i < p.size(); i++)
-				System.out.println(p.get(i).toStringInventario());
-			if (p.isEmpty()) {
-				System.out.println(
-						"El registro de inventario esta vacío. Será redirigido a agregar un producto al inventario.");
-				producto.setSigId(0);
-				this.agregarProductoAlInventario(sin, p, registro);
-			} else {
-				boolean encontrado = false;
-				int posicion = 0;
-				do {
-					System.out.print("\n Indique el ID del producto a modificar: ");
-					opcion = sin.nextInt();
-	
-					for (int x = 0; x < p.size() && !encontrado; x++) {
-						if (p.get(x).getId() == opcion) {
-							posicion = x;
-							encontrado = true;
+			try{
+				boolean check = false;
+				String error = null;
+				int cant, cantInicial;
+				double pdv, ppu;
+				for (i = 0; i < p.size(); i++)
+					System.out.println(p.get(i).toStringInventario());
+				if (p.isEmpty()) {
+					System.out.println("El registro de inventario esta vacío. Será redirigido a agregar un producto al inventario.");
+					producto.setSigId(0);
+					this.agregarProductoAlInventario(sin, p, registro);
+				} else {
+					boolean encontrado = false;
+					int posicion = 0;
+					do {
+						System.out.print("\n Indique el ID del producto a modificar: ");
+						opcion = sin.nextInt();
+		
+						for (int x = 0; x < p.size() && !encontrado; x++) {
+							if (p.get(x).getId() == opcion) {
+								posicion = x;
+								encontrado = true;
+							}
 						}
-					}
 
-					if (!encontrado)
-						System.out.println("Ingrese un ID válido!");
+						if (!encontrado)
+							System.out.println("Ingrese un ID válido!");
 
-				} while (!encontrado);
+					} while (!encontrado);
 
-				sin.nextLine();
+					sin.nextLine();
 
-				if (encontrado) { // Si el producto existe
-					System.out.println(
-							"\nIndique el cambio a realizar:\n\ta)Cambiar nombre\n\tb)Cambiar descripción\n\tc)Cambiar cantidad\n\td)Cambiar PPU (Precio por Unidad)\n\te)Cambiar PDV (Precio de Venta)\n\tf)Eliminar producto\n\tg)Cancelar");
-					cambio = sin.nextLine().trim();
-					nombre = p.get(posicion).getNombre(); // Buscar la opción en el array de productos
-					cantInicial = p.get(posicion).getCantidad();
-					switch (cambio.toLowerCase()) {
-						case "a": // Cambiar nombre
-							System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
-							nombre = sin.nextLine();
-							check = !nombre.equals("");
-							error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
-							for (int j = 0; j < p.size() && check; j++) {
-								check = !p.get(j).getNombre().equals(nombre);
-								error = !check ? "El producto con este nombre seleccionado ya existe" : null;
-							}
-							if (check)
-								p.get(posicion).setNombre(nombre);
-							break;
+					if (encontrado) { // Si el producto existe
+						System.out.println(
+								"\nIndique el cambio a realizar:\n\ta)Cambiar nombre\n\tb)Cambiar descripción\n\tc)Cambiar cantidad\n\td)Cambiar PPU (Precio por Unidad)\n\te)Cambiar PDV (Precio de Venta)\n\tf)Eliminar producto\n\tg)Cancelar");
+						cambio = sin.nextLine().trim();
+						nombre = p.get(posicion).getNombre(); // Buscar la opción en el array de productos
+						cantInicial = p.get(posicion).getCantidad();
+						switch (cambio.toLowerCase()) {
+							case "a": // Cambiar nombre
+								System.out.print("\nIngrese el nuevo nombre de " + nombre + ": ");
+								nombre = sin.nextLine();
+								check = !nombre.equals("");
+								error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
+								for (int j = 0; j < p.size() && check; j++) {
+									check = !p.get(j).getNombre().equalsIgnoreCase(nombre);
+									error = !check ? "El producto con este nombre seleccionado ya existe" : null;
+								}
+								if (check)
+									p.get(posicion).setNombre(nombre);
+								break;
 
-						case "b": // Cambiar descripción
-							System.out.print("\nIngrese la nueva descripción de " + nombre + ": ");
-							descripcion = sin.nextLine();
-							check = !descripcion.equals("");
-							error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
-							if (check)
-								p.get(posicion).setDescripcion(descripcion);
-							break;
+							case "b": // Cambiar descripción
+								System.out.print("\nIngrese la nueva descripción de " + nombre + ": ");
+								descripcion = sin.nextLine();
+								check = !descripcion.equals("");
+								error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
+								if (check)
+									p.get(posicion).setDescripcion(descripcion);
+								break;
 
-						case "c": // Cambiar cantidad
-							System.out.println(
-									"Indique qué operación desea realizar:\na) Sumar cantidad\nb) Restar cantidad\nc) Introducir nueva cantidad\nd) Cancelar");
-							cambio = sin.nextLine().trim(); // Trim para quitar espacios
-							switch (cambio.toLowerCase()) {
-								case "a":
-									System.out.print("\nIngrese la cantidad a sumar para la venta de " + nombre + ": ");
-									cant = sin.nextInt();
-									sin.nextLine();
-									check = cant >= 0;
-									error = !check ? "Los números negativos y 0 no son válidos" : null;
-									if (check)
-										p.get(posicion).setCantidad(cantInicial + cant);
-									break;
-								case "b":
-									System.out
-											.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
-									cant = sin.nextInt();
-									sin.nextLine();
-									check = cant >= 0;
-									error = !check ? "Los números negativos y 0 no son válidos" : null;
-									if (check)
-										p.get(posicion).setCantidad(cantInicial - cant);
-									break;
-								case "c":
-									System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
-									cant = sin.nextInt();
-									sin.nextLine();
-									check = cant >= 0;
-									error = !check ? "Los números negativos y 0 no son válidos" : null;
-									if (check)
-										p.get(posicion).setCantidad(cant);
-									break;
-								case "d":
-									System.out.print("\nCancelando..");
-									break;
-								default:
-									System.out.println("Opción no válida, intente de nuevo.");
-									break;
-							}
-							break;
+							case "c": // Cambiar cantidad
+								System.out.println(
+										"Indique qué operación desea realizar:\na) Sumar cantidad\nb) Restar cantidad\nc) Introducir nueva cantidad\nd) Cancelar");
+								cambio = sin.nextLine().trim(); // Trim para quitar espacios
+								switch (cambio.toLowerCase()) {
+									case "a":
+										System.out.print("\nIngrese la cantidad a sumar para la venta de " + nombre + ": ");
+										cant = sin.nextInt();
+										sin.nextLine();
+										check = cant > 0;
+										error = !check ? "Los números negativos y 0 no son válidos" : null;
+										if (check)
+											p.get(posicion).setCantidad(cantInicial + cant);
+										break;
+									case "b":
+										System.out
+												.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
+										cant = sin.nextInt();
+										sin.nextLine();
+										check = cant > 0;
+										error = !check ? "Los números negativos y 0 no son válidos" : null;
+										if (check)
+											p.get(posicion).setCantidad(cantInicial - cant);
+										break;
+									case "c":
+										System.out.print("\nIngrese la nueva cantidad de " + nombre + ": ");
+										cant = sin.nextInt();
+										sin.nextLine();
+										check = cant >= 0;
+										error = !check ? "Los números negativos y 0 no son válidos" : null;
+										if (check)
+											p.get(posicion).setCantidad(cant);
+										break;
+									case "d":
+										System.out.print("\nCancelando..");
+										break;
+									default:
+										System.out.println("Opción no válida, intente de nuevo.");
+										break;
+								}
+								break;
 
-						case "d": // Cambiar PPU
-							System.out.print("\nIngrese el nuevo PPU de " + nombre + ": ");
-							ppu = sin.nextDouble();
-							sin.nextLine();
-							check = ppu > 0;
-							error = !check ? "Los números negativos y 0 no son válidos" : null;
-							if (check)
-								p.get(posicion).setPpu(ppu);
-							break;
+							case "d": // Cambiar PPU
+								System.out.print("\nIngrese el nuevo PPU de " + nombre + ": ");
+								ppu = sin.nextDouble();
+								sin.nextLine();
+								check = ppu > 0;
+								error = !check ? "Los números negativos y 0 no son válidos" : null;
+								if (check)
+									p.get(posicion).setPpu(ppu);
+								break;
 
-						case "e": // Cambiar PDV
-							System.out.print("\nIngrese el nuevo PDV de " + nombre + ": ");
-							pdv = sin.nextDouble();
-							sin.nextLine();
-							check = pdv > 0;
-							error = !check ? "Los números negativos y 0 no son válidos" : null;
-							if (check)
-								p.get(posicion).setPdv(pdv);
-							break;
+							case "e": // Cambiar PDV
+								System.out.print("\nIngrese el nuevo PDV de " + nombre + ": ");
+								pdv = sin.nextDouble();
+								sin.nextLine();
+								check = pdv > 0;
+								error = !check ? "Los números negativos y 0 no son válidos" : null;
+								if (check)
+									p.get(posicion).setPdv(pdv);
+								break;
 
-						case "f": // Eliminar producto
-							System.out.print("\nEliminando " + nombre + " del registro... ");
-							p.remove(posicion);
-							check = true;
-							break;
+							case "f": // Eliminar producto
+								System.out.print("\nEliminando " + nombre + " del registro... ");
+								p.remove(posicion);
+								check = true;
+								break;
 
-						case "g": // Cancelar
-							System.out.print("\nCancelando..");
-							break;
+							case "g": // Cancelar
+								System.out.print("\nCancelando..");
+								break;
 
-						default:
-							System.out.println("Opción no válida, intente de nuevo.");
-							break;
-					}
+							default:
+								System.out.println("Opción no válida, intente de nuevo.");
+								break;
+						}
 
-					if (seguir && !cambio.equalsIgnoreCase("g") && check) {
-						gf.escribirFichero(registro, p, false);
-						System.out.println("\n******* Cambios realizados correctamente! ******* \n");
+						if (seguir && !cambio.equalsIgnoreCase("g") && check) {
+							gf.escribirFichero(registro, p, false);
+							System.out.println("\n******* Cambios realizados correctamente! ******* \n");
 
-					} else if (error != null)
-						System.out.println(error + "\n");
-				} else
-					System.out.println("Indique un valor numérico válido.");
-
-				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-				if (!(sin.nextLine().trim().equalsIgnoreCase("S")))
-					seguir = false;
+						} else if (error != null)
+							System.out.println(error + "\n");
+					} else
+						System.out.println("Indique un valor numérico válido.");
+				}
+			} catch( InputMismatchException e){
+				System.out.println("Por favor, ingrese un número entero válido.");
 			}
+
+			System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
+			if (!(sin.nextLine().trim().equalsIgnoreCase("S")))
+				seguir = false;
+
 		} while (seguir);
 	}
 

@@ -118,11 +118,11 @@ public class Menus {
         System.out.println("╔══════════════════════════════════════════════════════╗");
         System.out.println("║                       Métricas                       ║");
         System.out.println("╠══════════════════════════════════════════════════════╣");
-        System.out.println("║\t1. Mostrar Producto Más Vendido                     ║");
-        System.out.println("║\t2. Total de Ventas                                  ║");
-        System.out.println("║\t3. Cantidad de Productos Vendidos                   ║");
-        System.out.println("║\t4. Exportar Métricas Actuales                       ║");
-        System.out.println("║\t0. Salir                                            ║");
+        System.out.println("║\t1. Mostrar Producto Más Vendido                ║");
+        System.out.println("║\t2. Total de Ventas                             ║");
+        System.out.println("║\t3. Cantidad de Productos Vendidos              ║");
+        System.out.println("║\t4. Exportar Métricas Actuales                  ║");
+        System.out.println("║\t0. Salir                                       ║");
         System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 
