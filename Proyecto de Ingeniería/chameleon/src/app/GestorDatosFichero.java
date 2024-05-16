@@ -15,7 +15,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 				// "BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir
 				// líneas en el BufferedWriter
 				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));
+						new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "UTF-8"));
 				PrintWriter pw = new PrintWriter(bw);
 
 				// Se recorre la lista de productos y se escribe cada uno en una línea del
@@ -38,7 +38,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 				// "BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir
 				// líneas en el BufferedWriter
 				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "ISO-8859-1"));
+						new OutputStreamWriter(new FileOutputStream(fichero, sobreescribir), "UTF-8"));
 				PrintWriter pw = new PrintWriter(bw);
 
 				// Se recorre la lista de productos y se escribe cada uno en una línea del
@@ -62,7 +62,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 				// "BufferedWriter" para escribir en el fichero , "PrintWriter" para escribir
 				// líneas en el BufferedWriter
 				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream(fichero, false), "ISO-8859-1"));
+						new OutputStreamWriter(new FileOutputStream(fichero, false), "UTF-8"));
 				PrintWriter pw = new PrintWriter(bw);
 				pw.write("Métricas del fichero " + rVenta.getName() + "\n");
 				pw.write(g.productoMasVendido(rVenta, rInventario) + "\n");
@@ -97,7 +97,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			producto product; // Variable para almacenar temporalmente cada producto leído del archivo
 			String prod[] = new String[6]; // Array para almacenar temporalmente los datos de cada línea del archivo
 			try {
-				Scanner s = new Scanner(fichero, "ISO-8859-1");
+				Scanner s = new Scanner(fichero, "UTF-8");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
@@ -122,7 +122,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			// Array para almacenar temporalmente los datos de cada línea (;) del archivo
 			String prod[] = new String[6]; // Cada dato esta separado por (;) y esos datos se guardan en el array
 			try {
-				Scanner s = new Scanner(fichero, "ISO-8859-1");
+				Scanner s = new Scanner(fichero, "UTF-8");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
@@ -145,7 +145,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 			// Array para almacenar temporalmente los datos de cada línea (;) del archivo
 			String prod[] = new String[6]; // Cada dato esta separado por (;) y esos datos se guardan en el array
 			try {
-				Scanner s = new Scanner(fichero, "ISO-8859-1");
+				Scanner s = new Scanner(fichero, "UTF-8");
 				while (s.hasNextLine()) {
 					prod = s.nextLine().split(";");
 					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
