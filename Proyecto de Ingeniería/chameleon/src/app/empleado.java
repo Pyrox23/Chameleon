@@ -193,12 +193,10 @@ public class empleado extends usuario {
 		// Imprime inventario
 		if (!p.isEmpty()) {
 			System.out.println("Nombre | Cantidad disponible");
-			for (producto x : p) {
-				if (x.getCantidad() != 0)
-					System.out.println(x.getNombre() + ": " + x.getCantidad());
-			}
+			for (producto x : p) 
+				System.out.println(x.getNombre() + ": " + x.getCantidad());
 		} else
-			System.out.println("No hay productos disponibles en el inventario");
+			System.out.println("No hay productos en el inventario");
 	}
 
 }
