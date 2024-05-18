@@ -57,8 +57,8 @@ public class gerente extends empleado {
 				else
 					System.out.println(error);
 			} catch (InputMismatchException e) {
-				sin.nextLine();
 				System.out.println("Por favor, ingrese un número entero válido.");
+				sin.nextLine();
 			}
 
 			System.out.println(
@@ -74,7 +74,7 @@ public class gerente extends empleado {
 		GestorDatosFichero gf = new GestorDatosFichero();
 		ArrayList<producto> p = gf.lecturaFicheroInv(registro);
 
-		boolean seguir = true;
+		boolean seguir = true,  empty = false;
 		int i = 0, opcion = 0;
 		String cambio = "", nombre = "", descripcion = "";
 
@@ -84,9 +84,10 @@ public class gerente extends empleado {
 				String error = null;
 				int cant, cantInicial;
 				double pdv, ppu;
+				empty = p.isEmpty();
 				for (i = 0; i < p.size(); i++)
 					System.out.println(p.get(i).toStringInventario());
-				if (p.isEmpty()) {
+				if (empty) {
 					System.out.println("El registro de inventario esta vacío. Será redirigido a agregar un producto al inventario.");
 					producto.setSigId(0);
 					this.agregarProductoAlInventario(sin, p, registro);
@@ -124,7 +125,8 @@ public class gerente extends empleado {
 								check = !nombre.equals("");
 								error = !check ? "No se pueden agregar productos con nombre y descripción vacíos" : null;
 								for (int j = 0; j < p.size() && check; j++) {
-									check = !p.get(j).getNombre().equalsIgnoreCase(nombre);
+									if(j != posicion)
+										check = !p.get(j).getNombre().equalsIgnoreCase(nombre);
 									error = !check ? "El producto con este nombre seleccionado ya existe" : null;
 								}
 								if (check)
@@ -226,13 +228,16 @@ public class gerente extends empleado {
 					} else
 						System.out.println("Indique un valor numérico válido.");
 				}
-			} catch( InputMismatchException e){
+			} catch(InputMismatchException e){
 				System.out.println("Por favor, ingrese un número entero válido.");
+				sin.nextLine();
 			}
 
-			System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
-			if (!(sin.nextLine().trim().equalsIgnoreCase("S")))
-				seguir = false;
+			if(!empty){
+				System.out.print("\n ¿Desea modificar otro producto? (S/N): ");
+				if (!(sin.nextLine().trim().equalsIgnoreCase("S")))
+					seguir = false;
+			}
 
 		} while (seguir);
 	}

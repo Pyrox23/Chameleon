@@ -522,6 +522,7 @@ public class Programa {
 				} while (continuarEjecucionEmpleado);
 			}
 		} while (continuarEjecucion);
+		sin.close();
 	}
 
 	public static void registroVenta(Scanner sin, ArrayList<producto> productos, empleado e) {
@@ -569,12 +570,15 @@ public class Programa {
 		File carpeta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros");
 		File[] archivos;
 		boolean sobreescribir = false;
+		// Reescribe el fichero del empleado
 		gf.escribirFicheroVenta(rVenta, e.ventas, false);
+		// Reescribe el fichero de inventario
 		gf.escribirFichero(rInventario, productos, false);
+		gf.checkFichero(rVentaGeneral);
 		if (carpeta.exists()) {
 			if (carpeta.isDirectory()) {
 				archivos = carpeta.listFiles();
-				// Busca el archivo de ventas de ese empleado
+				// Proceso para reescribir el fichero de venta general
 				for (int i = 0; i < archivos.length; i++) {
 					if (archivos[i].getName().contains("Registro_Venta.csv") && !archivos[i].getName().equals(rVentaGeneral.getName()) && (archivos[i].getName().contains(fecha[2]))) {
 						gf.escribirFicheroVenta(rVentaGeneral, gf.lecturaFicheroVenta(archivos[i]), sobreescribir);

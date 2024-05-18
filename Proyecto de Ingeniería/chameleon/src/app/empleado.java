@@ -181,6 +181,7 @@ public class empleado extends usuario {
 						System.out.println("Indique un producto dentro del rango de números mostrado.");
 				} catch(InputMismatchException e){
 					System.out.println("Por favor, ingrese un número entero válido.");
+					sin.nextLine();
 				}
 				System.out.print("\n ¿Desea modificar otra venta? (S/N): ");
 				seguir = sin.nextLine().trim().equalsIgnoreCase("s");
@@ -197,7 +198,7 @@ public class empleado extends usuario {
 					System.out.println(x.getNombre() + ": " + x.getCantidad());
 			}
 		} else
-			System.out.println("El inventario está vacío");
+			System.out.println("No hay productos disponibles en el inventario");
 	}
 
 }
