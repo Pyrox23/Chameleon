@@ -12,7 +12,7 @@ public class Programa {
 		String r[] = new String[4];
 		Scanner sin = new Scanner(System.in);
 		GestorDatosFichero gf = new GestorDatosFichero();
-		String ruta = "./Proyecto de Ingeniería/chameleon/src/ficheros/";
+		String ruta = "./ficheros/";
 		File rInventario = new File(ruta + "Registro_Inventario.csv");
 		File rVenta; // Ruta a las ventas por empleado
 		ArrayList<producto> productos = gf.lecturaFicheroInv(rInventario);
@@ -543,10 +543,10 @@ public class Programa {
 		} else {
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			System.out.println("Creando Registro para guardar las Ventas..");
-			File rVenta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/"
+			File rVenta = new File("./ficheros/"
 					+ e.getNombre() + "_" + e.getApellido() + "_" + dateFormat.format(new Date())
 					+ "_Registro_Venta.csv"); // Venta de empleado
-			File rVentaGeneral = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/"
+			File rVentaGeneral = new File("./ficheros/"
 					+ dateFormat.format(new Date()) + "_Registro_Venta.csv"); // Venta general de ese día
 
 			if (!gf.checkFichero(rVenta))
@@ -566,8 +566,8 @@ public class Programa {
 			File rInventario, File rVenta) {
 		String fecha[] = rVenta.getName().split("_");
 		File rVentaGeneral = new File(
-				"./Proyecto de Ingeniería/chameleon/src/ficheros/" + fecha[2] + "_Registro_Venta.csv");
-		File carpeta = new File("./Proyecto de Ingeniería/chameleon/src/ficheros");
+				"./ficheros/" + fecha[2] + "_Registro_Venta.csv");
+		File carpeta = new File("./ficheros");
 		File[] archivos;
 		boolean sobreescribir = false;
 		// Reescribe el fichero del empleado

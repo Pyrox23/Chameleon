@@ -74,7 +74,6 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 				pw.flush(); // asegura la escritura de los datos en el fichero
 				pw.close();
 				bw.close();
-				System.out.println("\nRegistro de Venta escrito con éxito.");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -138,35 +137,11 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 		return p; // Devuelve la lista de productos leídos del archivo
 	}
 
-	public ArrayList<producto> lecturaFicheroVentaGeneral(File fichero) {
-		ArrayList<producto> p = new ArrayList<producto>();
-		if (fichero.exists()) {
-			producto product;
-			// Array para almacenar temporalmente los datos de cada línea (;) del archivo
-			String prod[] = new String[6]; // Cada dato esta separado por (;) y esos datos se guardan en el array
-			try {
-				Scanner s = new Scanner(fichero, "UTF-8");
-				while (s.hasNextLine()) {
-					prod = s.nextLine().split(";");
-					// Crear un nuevo objeto Producto con los datos leídos y agregarlo a la lista
-					product = new producto(prod[1], Integer.parseInt(prod[2]), Double.parseDouble(prod[3]),
-							Integer.parseInt(prod[0]));
-					product.setDescripcion(prod[4]);
-					p.add(product);
-				}
-				s.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return p; // Devuelve la lista de productos leídos del archivo
-	}
-
 	public ArrayList<usuario> ListaUsuarios() {
 		InputStream is = null; // para leer archivo binario
 		ObjectInputStream ois = null; // para leer objetos
 		ArrayList<usuario> u = new ArrayList<usuario>();
-		File fichero = new File("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
+		File fichero = new File("./ficheros/credenciales.bin");
 		if (fichero.exists()) {
 			try {
 				is = new FileInputStream(fichero);
@@ -206,7 +181,7 @@ public class GestorDatosFichero implements Serializable { // Clase de tipo Inter
 		boolean c = true; // variable para indicar si la escritura se realizo bien
 
 		try {
-			os = new FileOutputStream("./Proyecto de Ingeniería/chameleon/src/ficheros/credenciales.bin");
+			os = new FileOutputStream("./ficheros/credenciales.bin");
 			oos = new ObjectOutputStream(os);
 			// Escribe cada usuario de la lista en un archivo binario
 			for (usuario x : u)
