@@ -59,7 +59,7 @@ public class Menus {
         System.out.println("╠══════════════════════════════════════════════════════╣");
         System.out.println("║\t1. Agregar Venta                               ║");
         System.out.println("║\t2. Modificar Venta                             ║");
-        System.out.println("║\t3. Ver Ventas Actuales                         ║");
+        System.out.println("║\t3. Ver Ventas del registro actual              ║");
         System.out.println("║\t4. Ver Productos Disponibles                   ║");
         System.out.println("║\t5. Salir y Guardar                             ║");
         System.out.println("║\t6. Salir Sin Guardar                           ║");

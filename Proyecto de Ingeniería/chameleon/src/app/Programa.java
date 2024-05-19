@@ -281,7 +281,7 @@ public class Programa {
 								rVenta = new File(gf.seleccionarArchivo(ruta));
 								check = rVenta.getName().contains("Registro_Venta.csv");
 								if (check) {
-									System.out.println("Desea elminiar el registro? (S/N)");
+									System.out.print("Desea eliminar el registro? (S/N): ");
 									if (sin.nextLine().trim().equalsIgnoreCase("s"))
 										rVenta.delete();
 								} else if (rVenta.getName().contains("Registro_Inventario.csv"))
@@ -539,7 +539,7 @@ public class Programa {
 	// Para registro nuevo
 	public static void cerrarRegistro(GestorDatosFichero gf, empleado e, ArrayList<producto> productos, File rInventario) {
 		if (e.getVentas().isEmpty()) {
-			System.out.println("No hay ventas registradas");
+			System.out.println("Como no hay ventas registradas, no fueron agregadas al registro");
 		} else {
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			System.out.println("Creando Registro para guardar las Ventas..");
