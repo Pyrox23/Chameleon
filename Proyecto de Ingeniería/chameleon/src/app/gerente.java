@@ -161,8 +161,8 @@ public class gerente extends empleado {
 												.print("\nIngrese la cantidad a restar para la venta de " + nombre + ": ");
 										cant = sin.nextInt();
 										sin.nextLine();
-										check = cant > 0;
-										error = !check ? "Los números negativos y 0 no son válidos" : null;
+										check = cant > 0 && p.get(posicion).getCantidad() - cant >= 0;
+										error = !check ? "La cantidad ingresada no es valida" : null;
 										if (check)
 											p.get(posicion).setCantidad(cantInicial - cant);
 										break;
